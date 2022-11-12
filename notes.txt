@@ -1,0 +1,5 @@
+touchablewithoutfeedback and keyboard dismiss
+
+expo/vectoricons
+expo/font
+button - touchable_opacity>view>text
