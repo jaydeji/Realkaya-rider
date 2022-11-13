@@ -5,17 +5,45 @@ import { Splash } from './components/Splash';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { Main } from './Main';
-import { AppContextProvider, useApp } from './context/AppContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { handleError } from './lib/handleError';
+import { useStore } from './store';
+
+const setupAxios = () => {
+  // axios.defaults.baseURL = process.env.API_URL;
+  axios.defaults.baseURL = 'http://172.20.10.2:4001';
+  axios.interceptors.request.use(
+    function (config) {
+      const token = useStore.getState().user?.token;
+      if (token) {
+        (config.headers as any).Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
+
+  axios.interceptors.response.use(
+    function (response) {
+      return response;
+    },
+    function (error) {
+      handleError(error);
+      return Promise.reject(error);
+    }
+  );
+};
 
 const AppWrapper = () => {
   const [isAppReady, setAppReady] = useState(false);
   const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
-  const { init } = useApp();
+  const init = useStore((store) => store.init);
 
   const setup = async () => {
-    const isAuth = await AsyncStorage.getItem('isAuth');
-    await init({ isAuth: isAuth === 'true' ? true : false });
+    setupAxios();
+    await init();
   };
 
   useEffect(() => {
@@ -39,9 +67,7 @@ const AppWrapper = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <AppContextProvider>
-        <AppWrapper />
-      </AppContextProvider>
+      <AppWrapper />
     </NavigationContainer>
   );
 }
