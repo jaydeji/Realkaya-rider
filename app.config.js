@@ -27,5 +27,6 @@ module.exports = {
     web: {
       favicon: './assets/favicon.png',
     },
+    userInterfaceStyle: 'automatic', //datepicker
   },
 };

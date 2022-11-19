@@ -12,7 +12,7 @@ import { Home } from './Home';
 import Details from './Details';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Animated from 'react-native-reanimated';
-import cx from 'classnames';
+import clsx from 'clsx';
 
 type Props = {};
 const Drawer = createDrawerNavigator();
@@ -56,7 +56,10 @@ export const Index = ({}: Props) => {
                     ? require('../assets/images/close.png')
                     : require('../assets/images/harmburger.png')
                 }
-                className={cx('mt-5', !isOpen ? 'h-24 w-24' : `h-8 w-8 ml-20`)}
+                className={clsx(
+                  'mt-5',
+                  !isOpen ? 'h-24 w-24' : `h-8 w-8 ml-20`
+                )}
               />
             </TouchableOpacity>
           ),
