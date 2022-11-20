@@ -59,8 +59,24 @@ export const OrdersList = () => {
         </View>
         <ScrollView>
           <View className="mt-[14px]">
-            <OrderLine top={<OrderLineTop />} right={<OrderLineRight />} />
-            <OrderLine top={<OrderLineTop />} right={<OrderLineRight />} />
+            <OrderLine
+              order={{ senderAddress: 'a', recepientAddress: 'b' }}
+              top={
+                <OrderLineTop
+                  order={{ senderAddress: 'a', recepientAddress: 'b' }}
+                />
+              }
+              right={<OrderLineRight />}
+            />
+            <OrderLine
+              order={{ senderAddress: 'a', recepientAddress: 'b' }}
+              top={
+                <OrderLineTop
+                  order={{ senderAddress: 'a', recepientAddress: 'b' }}
+                />
+              }
+              right={<OrderLineRight />}
+            />
           </View>
         </ScrollView>
       </View>

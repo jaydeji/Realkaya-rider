@@ -15,7 +15,7 @@ export const CheckRound = ({
     <View
       className={clsx(
         'h-4 w-4 rounded-full border border-alt-5',
-        checked && 'bg-alt-2'
+        checked && 'bg-main-blue'
       )}
     ></View>
   );

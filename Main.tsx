@@ -28,15 +28,15 @@ export const Main = ({}: Props) => {
               }}
             />
             <Stack.Screen
-              name="PickManual"
-              component={PickManual}
+              name="OrdersList"
+              component={OrdersList}
               options={{
                 headerShown: false,
               }}
             />
             <Stack.Screen
-              name="OrdersList"
-              component={OrdersList}
+              name="PickManual"
+              component={PickManual}
               options={{
                 headerShown: false,
               }}

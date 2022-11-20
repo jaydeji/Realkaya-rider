@@ -8,7 +8,7 @@ export const OrderLineRight = ({ showTime }: { showTime?: boolean }) => {
       {!showTime ? (
         <Button
           bodyClass="bg-white px-5 border border-alt-2 h-8"
-          textClass="text-alt-2"
+          textClass="text-main-blue"
         >
           Start
         </Button>

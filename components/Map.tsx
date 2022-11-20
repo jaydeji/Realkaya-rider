@@ -18,7 +18,7 @@ import { GOOGLE_MAPS_APIKEY } from '@env';
 import * as Location from 'expo-location';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const Map = ({ children }: Props) => {
@@ -56,7 +56,7 @@ export const Map = ({ children }: Props) => {
       <MapView.Animated
         ref={mapRef}
         // style={styles.map}
-        className="w-full h-2/3"
+        className="w-full flex-1"
         // className="w-full h-2/3 -mb-5"
         // className="w-full h-full"
         mapType={MAP_TYPES.MUTEDSTANDARD}

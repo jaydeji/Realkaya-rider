@@ -14,7 +14,7 @@ export const OrderLineTop = ({
     <View className="flex-row justify-between items-center">
       <View className="flex-row items-center">
         <Text className="text-primary font-bold text-sm">Order {orderId}</Text>
-        <Text className="py-[6px] px-[15px] text-alt-2 bg-alt-2/20 rounded-[5px] ml-[10px] font-bold text-[10px]">
+        <Text className="py-[6px] px-[15px] text-main-blue bg-main-blue/20 rounded-[5px] ml-[10px] font-bold text-[10px]">
           {(distance / 1000).toFixed(2)}km
         </Text>
       </View>

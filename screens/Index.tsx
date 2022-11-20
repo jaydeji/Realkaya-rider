@@ -114,7 +114,7 @@ const Screens = (props: any) => {
         <View className="bg-[#767A8C] h-3/5 w-full rounded-[20px]"></View>
       </Animated.View>
       <Animated.View
-        className="flex-1 overflow-hidden relative"
+        className="flex-1 overflow-hidden"
         style={[
           {
             elevation: 5,

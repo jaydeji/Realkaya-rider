@@ -1,14 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  Animated,
-  Dimensions,
-} from 'react-native';
+import { View, Text, Animated, Dimensions } from 'react-native';
+import { SplashIcon } from '../assets/icons/SplashIcon';
 
 type Props = {
   isAppReady: boolean;
@@ -39,19 +33,22 @@ export const Splash = ({ isAppReady, setAnimationComplete }: Props) => {
   }, [isAppReady]);
 
   return (
-    <View className="bg-primary absolute inset-0 items-center justify-center">
-      <Animated.View
-        className="relative flex items-center"
-        style={{
-          transform: [{ translateX: translate }],
-        }}
-      >
-        <Image
-          source={require('../assets/images/splash-icon.png')}
-          style={{ width: IMAGE_WIDTH, height: IMAGE_WIDTH }}
-        />
-        <Text className="text-2xl font-bold">CariGo</Text>
-      </Animated.View>
+    <View className="bg-alt-3 absolute inset-0 items-center justify-center ">
+      <View className="flex-row flex-1 items-end ">
+        <Animated.View
+          className="items-center"
+          style={{
+            transform: [{ translateX: translate }],
+          }}
+        >
+          <SplashIcon />
+        </Animated.View>
+      </View>
+      <Text className="text-4xl font-extrabold">
+        <Text>RealKaya</Text>
+        <Text className=" text-main-blue"> Rider</Text>
+      </Text>
+      <View className="flex-row flex-1" />
     </View>
   );
 };

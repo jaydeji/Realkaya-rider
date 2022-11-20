@@ -44,5 +44,6 @@ export type Order = {
 export type SheetRoute = {
   name: string;
   snapPoint: string;
+  snapPoints: string[];
   options?: Record<string, unknown>;
 };

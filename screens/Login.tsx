@@ -54,7 +54,7 @@ export const Login = (props: Props) => {
             onChangeText={(text) => handleChangeText(text, 'password')}
           />
         </View>
-        <View className="bg-primary text-alt-2 mt-4 w-full p-4 rounded-[5px]">
+        <View className="bg-primary text-main-blue mt-4 w-full p-4 rounded-[5px]">
           <TouchableOpacity onPress={handleLogin}>
             <Text className="text-center ">Login</Text>
           </TouchableOpacity>
