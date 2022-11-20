@@ -2,14 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import {
-  Button,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import Header from '../components/Header';
+import { Input } from '../components/Input';
+import Button from '../components/Button';
 import { constants } from '../lib/constants';
 import { useStore } from '../store';
 
@@ -19,7 +16,8 @@ export const Login = (props: Props) => {
   const setUser = useStore((store) => store.setUser);
   const [state, setState] = useState({
     email: 'jamesadedejifirst@gmail.com',
-    password: 'jide1234',
+    // password: 'jide1234',
+    password: '',
     role: constants.ROLE,
   });
 
@@ -37,27 +35,33 @@ export const Login = (props: Props) => {
 
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-1 items-center justify-center p-8">
+      <View className="flex-1 p-5">
+        <Header title="RealKaya" />
+        <Text className="text-primary font-Mulish-Bold text-lg mt-12">
+          Login
+        </Text>
+        <Text className="mb-10 text-xs text-light-text">
+          Please provide your login details fo easy and quick access to the app
+        </Text>
         <View className="w-full">
-          <TextInput
-            placeholder="email"
+          <Input
+            label="Email address"
+            placeholder="e.g, Ulimhukaakem@gmail.com"
             value={state.email}
-            className="p-4 border"
-            onChangeText={(text) => handleChangeText(text, 'email')}
+            onChange={(text) => handleChangeText(text, 'email')}
           />
         </View>
         <View className="w-full mt-4">
-          <TextInput
-            placeholder="password"
+          <Input
+            placeholder="e.g, 223455"
+            label="Password"
             value={state.password}
-            className="p-4 border"
-            onChangeText={(text) => handleChangeText(text, 'password')}
+            onChange={(text) => handleChangeText(text, 'password')}
           />
         </View>
-        <View className="bg-primary text-main-blue mt-4 w-full p-4 rounded-[5px]">
-          <TouchableOpacity onPress={handleLogin}>
-            <Text className="text-center ">Login</Text>
-          </TouchableOpacity>
+        <Text className="mt-3 text-main-blue">Forgot password?</Text>
+        <View className="mt-[70px]">
+          <Button onPress={handleLogin}>Confirm</Button>
         </View>
       </View>
     </SafeAreaView>

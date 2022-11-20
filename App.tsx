@@ -8,6 +8,7 @@ import { Main } from './Main';
 import axios from 'axios';
 import { handleError } from './lib/handleError';
 import { useStore } from './store';
+import { useFonts } from 'expo-font';
 
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
@@ -38,8 +39,16 @@ const setupAxios = () => {
 
 const AppWrapper = () => {
   const [isAppReady, setAppReady] = useState(false);
+  const [isSetupDone, setSetupDone] = useState(false);
   const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
   const init = useStore((store) => store.init);
+  const [fontsLoaded] = useFonts({
+    Mulish: require('./assets/fonts/Mulish-Regular.ttf'),
+    'Mulish-Medium': require('./assets/fonts/Mulish-Medium.ttf'),
+    'Mulish-SemiBold': require('./assets/fonts/Mulish-SemiBold.ttf'),
+    'Mulish-Bold': require('./assets/fonts/Mulish-Bold.ttf'),
+    'Mulish-ExtraBold': require('./assets/fonts/Mulish-ExtraBold.ttf'),
+  });
 
   const setup = async () => {
     setupAxios();
@@ -48,8 +57,12 @@ const AppWrapper = () => {
 
   useEffect(() => {
     SplashScreen.hideAsync();
-    setup().then(() => setAppReady(true));
+    setup().then(() => setSetupDone(true));
   }, []);
+
+  useEffect(() => {
+    if (isSetupDone && fontsLoaded) setAppReady(true);
+  }, [isSetupDone, fontsLoaded]);
 
   return (
     <>

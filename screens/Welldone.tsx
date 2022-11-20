@@ -16,7 +16,7 @@ export const Welldone = ({ finished }: WelldoneProps) => {
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
       <View className="p-5 flex-1">
-        <Text className="text-center text-alt-6 font-extrabold text-2xl">
+        <Text className="text-center text-alt-6 font-Mulish-ExtraBold text-2xl">
           Welldone!
         </Text>
         <Text className="text-center mt-3 text-light-text">

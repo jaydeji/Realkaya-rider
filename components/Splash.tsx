@@ -44,7 +44,7 @@ export const Splash = ({ isAppReady, setAnimationComplete }: Props) => {
           <SplashIcon />
         </Animated.View>
       </View>
-      <Text className="text-4xl font-extrabold">
+      <Text className="text-4xl font-Mulish-ExtraBold">
         <Text>RealKaya</Text>
         <Text className=" text-main-blue"> Rider</Text>
       </Text>

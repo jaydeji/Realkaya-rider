@@ -9,6 +9,7 @@ import { CancelOrder } from './screens/CancelOrder';
 import { CompleteOrder } from './screens/CompleteOrder';
 import { Welldone } from './screens/Welldone';
 import { OrdersList } from './screens/OrdersList';
+import { Auth, StepOne } from './screens/Auth';
 
 type Props = {};
 const Stack = createNativeStackNavigator();
@@ -68,6 +69,16 @@ export const Main = ({}: Props) => {
             <Stack.Screen
               name="Login"
               component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="StepOne"
+              component={StepOne}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Auth"
+              component={Auth}
               options={{ headerShown: false }}
             />
           </Stack.Group>

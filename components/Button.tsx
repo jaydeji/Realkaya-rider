@@ -18,7 +18,7 @@ const Button = ({ children, onPress, textClass, bodyClass }: Props) => {
       )}
       onPress={onPress}
     >
-      <Text className={clsx('font-bold text-white', textClass)}>
+      <Text className={clsx('font-Mulish-Bold text-white', textClass)}>
         {children}
       </Text>
     </TouchableOpacity>

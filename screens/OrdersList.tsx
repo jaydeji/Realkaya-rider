@@ -28,7 +28,7 @@ export const OrdersList = () => {
             />
           }
         />
-        <View className="flex-row mt-9 px-4 py-3 bg-white rounded-[5px] border border-[#C9CCD3]">
+        <View className="flex-row mt-9 px-4 py-3 bg-white rounded-[5px] border border-alt-8">
           <View className="flex-1">
             <Button
               bodyClass={clsx(selected !== 0 && 'bg-white')}

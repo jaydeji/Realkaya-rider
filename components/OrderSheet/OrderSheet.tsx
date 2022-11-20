@@ -56,7 +56,7 @@ export const OrderSheet = () => {
                     setSheet(sheetRoutes[0]);
                   }}
                 >
-                  <Text className="font-bold">Cancel</Text>
+                  <Text className="font-Mulish-Bold">Cancel</Text>
                 </TouchableHighlight>
               </View>
               <View className="flex-1">
@@ -64,7 +64,7 @@ export const OrderSheet = () => {
                   className="bg-primary h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
                   onPress={() => {}}
                 >
-                  <Text className="font-bold text-white">Confirm</Text>
+                  <Text className="font-Mulish-Bold text-white">Confirm</Text>
                 </TouchableHighlight>
               </View>
             </View>
@@ -78,7 +78,7 @@ export const OrderSheet = () => {
                   updateOrder({ pickUpArrivedAt: true });
                 }}
               >
-                <Text className="font-bold text-white">Arrived</Text>
+                <Text className="font-Mulish-Bold text-white">Arrived</Text>
               </TouchableHighlight>
             </View>
           );
@@ -96,7 +96,7 @@ export const OrderSheet = () => {
                     setSheet(sheetRoutes[0]);
                   }}
                 >
-                  <Text className="font-bold">Cancel</Text>
+                  <Text className="font-Mulish-Bold">Cancel</Text>
                 </TouchableHighlight>
               </View>
               <View className="flex-1">
@@ -104,7 +104,9 @@ export const OrderSheet = () => {
                   className="bg-primary h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
                   onPress={() => {}}
                 >
-                  <Text className="font-bold text-white">start delivert</Text>
+                  <Text className="font-Mulish-Bold text-white">
+                    start delivert
+                  </Text>
                 </TouchableHighlight>
               </View>
             </View>

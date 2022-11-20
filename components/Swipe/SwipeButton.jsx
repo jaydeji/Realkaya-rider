@@ -1,5 +1,6 @@
+// https://github.com/UdaySravanK/RNSwipeButton
+
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Text, View, AccessibilityInfo, StyleSheet } from 'react-native';
 
 // Components
@@ -185,49 +186,6 @@ SwipeButton.defaultProps = {
   titleColor: TITLE_COLOR,
   titleFontSize: 20,
   titleStyles: {},
-};
-
-SwipeButton.propTypes = {
-  containerStyles: PropTypes.object,
-  disable: PropTypes.bool,
-  disabledRailBackgroundColor: PropTypes.string,
-  disabledThumbIconBackgroundColor: PropTypes.string,
-  disabledThumbIconBorderColor: PropTypes.string,
-  disableResetOnTap: PropTypes.bool,
-  enableReverseSwipe: PropTypes.bool,
-  forceReset: PropTypes.func,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onSwipeFail: PropTypes.func,
-  onSwipeStart: PropTypes.func,
-  onSwipeSuccess: PropTypes.func,
-  railBackgroundColor: PropTypes.string,
-  railBorderColor: PropTypes.string,
-  railFillBackgroundColor: PropTypes.string,
-  railFillBorderColor: PropTypes.string,
-  railStyles: PropTypes.object,
-  resetAfterSuccessAnimDelay: PropTypes.number,
-  resetAfterSuccessAnimDuration: PropTypes.number,
-  shouldResetAfterSuccess: PropTypes.bool,
-  swipeSuccessThreshold: PropTypes.number, // Ex: 70. Swipping 70% will be considered as successful swipe
-  thumbIconBackgroundColor: PropTypes.string,
-  thumbIconBorderColor: PropTypes.string,
-  thumbIconComponent: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.node,
-    PropTypes.func,
-  ]),
-  thumbIconImageSource: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  thumbIconStyles: PropTypes.object,
-  thumbIconWidth: PropTypes.number,
-  title: PropTypes.string,
-  titleColor: PropTypes.string,
-  titleFontSize: PropTypes.number,
-  titleMaxFontScale: PropTypes.number,
-  titleStyles: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 const styles = StyleSheet.create({

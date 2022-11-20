@@ -20,10 +20,10 @@ export const DateSelect = ({ date, ...props }: DateSelectProps) => {
   return (
     <View>
       <TouchableOpacity
-        className="p-2 py-2 flex-row items-center border border-[#C9CCD3] rounded-[5px]"
+        className="p-2 py-2 flex-row items-center border border-alt-8 rounded-[5px]"
         onPress={() => setShow(true)}
       >
-        <Text className="text-[8px] font-semibold text-light-text mr-2">
+        <Text className="text-[8px] font-Mulish-SemiBold text-light-text mr-2">
           {`${day}-${month}-${year}`}
         </Text>
         <ArrowDownIcon />

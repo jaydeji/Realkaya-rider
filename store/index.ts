@@ -20,23 +20,29 @@ type StoreState = {
 export const useStore = create<StoreState>((set) => ({
   isAuth: false,
   user: null,
-  sheet: sheetRoutes[3],
+  sheet: sheetRoutes[0],
   orders: [],
   init: async () => {
-    const user = await AsyncStorage.getItem('user');
-    const isAuth = await AsyncStorage.getItem('isAuth');
-    set({ isAuth: !!isAuth, user: user ? JSON.parse(user) : null });
     // AsyncStorage.clear();
+    const [user, isAuth] = await Promise.all([
+      AsyncStorage.getItem('user'),
+      AsyncStorage.getItem('isAuth'),
+    ]);
+    set({ isAuth: !!isAuth, user: user ? JSON.parse(user) : null });
   },
   setUser: async (user: any, isAuth: boolean) => {
-    await AsyncStorage.setItem('user', JSON.stringify(user));
-    await AsyncStorage.setItem('isAuth', JSON.stringify(isAuth));
     set({ isAuth: !!isAuth, user });
+    await Promise.all([
+      AsyncStorage.setItem('user', JSON.stringify(user)),
+      AsyncStorage.setItem('isAuth', JSON.stringify(isAuth)),
+    ]);
   },
   logout: async () => {
-    await AsyncStorage.removeItem('user');
-    await AsyncStorage.removeItem('isAuth');
     set({ isAuth: false, user: null });
+    await Promise.all([
+      AsyncStorage.removeItem('user'),
+      AsyncStorage.removeItem('isAuth'),
+    ]);
   },
   setSheet: (sheet: SheetRoute) => {
     set({ sheet });

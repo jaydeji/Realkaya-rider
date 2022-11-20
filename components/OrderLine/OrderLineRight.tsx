@@ -13,7 +13,7 @@ export const OrderLineRight = ({ showTime }: { showTime?: boolean }) => {
           Start
         </Button>
       ) : (
-        <Text className="text-primary font-bold text-xs">8:45pm</Text>
+        <Text className="text-primary font-Mulish-Bold text-xs">8:45pm</Text>
       )}
     </View>
   );

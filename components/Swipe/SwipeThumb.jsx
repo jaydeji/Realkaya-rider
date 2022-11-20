@@ -1,13 +1,6 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { I18nManager, StyleSheet } from 'react-native';
-import {
-  Animated,
-  Image,
-  PanResponder,
-  TouchableNativeFeedback,
-  View,
-} from 'react-native';
+import { Animated, Image, PanResponder, View } from 'react-native';
 
 // Constants
 import { TRANSPARENT_COLOR } from './SwipeConstants';
@@ -54,7 +47,12 @@ const SwipeThumb = (props) => {
       toValue: defaultWidth,
       duration: 400,
       useNativeDriver: false,
-    }).start();
+    }).start(() => {
+      // custom hack
+      if (animatedWidth._value === 50) {
+        setBackgroundColor(TRANSPARENT_COLOR);
+      }
+    });
   }, [animatedWidth, defaultWidth]);
 
   useEffect(() => {
@@ -249,67 +247,22 @@ SwipeThumb.defaultProps = {
   thumbIconStyles: {},
 };
 
-SwipeThumb.propTypes = {
-  disabled: PropTypes.bool,
-  disableResetOnTap: PropTypes.bool,
-  disabledThumbIconBackgroundColor: PropTypes.string,
-  disabledThumbIconBorderColor: PropTypes.string,
-  enableReverseSwipe: PropTypes.bool,
-  forceReset: PropTypes.func,
-  layoutWidth: PropTypes.number,
-  onSwipeFail: PropTypes.func,
-  onSwipeStart: PropTypes.func,
-  onSwipeSuccess: PropTypes.func,
-  railFillBackgroundColor: PropTypes.string,
-  railFillBorderColor: PropTypes.string,
-  railStyles: PropTypes.object,
-  resetAfterSuccessAnimDuration: PropTypes.number,
-  screenReaderEnabled: PropTypes.bool,
-  shouldResetAfterSuccess: PropTypes.bool,
-  swipeSuccessThreshold: PropTypes.number,
-  thumbIconBackgroundColor: PropTypes.string,
-  thumbIconBorderColor: PropTypes.string,
-  thumbIconComponent: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.node,
-    PropTypes.func,
-  ]),
-  thumbIconHeight: PropTypes.number,
-  thumbIconImageSource: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  thumbIconStyles: PropTypes.object,
-  thumbIconWidth: PropTypes.number,
-  title: PropTypes.string,
-};
-
 const borderWidth = 3;
 const margin = 1;
-const maxContainerHeight = 100;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'flex-end',
     alignSelf: 'flex-start',
-    // borderRadius: maxContainerHeight / 2,
     borderRightWidth: 0,
-    // borderWidth,
-    // margin,
   },
   containerRTL: {
     alignItems: 'flex-start',
     alignSelf: 'flex-end',
-    // borderRadius: maxContainerHeight / 2,
     borderLeftWidth: 0,
-    // borderWidth,
-    // margin,
   },
   icon: {
     alignItems: 'center',
-    // borderRadius: maxContainerHeight / 2,
-    // borderWidth: 2,
     justifyContent: 'center',
-    // marginVertical: -borderWidth,
   },
 });
 

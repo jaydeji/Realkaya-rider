@@ -13,13 +13,15 @@ export const OrderLineTop = ({
   return (
     <View className="flex-row justify-between items-center">
       <View className="flex-row items-center">
-        <Text className="text-primary font-bold text-sm">Order {orderId}</Text>
-        <Text className="py-[6px] px-[15px] text-main-blue bg-main-blue/20 rounded-[5px] ml-[10px] font-bold text-[10px]">
+        <Text className="text-primary font-Mulish-Bold text-sm">
+          Order {orderId}
+        </Text>
+        <Text className="py-[6px] px-[15px] text-main-blue bg-main-blue/20 rounded-[5px] ml-[10px] font-Mulish-Bold text-[10px]">
           {(distance / 1000).toFixed(2)}km
         </Text>
       </View>
       {!hideAmount && (
-        <Text className="text-primary font-bold text-xs">₦300</Text>
+        <Text className="text-primary font-Mulish-Bold text-xs">₦300</Text>
       )}
     </View>
   );

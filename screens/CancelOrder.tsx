@@ -38,7 +38,7 @@ export const CancelOrder = () => {
         <Header title="Cancel the order" onPress={() => {}} />
         <View className="rounded-[5px] bg-white px-2 py-5 mt-[30px]">
           <View className="flex-row items-center">
-            <Text className="text-base font-bold ml-1">
+            <Text className="text-base font-Mulish-Bold ml-1">
               Mark order is an important aspects of the app, all orders must be
               marked to validate a safe delivery
             </Text>
@@ -55,7 +55,7 @@ export const CancelOrder = () => {
         </View>
 
         <View>
-          <Text className="text-base font-bold mt-[17px]">
+          <Text className="text-base font-Mulish-Bold mt-[17px]">
             Why do you want to cancel this order?
           </Text>
 

@@ -3,20 +3,23 @@ import React from 'react';
 import { Back } from '../assets/icons/Back';
 
 type Props = {
-  onPress: () => void;
+  onPress?: () => void;
   title: string;
   right?: React.ReactNode;
+  hideLeft?: boolean;
 };
 
-const Header = ({ onPress, title, right }: Props) => {
+const Header = ({ onPress, title, right, hideLeft }: Props) => {
   return (
     <View className="flex-row justify-center items-center">
       <View className="flex-1 flex-row justify-start items-center">
-        <TouchableWithoutFeedback onPress={onPress}>
-          <Back />
-        </TouchableWithoutFeedback>
+        {!hideLeft && (
+          <TouchableWithoutFeedback onPress={onPress}>
+            <Back />
+          </TouchableWithoutFeedback>
+        )}
       </View>
-      <Text className="flex-grow flex-row text-xl text-center font-extrabold">
+      <Text className="flex-grow flex-row text-xl text-center font-Mulish-ExtraBold">
         {title}
       </Text>
       <View className="flex-1 flex-row justify-end items-center">{right}</View>
