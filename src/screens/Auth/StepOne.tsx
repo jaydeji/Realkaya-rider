@@ -7,11 +7,9 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { DateInput } from 'components/DateInput';
-import { Input } from 'components/Input';
+import { Input, DateInput, Button } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
-import Button from 'components/Button';
 import { useNavigation } from '@react-navigation/native';
 
 export const StepOne = () => {

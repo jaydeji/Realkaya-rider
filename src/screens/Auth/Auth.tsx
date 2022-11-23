@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, SafeAreaView, Text, View } from 'react-native';
-import Button from 'components/Button';
+import { Image, SafeAreaView, View } from 'react-native';
+import { Button } from 'components';
 import { Span } from 'components/Span';
 
 export const Auth = () => {

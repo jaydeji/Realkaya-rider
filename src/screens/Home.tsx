@@ -19,7 +19,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import Button from 'components/Button';
+import { Button } from 'components';
 
 export const Home = () => {
   const currentSheet = useStore((store) => store.sheet);

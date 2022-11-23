@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Order } from 'types';
+import { Order } from 'app';
 import { Span } from 'components/Span';
 
 export const OrderLineTop = ({

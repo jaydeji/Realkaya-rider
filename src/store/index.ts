@@ -1,6 +1,6 @@
 import create from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Order, SheetRoute } from '../types';
+import { Order, SheetRoute } from '../app';
 import { sheetRoutes } from '../routes';
 
 type StoreState = {

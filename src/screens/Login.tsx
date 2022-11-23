@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
-import { Input } from 'components/Input';
-import Button from 'components/Button';
+import { Input } from 'components';
+import { Button } from 'components';
 import { constants } from '../lib/constants';
 import { useStore } from '../store';
 import { Span } from 'components/Span';

@@ -8,13 +8,13 @@ import {
 } from 'react-native-gesture-handler';
 import { sheetRoutes } from '../routes';
 import { useStore } from '../store';
-import { Order } from '../types';
+import { Order } from 'types/app';
 import {
   OrderLine,
   OrderLineRightCheck,
   OrderLineTop,
 } from 'components/OrderLine';
-import Button from 'components/Button';
+import { Button } from 'components';
 import { Span } from 'components/Span';
 
 type Props = {};

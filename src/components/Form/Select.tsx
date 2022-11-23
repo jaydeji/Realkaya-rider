@@ -5,7 +5,7 @@ import DropDownPicker, {
   ValueType,
 } from 'react-native-dropdown-picker';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import theme from '../lib/theme';
+import theme from 'lib/theme';
 import { Span } from 'components/Span';
 
 type Props = Omit<DropDownPickerProps<ValueType>, 'open' | 'setOpen'> & {

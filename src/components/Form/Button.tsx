@@ -10,7 +10,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const Button = ({ children, onPress, textClass, bodyClass }: Props) => {
+export const Button = ({ children, onPress, textClass, bodyClass }: Props) => {
   return (
     <TouchableOpacity
       className={clsx(
@@ -25,5 +25,3 @@ const Button = ({ children, onPress, textClass, bodyClass }: Props) => {
     </TouchableOpacity>
   );
 };
-
-export default Button;

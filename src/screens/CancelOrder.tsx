@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import Button from 'components/Button';
+import { Button } from 'components';
 import { CheckRound } from 'components/CheckRound';
 import { Span } from 'components/Span';
 

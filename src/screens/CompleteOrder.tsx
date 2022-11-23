@@ -5,9 +5,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
-import Button from 'components/Button';
+import { Button, CheckRound } from 'components';
 import clsx from 'clsx';
-import { CheckRound } from 'components/CheckRound';
 import { Span } from 'components/Span';
 
 const options = [

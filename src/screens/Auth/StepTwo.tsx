@@ -6,14 +6,10 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { DateInput } from 'components/DateInput';
-import { Input } from 'components/Input';
+import { DateInput, Button, Select, CheckBox, Input } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
-import Button from 'components/Button';
 import { useNavigation } from '@react-navigation/native';
-import { Select } from 'components/Select';
-import { CheckBox } from 'components/CheckBox';
 
 export const StepTwo = () => {
   const height = useHeaderHeight();

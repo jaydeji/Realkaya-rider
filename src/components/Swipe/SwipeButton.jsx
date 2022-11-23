@@ -21,7 +21,7 @@ import {
   TITLE_COLOR,
 } from './SwipeConstants';
 
-const SwipeButton = (props) => {
+export const SwipeButton = (props) => {
   const [layoutWidth, setLayoutWidth] = useState(0);
   const [screenReaderEnabled, setScreenReaderEnabled] = useState(false);
   const [isUnmounting, setIsUnmounting] = useState(false);
@@ -197,5 +197,3 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-
-export default SwipeButton;
