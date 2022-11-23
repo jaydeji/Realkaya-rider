@@ -4,7 +4,7 @@ module.exports = {
     slug: 'carigo-rider',
     version: '1.0.0',
     orientation: 'portrait',
-    icon: './assets/icon.png',
+    icon: './src/assets/icon.png',
     userInterfaceStyle: 'light',
     // splash: {
     //   image: './assets/splash.png',
@@ -20,12 +20,12 @@ module.exports = {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './assets/adaptive-icon.png',
+        foregroundImage: './src/assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
     },
     web: {
-      favicon: './assets/favicon.png',
+      favicon: './src/assets/favicon.png',
     },
     userInterfaceStyle: 'automatic', //datepicker
   },

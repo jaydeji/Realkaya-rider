@@ -7,6 +7,21 @@ module.exports = function (api) {
       'module:react-native-dotenv',
       //must be last
       'react-native-reanimated/plugin',
+      [
+        'module-resolver',
+        {
+          root: ['./src'],
+          extensions: [
+            '.ios.js',
+            '.android.js',
+            '.js',
+            '.json',
+            '.jsx',
+            '.tsx',
+            '.ts',
+          ],
+        },
+      ],
     ],
   };
 };
