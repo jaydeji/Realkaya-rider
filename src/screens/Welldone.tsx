@@ -1,13 +1,13 @@
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { ProfileIcon } from '../assets/icons/Profile';
-import Button from '../components/Button';
+import { ProfileIcon } from 'assets/icons/Profile';
+import Button from 'components/Button';
 import {
   OrderLine,
   OrderLineRightCall,
   OrderLineTopProfile,
-} from '../components/OrderLine';
-import { Span } from '../components/Span';
+} from 'components/OrderLine';
+import { Span } from 'components/Span';
 
 type WelldoneProps = {
   finished?: boolean;

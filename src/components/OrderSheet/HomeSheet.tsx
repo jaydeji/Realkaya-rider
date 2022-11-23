@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import { Span } from '../Span';
+import { Span } from 'components/Span';
 
 export const HomeSheet = ({ handleSetAuto }: { handleSetAuto: () => void }) => {
   const navigation = useNavigation();

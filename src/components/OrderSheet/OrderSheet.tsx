@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import { sheetRoutes } from '../../routes';
-import { useStore } from '../../store';
-import { Span } from '../Span';
+import { sheetRoutes } from 'routes';
+import { useStore } from 'store';
+import { Span } from 'components/Span';
 
 export const OrderSheet = () => {
   const orders = useStore((store) => store.orders);

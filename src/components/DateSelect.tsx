@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { ArrowDownIcon } from '../assets/icons/ArrowDown';
+import { ArrowDownIcon } from 'assets/icons/ArrowDown';
 import DateTimePickerModal, {
   ReactNativeModalDateTimePickerProps,
 } from 'react-native-modal-datetime-picker';
-import { Span } from './Span';
+import { Span } from 'components/Span';
 
 type DateSelectProps = Omit<
   ReactNativeModalDateTimePickerProps,

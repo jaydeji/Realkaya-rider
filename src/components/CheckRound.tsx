@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import { View } from 'react-native';
-import { CheckMarkIcon } from '../assets/icons/CheckMark';
+import { CheckMarkIcon } from 'assets/icons/CheckMark';
 
 export const CheckRound = ({
   checked,

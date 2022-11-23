@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import { Span } from '../Span';
+import { Span } from 'components/Span';
 
 export const ConnectingSheet = () => {
   return (

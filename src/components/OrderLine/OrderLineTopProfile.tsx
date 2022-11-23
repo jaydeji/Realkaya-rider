@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
-import { ProfileIcon } from '../../assets/icons/Profile';
-import { Span } from '../Span';
+import { ProfileIcon } from 'assets/icons/Profile';
+import { Span } from 'components/Span';
 
 export const OrderLineTopProfile = () => {
   return (

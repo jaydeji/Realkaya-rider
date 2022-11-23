@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { StarIcon } from '../assets/icons/Star';
+import { StarIcon } from 'assets/icons/Star';
 
 export const Stars = ({ value: _value }: { value: number }) => {
   const value = Math.floor(_value);

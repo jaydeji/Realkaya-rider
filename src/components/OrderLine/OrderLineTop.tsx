@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Order } from '../../types';
-import { Span } from '../Span';
+import { Order } from 'types';
+import { Span } from 'components/Span';
 
 export const OrderLineTop = ({
   hideAmount,

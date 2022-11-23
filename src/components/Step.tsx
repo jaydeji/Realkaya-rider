@@ -1,5 +1,5 @@
 import React from 'react';
-import { Span } from './Span';
+import { Span } from 'components/Span';
 
 export const Step = ({ step }: { step: number }) => {
   return (

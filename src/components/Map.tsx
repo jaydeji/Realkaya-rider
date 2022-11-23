@@ -11,8 +11,8 @@ import {
   Button,
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, MAP_TYPES } from 'react-native-maps';
-import marker from '../assets/images/marker.png';
-import shape from '../assets/images/Shape.png';
+import marker from 'assets/images/marker.png';
+import shape from 'assets/images/Shape.png';
 import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPS_APIKEY } from '@env';
 import * as Location from 'expo-location';

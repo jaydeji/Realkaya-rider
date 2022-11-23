@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import clsx from 'clsx';
-import { Span } from './Span';
+import { Span } from 'components/Span';
 
 type Props = {
   onPress?: () => void;

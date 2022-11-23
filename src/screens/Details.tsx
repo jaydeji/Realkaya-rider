@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native';
 import React from 'react';
-import { Span } from '../components/Span';
+import { Span } from 'components/Span';
 
 const Details = () => {
   return (

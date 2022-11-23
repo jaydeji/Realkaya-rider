@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import theme from '../lib/theme';
-import { Span } from './Span';
+import { Span } from 'components/Span';
 
 type Props = {
   value: string;

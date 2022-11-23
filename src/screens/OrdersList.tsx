@@ -1,14 +1,10 @@
 import { View, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import Button from '../components/Button';
+import Button from 'components/Button';
 import clsx from 'clsx';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  OrderLine,
-  OrderLineRight,
-  OrderLineTop,
-} from '../components/OrderLine';
-import { DateSelect } from '../components/DateSelect';
+import { OrderLine, OrderLineRight, OrderLineTop } from 'components/OrderLine';
+import { DateSelect } from 'components/DateSelect';
 import { useNavigation } from '@react-navigation/native';
 
 export const OrdersList = () => {

@@ -1,7 +1,7 @@
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import React from 'react';
-import { Back } from '../assets/icons/Back';
-import { Span } from './Span';
+import { Back } from 'assets/icons/Back';
+import { Span } from 'components/Span';
 
 type Props = {
   onPress?: () => void;

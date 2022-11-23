@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { CheckBoxFilledIcon } from '../assets/icons/CheckBox';
-import { Span } from './Span';
+import { CheckBoxFilledIcon } from 'assets/icons/CheckBox';
+import { Span } from 'components/Span';
 
 type Props = {
   checked?: boolean;

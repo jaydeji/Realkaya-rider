@@ -13,9 +13,9 @@ import {
   OrderLine,
   OrderLineRightCheck,
   OrderLineTop,
-} from '../components/OrderLine';
-import Button from '../components/Button';
-import { Span } from '../components/Span';
+} from 'components/OrderLine';
+import Button from 'components/Button';
+import { Span } from 'components/Span';
 
 type Props = {};
 

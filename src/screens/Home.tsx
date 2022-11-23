@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useRef, useEffect } from 'react';
-import { Map } from '../components/Map';
+import { Map } from 'components/Map';
 import BottomSheet, {
   BottomSheetBackdropProps,
   useBottomSheetDynamicSnapPoints,
@@ -12,14 +12,14 @@ import {
   ConnectingSheet,
   HomeSheet,
   OrderSheet,
-} from '../components/OrderSheet';
+} from 'components/OrderSheet';
 import { Dimensions, Text, View } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import Button from '../components/Button';
+import Button from 'components/Button';
 
 export const Home = () => {
   const currentSheet = useStore((store) => store.sheet);

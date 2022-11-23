@@ -53,8 +53,8 @@ export const Index = ({}: Props) => {
               <Image
                 source={
                   isOpen
-                    ? require('../assets/images/close.png')
-                    : require('../assets/images/harmburger.png')
+                    ? require('assets/images/close.png')
+                    : require('assets/images/harmburger.png')
                 }
                 className={clsx(
                   'mt-5',

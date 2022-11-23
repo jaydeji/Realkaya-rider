@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { CalendarIcon } from '../assets/icons/Calendar';
-import { Span } from './Span';
+import { CalendarIcon } from 'assets/icons/Calendar';
+import { Span } from 'components/Span';
 import DateTimePickerModal, {
   ReactNativeModalDateTimePickerProps,
 } from 'react-native-modal-datetime-picker';

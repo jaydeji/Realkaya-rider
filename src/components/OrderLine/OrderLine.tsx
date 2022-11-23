@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { BeginCircle } from '../../assets/icons/BeginCircle';
-import { EndCircle } from '../../assets/icons/EndCircle';
-import { Order } from '../../types';
-import { Span } from '../Span';
+import { BeginCircle } from 'assets/icons/BeginCircle';
+import { EndCircle } from 'assets/icons/EndCircle';
+import { Order } from 'types';
+import { Span } from 'components/Span';
 
 type OrderLineProps = {
   right: React.ReactNode;

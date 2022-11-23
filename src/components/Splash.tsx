@@ -2,8 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { View, Text, Animated, Dimensions } from 'react-native';
-import { SplashIcon } from '../assets/icons/SplashIcon';
-import { Span } from './Span';
+import { SplashIcon } from 'assets/icons/SplashIcon';
+import { Span } from 'components/Span';
 
 type Props = {
   isAppReady: boolean;

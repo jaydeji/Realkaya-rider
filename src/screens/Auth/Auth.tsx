@@ -11,7 +11,7 @@ export const Auth = () => {
       <View className="flex-1 justify-between">
         <View className="w-full">
           <Image
-            source={require('../../assets/gifs/auth.gif')}
+            source={require('assets/gifs/auth.gif')}
             className="w-full h-[300px]"
             resizeMode={'cover'}
           />

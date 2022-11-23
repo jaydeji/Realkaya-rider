@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import Button from '../Button';
-import { Span } from '../Span';
+import { Span } from 'components/Span';
 
 export const OrderLineRight = ({ showTime }: { showTime?: boolean }) => {
   return (

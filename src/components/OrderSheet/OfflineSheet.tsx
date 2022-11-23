@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import { ArrowRightIcon } from '../../assets/icons/ArrowRight';
-import { BatteryIcon } from '../../assets/icons/Battery';
-import { DoubleRightIcon } from '../../assets/icons/DoubleRight';
-import { Span } from '../Span';
+import { ArrowRightIcon } from 'assets/icons/ArrowRight';
+import { BatteryIcon } from 'assets/icons/Battery';
+import { DoubleRightIcon } from 'assets/icons/DoubleRight';
+import { Span } from 'components/Span';
 import { Stars } from '../Stars';
 import SwipeButton from '../Swipe/SwipeButton';
 
