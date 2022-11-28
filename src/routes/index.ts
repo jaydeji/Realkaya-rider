@@ -1,4 +1,4 @@
-import { SheetRoute } from '../app';
+import { SheetRoute } from 'types/app';
 
 export const sheetRoutes: SheetRoute[] = [
   {

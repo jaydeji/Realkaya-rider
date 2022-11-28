@@ -6,8 +6,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Button } from 'components';
-import { CheckRound } from 'components/CheckRound';
+import { Button, CheckRound } from 'components';
 import { Span } from 'components/Span';
 
 const options = [

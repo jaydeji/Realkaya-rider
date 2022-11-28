@@ -13,42 +13,42 @@ import { Auth, StepOne } from 'screens/Auth';
 import { constants } from 'lib/constants';
 import { StepTwo } from 'screens/Auth/StepTwo';
 import { Step } from 'components/Step';
+import { RootStackParamList } from 'types/navigation';
 
-type Props = {};
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-export const Main = ({}: Props) => {
+export const Main = () => {
   const isAuth = useStore((store) => store.isAuth);
   return (
     <>
-      <Stack.Navigator>
+      <RootStack.Navigator>
         {isAuth ? (
-          <Stack.Group>
-            <Stack.Screen
+          <RootStack.Group>
+            <RootStack.Screen
               name="Index"
               component={Index}
               options={{
                 headerShown: false,
               }}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="OrdersList"
               component={OrdersList}
               options={constants.TITLE_OPTIONS({ title: 'Orders' })}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="PickManual"
               component={PickManual}
               options={constants.TITLE_OPTIONS({ title: 'Pick Manually' })}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="Welldone"
               component={Welldone}
               options={{
                 headerShown: false,
               }}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="CompleteOrder"
               component={CompleteOrder}
               options={({ route }) =>
@@ -57,41 +57,41 @@ export const Main = ({}: Props) => {
                 })
               }
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="CancelOrder"
               component={CancelOrder}
               options={constants.TITLE_OPTIONS({ title: 'Cancel the order' })}
             />
-          </Stack.Group>
+          </RootStack.Group>
         ) : (
-          <Stack.Group>
-            <Stack.Screen
+          <RootStack.Group>
+            <RootStack.Screen
               name="Auth"
               component={Auth}
               options={constants.TITLE_OPTIONS()}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="Login"
               component={Login}
               options={constants.TITLE_OPTIONS()}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="StepOne"
               component={StepOne}
               options={constants.TITLE_OPTIONS({
                 headerRight: () => <Step step={1} />,
               })}
             />
-            <Stack.Screen
+            <RootStack.Screen
               name="StepTwo"
               component={StepTwo}
               options={constants.TITLE_OPTIONS({
                 headerRight: () => <Step step={2} />,
               })}
             />
-          </Stack.Group>
+          </RootStack.Group>
         )}
-      </Stack.Navigator>
+      </RootStack.Navigator>
       <StatusBar style="auto" />
     </>
   );

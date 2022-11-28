@@ -13,9 +13,10 @@ import Details from './Details';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Animated from 'react-native-reanimated';
 import clsx from 'clsx';
+import { IndexDrawerParamList, ScreensStackParamList } from 'types/navigation';
 
 type Props = {};
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<IndexDrawerParamList>();
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
@@ -28,6 +29,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       <DrawerItem
         label="Maps"
         onPress={() => props.navigation.navigate('Home')}
+        // onPress={() => props.navigation.navigate('Co')}
       />
     </DrawerContentScrollView>
   );
@@ -78,7 +80,7 @@ export const Index = ({}: Props) => {
 };
 
 //need this because view wont wrap drawer navigation screens
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ScreensStackParamList>();
 
 const Screens = (props: any) => {
   const progress: any = useDrawerProgress();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { CheckRound } from '../CheckRound';
+import { CheckRound } from '../Form';
 
 export const OrderLineRightCheck = ({ checked }: { checked: boolean }) => {
   return (
