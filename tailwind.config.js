@@ -1,4 +1,5 @@
 const { colors, fontFamily } = require('./src/lib/theme.ts');
+// import {} from 'lib/theme';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

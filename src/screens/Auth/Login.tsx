@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { Input } from 'components';
 import { Button } from 'components';
 import { constants } from 'lib/constants';
 import { useStore } from 'store';
 import { Span } from 'components/Span';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 export const Login = () => {

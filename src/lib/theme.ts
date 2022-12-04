@@ -21,4 +21,5 @@ const fontFamily = {
   'Mulish-ExtraBold': 'Mulish-ExtraBold',
 };
 
-export { colors, fontFamily };
+// export { colors, fontFamily };
+module.exports = { colors, fontFamily };
