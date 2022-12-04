@@ -1,23 +1,21 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
-import theme from './theme';
+import { colors, fontFamily } from '../lib/theme';
 
 export const constants = {
   ROLE: 'RIDER',
-  TITLE_OPTIONS: (opts?: {
-    title?: string;
-    headerRight?: NativeStackNavigationOptions['headerRight'];
-  }): NativeStackNavigationOptions => ({
-    title: opts?.title || 'RealKaya',
+  TITLE_OPTIONS: (
+    opts?: NativeStackNavigationOptions
+  ): NativeStackNavigationOptions => ({
     headerBackTitleVisible: false,
     headerStyle: {
-      backgroundColor: theme?.colors.alt['4'],
+      backgroundColor: colors.alt['4'],
     },
-    headerTintColor: theme?.colors.nav,
+    headerTintColor: colors.nav,
     headerTitleStyle: {
-      fontFamily: theme?.fontFamily['Mulish-ExtraBold'],
-      color: theme?.colors.primary,
+      fontFamily: fontFamily['Mulish-ExtraBold'],
+      color: colors.primary,
       fontSize: 24,
     },
-    headerRight: opts?.headerRight,
+    ...opts,
   }),
 };

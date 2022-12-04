@@ -1,13 +1,15 @@
 import React from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
-import theme from 'lib/theme';
 import { Span } from 'components/Span';
+import clsx from 'clsx';
+import { colors } from 'lib/theme';
 
 type Props = {
   value: string;
   onChange: (text: string) => void;
   placeholder?: string;
-  label: string;
+  label?: string;
+  textClass?: string;
 };
 
 export const Input = ({
@@ -15,19 +17,25 @@ export const Input = ({
   onChange,
   placeholder,
   label,
+  textClass,
   ...props
 }: TextInputProps & Props) => {
   return (
     <View>
-      <Span textClass="leading-[32px] text-xs text-primary font-Mulish-SemiBold h-5">
-        {label}
-      </Span>
+      {label && (
+        <Span textClass="leading-[32px] text-xs text-primary font-Mulish-SemiBold h-5">
+          {label}
+        </Span>
+      )}
       <TextInput
         placeholder={placeholder}
         value={value}
-        className="p-4 border border-alt-8 rounded-[5px]"
+        className={clsx(
+          'px-3 h-[45px] border border-alt-8 rounded-[5px]',
+          textClass
+        )}
         onChangeText={onChange}
-        placeholderTextColor={theme?.colors.alt['8']}
+        placeholderTextColor={colors.alt['8']}
         {...props}
       />
     </View>

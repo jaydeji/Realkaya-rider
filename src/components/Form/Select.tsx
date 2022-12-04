@@ -5,8 +5,8 @@ import DropDownPicker, {
   ValueType,
 } from 'react-native-dropdown-picker';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import theme from 'lib/theme';
 import { Span } from 'components/Span';
+import { colors } from 'lib/theme';
 
 type Props = Omit<DropDownPickerProps<ValueType>, 'open' | 'setOpen'> & {
   label: string;
@@ -25,16 +25,16 @@ export const Select = ({ label, ...props }: Props) => {
           open={open}
           setOpen={setOpen}
           listMode="SCROLLVIEW"
-          containerStyle={{
-            borderColor: theme?.colors.alt['8'],
-          }}
+          // containerStyle={{}}
           style={{
-            borderColor: theme?.colors.alt['8'],
+            borderColor: colors.alt['8'],
             backgroundColor: 'transparent',
             borderRadius: 5,
+            maxHeight: 45,
+            // paddingHorizontal: 5,
           }}
           placeholderStyle={{
-            color: theme?.colors.alt['8'],
+            color: colors.alt['8'],
           }}
           {...props}
           //   zIndex={1000}

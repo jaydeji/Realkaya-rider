@@ -1,7 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from 'screens/Login';
 import { Index } from 'screens/Index';
 import { useStore } from 'store';
 import { PickManual } from 'screens/PickManual';
@@ -9,9 +8,17 @@ import { CancelOrder } from 'screens/CancelOrder';
 import { CompleteOrder } from 'screens/CompleteOrder';
 import { Welldone } from 'screens/Welldone';
 import { OrdersList } from 'screens/OrdersList';
-import { Auth, StepOne } from 'screens/Auth';
+import {
+  Auth,
+  StepOne,
+  StepTwo,
+  StepThree,
+  StepFour,
+  SignUpDone,
+  Login,
+  ForgotPassword,
+} from 'screens/Auth';
 import { constants } from 'lib/constants';
-import { StepTwo } from 'screens/Auth/StepTwo';
 import { Step } from 'components/Step';
 import { RootStackParamList } from 'types/navigation';
 
@@ -68,25 +75,55 @@ export const Main = () => {
             <RootStack.Screen
               name="Auth"
               component={Auth}
-              options={constants.TITLE_OPTIONS()}
+              options={constants.TITLE_OPTIONS({ title: 'RealKaya' })}
             />
             <RootStack.Screen
               name="Login"
               component={Login}
-              options={constants.TITLE_OPTIONS()}
-            />
-            <RootStack.Screen
-              name="StepOne"
-              component={StepOne}
-              options={constants.TITLE_OPTIONS({
-                headerRight: () => <Step step={1} />,
-              })}
+              options={constants.TITLE_OPTIONS({ title: 'RealKaya' })}
             />
             <RootStack.Screen
               name="StepTwo"
               component={StepTwo}
               options={constants.TITLE_OPTIONS({
                 headerRight: () => <Step step={2} />,
+                title: 'RealKaya',
+              })}
+            />
+            <RootStack.Screen
+              name="SignUpDone"
+              component={SignUpDone}
+              options={constants.TITLE_OPTIONS({ headerShown: false })}
+            />
+            <RootStack.Screen
+              name="StepFour"
+              component={StepFour}
+              options={constants.TITLE_OPTIONS({
+                headerRight: () => <Step step={4} />,
+                title: 'RealKaya',
+              })}
+            />
+            <RootStack.Screen
+              name="ForgotPassword"
+              component={ForgotPassword}
+              options={constants.TITLE_OPTIONS({ title: 'RealKaya' })}
+            />
+
+            <RootStack.Screen
+              name="StepThree"
+              component={StepThree}
+              options={constants.TITLE_OPTIONS({
+                headerRight: () => <Step step={3} />,
+                title: 'RealKaya',
+              })}
+            />
+
+            <RootStack.Screen
+              name="StepOne"
+              component={StepOne}
+              options={constants.TITLE_OPTIONS({
+                headerRight: () => <Step step={1} />,
+                title: 'RealKaya',
               })}
             />
           </RootStack.Group>

@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { Input } from 'components';
 import { Button } from 'components';
-import { constants } from '../lib/constants';
-import { useStore } from '../store';
+import { constants } from 'lib/constants';
+import { useStore } from 'store';
 import { Span } from 'components/Span';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 export const Login = () => {
+  const navigation = useNavigation();
   const setUser = useStore((store) => store.setUser);
   const [state, setState] = useState({
     email: 'jamesadedejifirst@gmail.com',
@@ -35,7 +38,7 @@ export const Login = () => {
         <Span textClass="text-primary font-Mulish-Bold text-lg mt-12">
           Login
         </Span>
-        <Span textClass="text-xs text-light-text mb-10">
+        <Span textClass="text-xs text-light-text mb-10 mr-8">
           Please provide your login details fo easy and quick access to the app
         </Span>
         <View className="w-full">
@@ -54,7 +57,9 @@ export const Login = () => {
             onChange={(text) => handleChangeText(text, 'password')}
           />
         </View>
-        <Span textClass="mt-3 text-main-blue">Forgot password?</Span>
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Span textClass="mt-3 text-main-blue">Forgot password?</Span>
+        </TouchableOpacity>
         <View className="mt-[70px]">
           <Button onPress={handleLogin}>Confirm</Button>
         </View>

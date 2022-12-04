@@ -73,18 +73,18 @@ export const StepTwo = () => {
                   />
                 </View>
                 <View className="w-full mt-4">
-                  <Select
+                  <Input
                     value={value}
-                    items={items}
-                    setItems={setItems}
                     label="Address"
+                    multiline
+                    textClass="h-[90px]"
                     // onChange={(text) => handleChangeText(text, 'email')}
                   />
                 </View>
               </>
             )}
             <View className="mt-[72px]">
-              <Button onPress={() => navigation.navigate('StepTwo')}>
+              <Button onPress={() => navigation.navigate('StepThree')}>
                 Next
               </Button>
             </View>

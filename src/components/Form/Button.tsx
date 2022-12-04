@@ -14,7 +14,7 @@ export const Button = ({ children, onPress, textClass, bodyClass }: Props) => {
   return (
     <TouchableOpacity
       className={clsx(
-        'bg-primary h-[50px] items-center justify-center rounded-[5px] overflow-hidden',
+        'bg-primary h-[45px] items-center justify-center rounded-[5px] overflow-hidden',
         bodyClass
       )}
       onPress={onPress}

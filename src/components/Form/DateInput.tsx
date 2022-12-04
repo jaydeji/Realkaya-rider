@@ -7,7 +7,7 @@ import DateTimePickerModal, {
 } from 'react-native-modal-datetime-picker';
 
 type Props = {
-  value: Date;
+  value?: Date;
   onChange: ReactNativeModalDateTimePickerProps['onChange'];
   placeholder?: string;
   label: string;
@@ -21,9 +21,9 @@ export const DateInput = ({
 }: Props) => {
   const [show, setShow] = useState(false);
 
-  const day = value.getDate();
-  const month = value.getMonth() + 1;
-  const year = value.getFullYear();
+  const day = value?.getDate();
+  const month = value ? value.getMonth() + 1 : undefined;
+  const year = value?.getFullYear();
 
   return (
     <TouchableWithoutFeedback
@@ -36,7 +36,7 @@ export const DateInput = ({
         <Span textClass="leading-[32px] text-xs text-primary font-Mulish-SemiBold h-5">
           {label}
         </Span>
-        <View className="p-4 border border-alt-8 rounded-[5px] flex-row justify-between items-center">
+        <View className="px-3 border border-alt-8 rounded-[5px] flex-row justify-between items-center h-[45px]">
           {value ? (
             <Text> {`${day}-${month}-${year}`}</Text>
           ) : (
