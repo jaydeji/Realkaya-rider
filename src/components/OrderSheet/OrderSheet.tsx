@@ -2,14 +2,14 @@ import axios from 'axios';
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { sheetRoutes } from 'routes';
-import { useStore } from 'store';
+import { useAppStore } from 'store';
 import { Span } from 'components/Span';
 
 export const OrderSheet = () => {
-  const orders = useStore((store) => store.orders);
-  const removeOrder = useStore((store) => store.removeOrder);
-  const setSheet = useStore((store) => store.setSheet);
-  const _updateOrder = useStore((store) => store.updateOrder);
+  const orders = useAppStore((store) => store.orders);
+  const removeOrder = useAppStore((store) => store.removeOrder);
+  const setSheet = useAppStore((store) => store.setSheet);
+  const _updateOrder = useAppStore((store) => store.updateOrder);
   const order = orders[0];
 
   if (!order) return null;
@@ -20,7 +20,7 @@ export const OrderSheet = () => {
       _updateOrder(data.data);
     } catch (error) {}
   };
-  console.log(order);
+
   return (
     <View className="px-3 flex-1">
       <View className="flex-row justify-between">

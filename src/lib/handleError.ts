@@ -1,27 +1,23 @@
 import { AxiosError } from 'axios';
-import { useStore } from '../store';
+import { useAppStore } from '../store';
+import { snack } from './snack';
 
 export const handleError = (error: AxiosError) => {
-  //   const errResponse =
-  //     (error && error.response && error.response.data) ||
-  //     (error && error.message);
-  //   console.log(errResponse);
-  if (error.response?.status === 400) {
-    if (error.response.data?.validationError) {
-      alert(error.response.data?.validationError[0].message);
-    }
-    return;
+  const responseData = error.response?.data as any;
+
+  if (error.response?.status === 400 && responseData?.message) {
+    return snack(responseData.message);
   }
-  if (error.response?.status === 403) {
-    if (error.response.data?.message) {
-      alert(error.response.data.message);
-    }
-    return;
+
+  if (error.response?.status === 403 && responseData?.message) {
+    return snack(responseData.message);
   }
+
   if (error.response?.status === 401) {
-    useStore.getState().logout();
+    useAppStore.getState().logout();
   }
+
   if (error.response?.status === 500) {
-    alert('Server error');
+    snack('Server error');
   }
 };

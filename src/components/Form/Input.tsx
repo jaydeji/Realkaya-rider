@@ -10,6 +10,7 @@ type Props = {
   placeholder?: string;
   label?: string;
   textClass?: string;
+  autoCapitalize?: TextInputProps['autoCapitalize'];
 };
 
 export const Input = ({
@@ -18,6 +19,7 @@ export const Input = ({
   placeholder,
   label,
   textClass,
+  autoCapitalize,
   ...props
 }: TextInputProps & Props) => {
   return (
@@ -36,6 +38,7 @@ export const Input = ({
         )}
         onChangeText={onChange}
         placeholderTextColor={colors.alt['8']}
+        autoCapitalize={autoCapitalize || 'none'}
         {...props}
       />
     </View>

@@ -7,16 +7,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Main } from 'Main';
 import axios from 'axios';
 import { handleError } from 'lib/handleError';
-import { useStore } from 'store';
+import { useAppStore } from 'store';
 import { useFonts } from 'expo-font';
 import { registerRootComponent } from 'expo';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
-  axios.defaults.baseURL = 'http://172.20.10.2:4001';
+  axios.defaults.baseURL = 'http://172.20.10.3:4001';
   axios.interceptors.request.use(
     function (config) {
-      const token = useStore.getState().user?.token;
+      const token = useAppStore.getState().user?.token;
       if (token) {
         (config.headers as any).Authorization = `Bearer ${token}`;
       }
@@ -42,7 +43,7 @@ const AppWrapper = () => {
   const [isAppReady, setAppReady] = useState(false);
   const [isSetupDone, setSetupDone] = useState(false);
   const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
-  const init = useStore((store) => store.init);
+  const init = useAppStore((store) => store.init);
   const [fontsLoaded] = useFonts({
     Mulish: require('./assets/fonts/Mulish-Regular.ttf'),
     'Mulish-Medium': require('./assets/fonts/Mulish-Medium.ttf'),
@@ -80,9 +81,11 @@ const AppWrapper = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <AppWrapper />
-    </NavigationContainer>
+    <RootSiblingParent>
+      <NavigationContainer>
+        <AppWrapper />
+      </NavigationContainer>
+    </RootSiblingParent>
   );
 };
 

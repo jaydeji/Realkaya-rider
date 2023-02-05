@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -7,14 +7,90 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Input, DateInput, Button, Select } from 'components';
+import { Input, Button, Select } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
+import { useAuthStore } from 'store/authStore';
+import axios, { AxiosError } from 'axios';
+import { ImageInfo } from 'expo-image-picker';
 
 export const StepFour = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
+
+  const registerForm = useAuthStore((store) => store.registerForm);
+  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
+  const images = useAuthStore((store) => store.images);
+
+  const [loading, setLoading] = useState(false);
+
+  const disabled =
+    !registerForm.account.accountName ||
+    !registerForm.account.accountNumber ||
+    !registerForm.account.bankName;
+
+  const handleRegister = async () => {
+    // if (disabled) return snack('Please fill all required fields');
+
+    const _images = [images.documentUrl, images.profilePhotoUrl];
+
+    setLoading(true);
+
+    try {
+      const presignedFields = await Promise.all(
+        _images.map(async (e) => {
+          const fileName = e.uri.split('/').pop() as string;
+          const fileType = fileName?.split('.').pop();
+          return await axios
+            .post('/generatepresignedurl', {
+              type: 'image/' + fileType,
+              filename: fileName,
+            })
+            .then((e) => e.data.data);
+        })
+      );
+
+      await Promise.all(
+        presignedFields.map(async (presignedData, index) => {
+          const fileName = _images[index].uri.split('/').pop() as string;
+          const fileType = fileName?.split('.').pop();
+          const image = _images[index] as ImageInfo;
+          const newFormData = new FormData();
+          Object.entries(presignedData.fields).forEach((e) =>
+            newFormData.append(e[0], e[1] as any)
+          );
+
+          // newFormData.append('file', _images[index].uri.replace('///', '//'));
+          newFormData.append('file', {
+            uri: image.uri,
+            name: fileName,
+            type: 'image/' + fileType,
+          } as unknown as Blob);
+          const { data } = await axios.post(presignedData.url, newFormData);
+
+          return data;
+        })
+      );
+
+      await axios.post('/auth/signup', {
+        ...registerForm,
+        profilePhotoUrl: presignedFields[1].uploadedDocumentUrl,
+        identification: {
+          ...registerForm.identification,
+          documentUrl: presignedFields[0].uploadedDocumentUrl,
+        },
+      });
+
+      navigation.navigate('SignUpDone');
+    } catch (_error) {
+      setLoading(false);
+      // const error = _error as AxiosError;
+      // console.log('error', error.response?.data);
+      // console.log('error2', error.response);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-alt-4 ">
       <KeyboardAvoidingView
@@ -34,32 +110,57 @@ export const StepFour = () => {
               <Input
                 label="Bank holder name"
                 placeholder="e.g, John Doe"
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.account.accountName}
+                onChange={(text) =>
+                  setRegisterForm('account', {
+                    ...registerForm.account,
+                    accountName: text,
+                  })
+                }
               />
             </View>
             <View className="w-full mt-4">
               <Input
                 label="Account number"
                 placeholder="e.g, 0561416996"
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.account.accountNumber}
+                onChange={(text) =>
+                  setRegisterForm('account', {
+                    ...registerForm.account,
+                    accountNumber: text,
+                  })
+                }
               />
             </View>
 
             <View className="w-full mt-4">
-              <Select
+              {/* <Select
                 // value={value}
                 items={[]}
                 // setItems={setItems}
                 label="Bank name"
                 placeholder="e.g, GT bank"
                 // onChange={(text) => handleChangeText(text, 'email')}
+              /> */}
+              <Input
+                label="Bank name"
+                placeholder="e.g, GT bank"
+                value={registerForm.account.bankName}
+                onChange={(text) =>
+                  setRegisterForm('account', {
+                    ...registerForm.account,
+                    bankName: text,
+                  })
+                }
               />
             </View>
             <View className="mt-[72px]">
-              <Button onPress={() => navigation.navigate('SignUpDone')}>
-                Next
+              <Button
+                onPress={handleRegister}
+                disabled={disabled}
+                loading={loading}
+              >
+                Confirm
               </Button>
             </View>
           </View>

@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Index } from 'screens/Index';
-import { useStore } from 'store';
+import { useAppStore } from 'store';
 import { PickManual } from 'screens/PickManual';
 import { CancelOrder } from 'screens/CancelOrder';
 import { CompleteOrder } from 'screens/CompleteOrder';
@@ -25,7 +25,7 @@ import { RootStackParamList } from 'types/navigation';
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const Main = () => {
-  const isAuth = useStore((store) => store.isAuth);
+  const isAuth = useAppStore((store) => store.isAuth);
   return (
     <>
       <RootStack.Navigator>

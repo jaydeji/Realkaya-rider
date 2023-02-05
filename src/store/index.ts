@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Order, SheetRoute } from 'types/app';
 import { sheetRoutes } from '../routes';
 
-type StoreState = {
+type AppStoreState = {
   isAuth: boolean;
   user: null | Record<string, any>;
   sheet: SheetRoute;
@@ -17,7 +17,7 @@ type StoreState = {
   updateOrder: (order: Order) => void;
 };
 
-export const useStore = create<StoreState>((set) => ({
+export const useAppStore = create<AppStoreState>((set) => ({
   isAuth: false,
   user: null,
   sheet: sheetRoutes[0],

@@ -6,6 +6,7 @@ import DropDownPicker, {
 } from 'react-native-dropdown-picker';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Span } from 'components/Span';
+//@ts-ignore
 import { colors } from 'lib/theme';
 
 type Props = Omit<DropDownPickerProps<ValueType>, 'open' | 'setOpen'> & {
@@ -37,9 +38,21 @@ export const Select = ({ label, ...props }: Props) => {
             color: colors.alt['8'],
           }}
           {...props}
-          //   zIndex={1000}
+          zIndex={1000}
         />
       </View>
     </TouchableWithoutFeedback>
   );
 };
+
+interface props {
+  items?: any[];
+  placeholder?: string;
+  onChange?: (value: string) => void;
+  isOpen?: (value: boolean) => void;
+  containerStyle?: any;
+  fillAngle?: boolean;
+  fillColor?: string;
+  initialValue?: string;
+  dropDownStyle?: any;
+}

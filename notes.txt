@@ -2,3 +2,5 @@ touchablewithoutfeedback and keyboard dismiss
 
 expo/vectoricons
 button - touchable_opacity>view>text
+
+react-native-flash-message

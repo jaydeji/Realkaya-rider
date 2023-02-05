@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { Span } from 'components/Span';
 import { PlusIcon } from 'assets/icons/Plus';
 import * as ImagePicker from 'expo-image-picker';
+import { snack } from 'lib/snack';
 
 type Props = {
   onSelect?: (doc: ImagePicker.ImageInfo) => void;
@@ -31,12 +32,12 @@ export const UploadImage = ({
       });
 
       if (result.cancelled) return;
-      if ((result.fileSize || 0) > 40000)
-        return alert('file size should be less than 40000');
-      console.log(result);
+      const tenMegabytes = 1024 * 1024;
+      if ((result.fileSize || 0) > tenMegabytes)
+        return snack('file size should not be more than 10MB');
       onSelect?.(result);
     } catch (error) {
-      alert('somethingn wennt wrong picking image'); // add log
+      snack('something went wrong picking image'); // add log
     }
   };
 

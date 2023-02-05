@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
 import { sheetRoutes } from '../routes';
-import { useStore } from '../store';
+import { useAppStore } from '../store';
 import { Order } from 'types/app';
 import {
   OrderLine,
@@ -16,6 +16,7 @@ import {
 } from 'components/OrderLine';
 import { Button } from 'components';
 import { Span } from 'components/Span';
+import { snack } from 'lib/snack';
 
 type Props = {};
 
@@ -23,8 +24,8 @@ export const PickManual = (props: Props) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderIds, setOrderIds] = useState<number[]>([]);
   const navigation = useNavigation();
-  const setCurrentSheet = useStore((store) => store.setSheet);
-  const addOrders = useStore((store) => store.addOrders);
+  const setCurrentSheet = useAppStore((store) => store.setSheet);
+  const addOrders = useAppStore((store) => store.addOrders);
 
   useEffect(() => {
     fetchManualBookings();
@@ -41,7 +42,7 @@ export const PickManual = (props: Props) => {
   };
 
   const handleConfirm = async () => {
-    if (!orderIds.length) return alert('Please select at least one order');
+    if (!orderIds.length) return snack('Please select at least one order');
 
     try {
       const { data } = await axios.post('/orders/confirm_multiple', {

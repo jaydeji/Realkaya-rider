@@ -4,13 +4,14 @@ import { SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { Input } from 'components';
 import { Button } from 'components';
 import { constants } from 'lib/constants';
-import { useStore } from 'store';
+import { useAppStore } from 'store';
 import { Span } from 'components/Span';
 import { useNavigation } from '@react-navigation/native';
+import { snack } from 'lib/snack';
 
 export const Login = () => {
   const navigation = useNavigation();
-  const setUser = useStore((store) => store.setUser);
+  const setUser = useAppStore((store) => store.setUser);
   const [state, setState] = useState({
     email: 'jamesadedejifirst@gmail.com',
     // password: 'jide1234',
@@ -21,7 +22,7 @@ export const Login = () => {
   const handleLogin = async () => {
     // return navigation.navigate('StepOne');
     if (!state.email || !state.password)
-      return alert('please enter email and password');
+      return snack('please enter email and password');
     try {
       const user = await axios.post('/auth/login', state);
       setUser(user.data.data, true);

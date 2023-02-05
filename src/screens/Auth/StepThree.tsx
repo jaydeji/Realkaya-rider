@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  Text,
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -12,28 +11,29 @@ import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { ImageInfo } from 'expo-image-picker';
+import { useAuthStore } from 'store/authStore';
 
 export const StepThree = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
 
-  const postImage = (image: ImageInfo) => {
-    return;
-    const url = 'http://192.168.10.107:8000/upload';
-    const fileUri = image.uri;
-    const formData = new FormData();
-    formData.append('image', fileUri);
-    const options = {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    };
-    console.log(formData);
+  const setImage = useAuthStore((store) => store.setImage);
+  const images = useAuthStore((store) => store.images);
+  const registerForm = useAuthStore((store) => store.registerForm);
+  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
 
-    fetch(url, options).catch((error) => console.log(error));
+  const handleImage = (key: string, image: ImageInfo) => {
+    setImage(key, image);
+  };
+
+  const disabled =
+    !registerForm.identification.idNumber ||
+    !images.documentUrl ||
+    !images.profilePhotoUrl;
+
+  const handleNext = () => {
+    // if (disabled) return snack('Please fill all required fields');
+    navigation.navigate('StepFour');
   };
 
   return (
@@ -59,21 +59,31 @@ export const StepThree = () => {
                 <Input
                   label="Nuban number"
                   placeholder="e,g, 2345657584"
-                  // value={state.email}
-                  // onChange={(text) => handleChangeText(text, 'email')}
+                  value={registerForm.identification.idNumber}
+                  onChange={(text) =>
+                    setRegisterForm('identification', {
+                      ...registerForm.identification,
+                      idNumber: text,
+                    })
+                  }
                 />
               </View>
               <View className="w-full mt-4">
                 <DateInput
                   label="Issued date"
-                  //   value={new Date()}
-                  onChange={() => {}}
-                  // value={state.email}
-                  // onChange={(text) => handleChangeText(text, 'email')}
+                  value={registerForm.identification.dateIssued}
+                  onChange={(text) =>
+                    setRegisterForm('identification', {
+                      ...registerForm.identification,
+                      dateIssued: text,
+                    })
+                  }
                 />
               </View>
               <View className="mt-4 flex-row justify-end">
-                <UploadImage onSelect={postImage} />
+                <UploadImage
+                  onSelect={(image) => handleImage('documentUrl', image)}
+                />
               </View>
             </View>
             <View className="bg-white p-4 mt-[27px]">
@@ -85,11 +95,13 @@ export const StepThree = () => {
                 Picture should contain your face only
               </Span>
               <View className="mt-4 flex-row justify-end">
-                <UploadImage onSelect={postImage} />
+                <UploadImage
+                  onSelect={(image) => handleImage('profilePhotoUrl', image)}
+                />
               </View>
             </View>
             <View className="mt-[27px]">
-              <Button onPress={() => navigation.navigate('StepFour')}>
+              <Button onPress={handleNext} disabled={disabled}>
                 Next
               </Button>
             </View>

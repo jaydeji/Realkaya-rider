@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  Text,
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -11,10 +10,25 @@ import { Input, DateInput, Button } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
+import { useAuthStore } from 'store/authStore';
 
 export const StepOne = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
+  const registerForm = useAuthStore((store) => store.registerForm);
+  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
+
+  const disabled =
+    !registerForm.firstName ||
+    !registerForm.lastName ||
+    !registerForm.email ||
+    !registerForm.phone;
+
+  const handleNext = () => {
+    // if (disabled) return snack('Please fill all required fields');
+    navigation.navigate('StepTwo');
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-alt-4 ">
       <KeyboardAvoidingView
@@ -34,25 +48,23 @@ export const StepOne = () => {
               <Input
                 label="First name"
                 placeholder="e.g, John"
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.firstName}
+                onChange={(text) => setRegisterForm('firstName', text)}
               />
             </View>
             <View className="w-full mt-4">
               <Input
                 label="Last name"
                 placeholder="e.g, Doe"
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.lastName}
+                onChange={(text) => setRegisterForm('lastName', text)}
               />
             </View>
             <View className="w-full mt-4">
               <DateInput
                 label="Date of birth"
-                // value={new Date()}
-                onChange={() => {}}
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.dateOfBirth}
+                onChange={(text) => setRegisterForm('dateOfBirth', text)}
               />
             </View>
             <View className="w-full mt-4">
@@ -60,8 +72,17 @@ export const StepOne = () => {
                 label="Email Address"
                 placeholder="e.g, johnDoe@gmail.com"
                 keyboardType="email-address"
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.email}
+                onChange={(text) => setRegisterForm('email', text)}
+              />
+            </View>
+            <View className="w-full mt-4">
+              <Input
+                label="Password"
+                placeholder=""
+                secureTextEntry
+                value={registerForm.password}
+                onChange={(text) => setRegisterForm('password', text)}
               />
             </View>
             <View className="w-full mt-4">
@@ -69,12 +90,12 @@ export const StepOne = () => {
                 label="Mobile number"
                 placeholder="e.g, +2349069469010"
                 keyboardType="phone-pad"
-                // value={state.email}
-                // onChange={(text) => handleChangeText(text, 'email')}
+                value={registerForm.phone}
+                onChange={(text) => setRegisterForm('phone', text)}
               />
             </View>
             <View className="mt-[72px]">
-              <Button onPress={() => navigation.navigate('StepTwo')}>
+              <Button onPress={handleNext} disabled={disabled}>
                 Next
               </Button>
             </View>

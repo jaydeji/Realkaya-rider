@@ -5,7 +5,7 @@ import BottomSheet, {
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
 import axios from 'axios';
-import { useStore } from '../store';
+import { useAppStore } from '../store';
 import { sheetRoutes } from '../routes';
 import {
   OfflineSheet,
@@ -22,14 +22,14 @@ import Animated, {
 import { Button } from 'components';
 
 export const Home = () => {
-  const currentSheet = useStore((store) => store.sheet);
+  const currentSheet = useAppStore((store) => store.sheet);
   const snapPoints = useMemo(
     () => currentSheet.snapPoints,
     [currentSheet.snapPoints]
   );
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const setCurrentSheet = useStore((store) => store.setSheet);
-  const addOrders = useStore((store) => store.addOrders);
+  const setCurrentSheet = useAppStore((store) => store.setSheet);
+  const addOrders = useAppStore((store) => store.addOrders);
 
   const handleSheetChanges = useCallback((index: number) => {
     // console.log('handleSheetChanges', index);

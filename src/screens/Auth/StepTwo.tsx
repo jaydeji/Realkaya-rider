@@ -6,22 +6,35 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { DateInput, Button, Select, CheckBox, Input } from 'components';
+import { Button, Select, CheckBox, Input } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
+import { useAuthStore } from 'store/authStore';
 
 export const StepTwo = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
 
-  const [vehicleChecked, setVehicleChecked] = useState(false);
+  const registerForm = useAuthStore((store) => store.registerForm);
+  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
 
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
-  ]);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   { label: 'Apple', value: 'apple' },
+  //   { label: 'Banana', value: 'banana' },
+  // ]);
+
+  const disabled = !registerForm.vehicle
+    ? false
+    : !registerForm.vehicle.manufacturer ||
+      !registerForm.vehicle.licensePlate ||
+      !registerForm.vehicle.address;
+
+  const handleNext = () => {
+    // if (disabled) return snack('Please fill all required fields');
+    navigation.navigate('StepThree');
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-alt-4 ">
@@ -40,51 +53,88 @@ export const StepTwo = () => {
             </Span>
             <View className="mb-4">
               <CheckBox
-                checked={vehicleChecked}
-                onPress={() => setVehicleChecked(!vehicleChecked)}
+                checked={!!registerForm.vehicle}
+                onPress={() => {
+                  if (!registerForm.vehicle) setRegisterForm('vehicle', {});
+                  else setRegisterForm('vehicle', undefined);
+                }}
                 text="I have a Vehicle to use for delivery"
               />
             </View>
-            {vehicleChecked && (
+            {!!registerForm.vehicle && (
               <>
                 <View className="w-full">
                   <Input
                     label="Vehicle manufacturer"
                     placeholder="e,g, Yamaha 314"
-                    // value={state.email}
-                    // onChange={(text) => handleChangeText(text, 'email')}
+                    value={registerForm.vehicle.manufacturer}
+                    onChange={(text) =>
+                      setRegisterForm('vehicle', {
+                        ...registerForm.vehicle,
+                        manufacturer: text,
+                      })
+                    }
                   />
                 </View>
                 <View className="w-full mt-4">
-                  <Select
-                    value={value}
+                  {/* <Select
                     items={items}
                     setItems={setItems}
                     label="Vehicle Type"
-                    // onChange={(text) => handleChangeText(text, 'email')}
+                    // value={registerForm.vehicleType}
+                    // setValue={(value) => {
+                    //   console.log(value);
+                    //   setRegisterForm('vehicleType', value);
+                    // }}
+                    value={value}
+                    setValue={setValue}
+                  /> */}
+                  <Input
+                    label="Vehicle Type"
+                    placeholder="Vehicle Type"
+                    value={registerForm.vehicle.vehicleType}
+                    onChange={(text) =>
+                      setRegisterForm('vehicle', {
+                        ...registerForm.vehicle,
+                        vehicleType: text,
+                      })
+                    }
                   />
                 </View>
                 <View className="w-full mt-4">
                   <Input
                     label="License Plate"
                     placeholder="e.g, BG 336 CB"
-                    // value={state.email}
-                    // onChange={(text) => handleChangeText(text, 'email')}
+                    value={registerForm.vehicle.licensePlate}
+                    onChange={(text) =>
+                      setRegisterForm('vehicle', {
+                        ...registerForm.vehicle,
+                        licensePlate: text,
+                      })
+                    }
                   />
                 </View>
                 <View className="w-full mt-4">
                   <Input
-                    value={value}
                     label="Address"
                     multiline
                     textClass="h-[90px]"
-                    // onChange={(text) => handleChangeText(text, 'email')}
+                    value={registerForm.vehicle.address}
+                    onChange={(text) =>
+                      setRegisterForm('vehicle', {
+                        ...registerForm.vehicle,
+                        address: text,
+                      })
+                    }
                   />
                 </View>
               </>
             )}
             <View className="mt-[72px]">
-              <Button onPress={() => navigation.navigate('StepThree')}>
+              <Button
+                onPress={() => navigation.navigate('StepThree')}
+                disabled={disabled}
+              >
                 Next
               </Button>
             </View>

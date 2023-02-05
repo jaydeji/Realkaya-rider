@@ -42,8 +42,6 @@ export const Map = ({ children }: Props) => {
     })();
   }, []);
 
-  // console.log(location);
-
   useEffect(() => {
     if (mapRef.current === null) return;
     mapRef.current.fitToSuppliedMarkers(['origin', 'destination'], {
