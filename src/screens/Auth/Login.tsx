@@ -12,6 +12,7 @@ import { snack } from 'lib/snack';
 export const Login = () => {
   const navigation = useNavigation();
   const setUser = useAppStore((store) => store.setUser);
+  const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
     email: 'jamesadedejifirst@gmail.com',
     // password: 'jide1234',
@@ -23,10 +24,13 @@ export const Login = () => {
     // return navigation.navigate('StepOne');
     if (!state.email || !state.password)
       return snack('please enter email and password');
+    setLoading(true);
     try {
       const user = await axios.post('/auth/login', state);
       setUser(user.data.data, true);
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false);
+    }
   };
   const handleChangeText = (text: string, name: string) => {
     setState({ ...state, [name]: text });
@@ -61,7 +65,9 @@ export const Login = () => {
           <Span textClass="mt-3 text-main-blue">Forgot password?</Span>
         </TouchableOpacity>
         <View className="mt-[70px]">
-          <Button onPress={handleLogin}>Confirm</Button>
+          <Button onPress={handleLogin} loading={loading}>
+            Confirm
+          </Button>
         </View>
       </View>
     </SafeAreaView>

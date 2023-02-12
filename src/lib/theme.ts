@@ -3,6 +3,7 @@ const colors = {
   nav: '#02092A',
   'light-text': '#555B6A',
   'main-blue': '#3094CC',
+  ebebeb: '#EBEBEB',
   alt: {
     1: '#F4F4F6',
     3: '#E5E5E5',

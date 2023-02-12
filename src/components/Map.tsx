@@ -16,6 +16,8 @@ import shape from 'assets/images/Shape.png';
 import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPS_APIKEY } from '@env';
 import * as Location from 'expo-location';
+import { snack } from 'lib/snack';
+import { useLocation } from 'hooks';
 
 type Props = {
   children?: React.ReactNode;
@@ -24,25 +26,10 @@ type Props = {
 export const Map = ({ children }: Props) => {
   const mapRef = useRef<MapView>(null);
 
-  const [location, setLocation] = useState<Location.LocationObject | null>(
-    null
-  );
-  const [errorMsg, setErrorMsg] = useState('');
+  const { location, fullLocation, getLocation } = useLocation({});
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-  }, []);
-
-  useEffect(() => {
+    getLocation();
     if (mapRef.current === null) return;
     mapRef.current.fitToSuppliedMarkers(['origin', 'destination'], {
       edgePadding: { top: 50, bottom: 50, left: 50, right: 50 },
@@ -70,7 +57,7 @@ export const Map = ({ children }: Props) => {
         }}
       >
         <MapViewDirections
-          origin={{ latitude: 6.514577, longitude: 3.391881 }}
+          origin={location || { latitude: 6.514577, longitude: 3.391881 }}
           destination={{
             latitude: 6.518572387441918,
             longitude: 3.372669140201567,
@@ -79,18 +66,20 @@ export const Map = ({ children }: Props) => {
           strokeWidth={3}
           strokeColor="#FF6600"
         />
-        <Marker.Animated
-          coordinate={{ latitude: 6.514577, longitude: 3.391881 }}
-          title="Origin"
-          identifier="origin"
-          description="The uk"
-        >
-          {/* <Image source={marker} /> */}
+        {location && (
+          <Marker.Animated
+            coordinate={location}
+            title="Origin"
+            identifier="origin"
+            description="The uk"
+          >
+            {/* <Image source={marker} /> */}
 
-          <View className="h-8 w-8 bg-[#FF6600]/20 rounded-full flex items-center justify-center">
-            <View className="h-4 w-4 bg-[#FF6600] rounded-full"></View>
-          </View>
-        </Marker.Animated>
+            <View className="h-8 w-8 bg-[#FF6600]/20 rounded-full flex items-center justify-center">
+              <View className="h-4 w-4 bg-[#FF6600] rounded-full"></View>
+            </View>
+          </Marker.Animated>
+        )}
         <Marker
           coordinate={{
             latitude: 6.518572387441918,
@@ -109,9 +98,9 @@ export const Map = ({ children }: Props) => {
                   transform: [
                     {
                       rotate:
-                        location?.coords.heading === undefined
+                        fullLocation?.coords.heading === undefined
                           ? '0deg'
-                          : `${location.coords.heading}deg`,
+                          : `${fullLocation.coords.heading}deg`,
                     },
                   ],
                 }}

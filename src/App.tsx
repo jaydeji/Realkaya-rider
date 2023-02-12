@@ -11,6 +11,8 @@ import { useAppStore } from 'store';
 import { useFonts } from 'expo-font';
 import { registerRootComponent } from 'expo';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from 'lib/query';
 
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
@@ -43,7 +45,7 @@ const AppWrapper = () => {
   const [isAppReady, setAppReady] = useState(false);
   const [isSetupDone, setSetupDone] = useState(false);
   const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
-  const init = useAppStore((store) => store.init);
+
   const [fontsLoaded] = useFonts({
     Mulish: require('./assets/fonts/Mulish-Regular.ttf'),
     'Mulish-Medium': require('./assets/fonts/Mulish-Medium.ttf'),
@@ -54,7 +56,6 @@ const AppWrapper = () => {
 
   const setup = async () => {
     setupAxios();
-    await init();
   };
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const AppWrapper = () => {
       {isAppReady && <Main />}
       {!isSplashAnimationComplete && (
         <Splash
+          fontsLoaded={fontsLoaded}
           isAppReady={isAppReady}
           setAnimationComplete={(value) => setAnimationComplete(value)}
         />
@@ -82,9 +84,11 @@ const AppWrapper = () => {
 const App = () => {
   return (
     <RootSiblingParent>
-      <NavigationContainer>
-        <AppWrapper />
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <AppWrapper />
+        </NavigationContainer>
+      </QueryClientProvider>
     </RootSiblingParent>
   );
 };

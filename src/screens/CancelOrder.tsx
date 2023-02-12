@@ -1,35 +1,47 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { View, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { Button, CheckRound } from 'components';
 import { Span } from 'components/Span';
+import { useOrderStore } from 'store';
+import { useUpdateOrder, useUpdateOrdersForToday } from 'lib/api/hooks';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from 'types/navigation';
+import { snack } from 'lib/snack';
+import { goToHomeSheet } from 'lib/order';
 
 const options = [
   {
-    id: 'OFF',
+    id: 'OFFLINE',
     name: 'Pickup location was offline',
   },
   {
-    id: 'INF',
+    id: 'WRONGINFO',
     name: 'Information provided was wrong',
   },
   {
-    id: 'RUD',
+    id: 'RUDECUSTOMER',
     name: 'Pickup customer was rude',
   },
   {
-    id: 'MECH',
+    id: 'MECHANICAL',
     name: 'I have mechanical issues',
   },
 ];
 
 export const CancelOrder = () => {
   const [selected, setSelected] = useState<string>();
+
+  const { params } = useRoute<RouteProp<RootStackParamList, 'CancelOrder'>>();
+
+  const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
+  const { mutate: updateOrdersForToday } = useUpdateOrdersForToday();
+  const { mutate: updateApiOrder, isLoading } = useUpdateOrder({
+    onSuccess: () => {
+      setCurrentOrder();
+      updateOrdersForToday();
+      goToHomeSheet();
+    },
+  });
 
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
@@ -71,7 +83,22 @@ export const CancelOrder = () => {
             ))}
           </View>
           <View className="mt-12">
-            <Button onPress={() => {}}>Confirm</Button>
+            <Button
+              onPress={() => {
+                if (!selected)
+                  return snack('please select an option to cancel order');
+                updateApiOrder({
+                  orderId: params.orderId,
+                  body: {
+                    cancelOrder: selected,
+                  },
+                });
+              }}
+              disabled={!selected}
+              loading={isLoading}
+            >
+              Confirm
+            </Button>
           </View>
         </View>
       </View>

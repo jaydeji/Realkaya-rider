@@ -1,14 +1,12 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
-import { BeginCircle } from 'assets/icons/BeginCircle';
-import { EndCircle } from 'assets/icons/EndCircle';
 import { Order } from 'types/app';
-import { Span } from 'components/Span';
+import { OrderAddressBar } from './OrderAddressBar';
 
 type OrderLineProps = {
   right: React.ReactNode;
   top: React.ReactNode;
-  order: Order;
+  order: Pick<Order, 'senderAddress' | 'recepientAddress'>;
 };
 
 export const OrderLine = ({ top, right, order }: OrderLineProps) => {
@@ -18,18 +16,12 @@ export const OrderLine = ({ top, right, order }: OrderLineProps) => {
       {top}
       <View className="flex-row justify-between mt-[10px]">
         <View>
-          <View className="flex-row items-center">
-            <BeginCircle />
-            <Span textClass="ml-[6px] text-light-text text-xs">
-              {senderAddress}
-            </Span>
-          </View>
-          <View className="flex-row items-center mt-[10px]">
-            <EndCircle />
-            <Span textClass="ml-[6px] text-light-text text-xs">
-              {recepientAddress}
-            </Span>
-          </View>
+          <OrderAddressBar address={senderAddress} />
+          <OrderAddressBar
+            address={recepientAddress}
+            bodyClass="mt-[10px]"
+            alt
+          />
         </View>
         {right}
       </View>

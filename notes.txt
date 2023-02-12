@@ -4,3 +4,37 @@ expo/vectoricons
 button - touchable_opacity>view>text
 
 react-native-flash-message
+
+unconfirmed order
+confirmed order
+arrived 
+picked up order
+start dropoff order
+end dropoff order
+
+
+Ongoing=Get all ongoing orders
+Dated
+
+Automatic Ongoing
+Manual Ongoing
+Update Ongoing Optimistic
+OrdersList|dated Ongoing Dated refetch on mount
+
+what shows on homepage?
+no need for ongoing. Just get by date for whole app
+selected order state
+should be able to select active order from order list
+add i button for details
+
+if (ongoing orders) {
+    show online/offline page
+    show earnings and ratings
+    show link to select order
+}
+else show automatic page
+
+OFFLINE
+going offline is just for user purposes
+
+

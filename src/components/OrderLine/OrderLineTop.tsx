@@ -1,14 +1,15 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Order } from 'app';
+import { Order } from 'types/app';
 import { Span } from 'components/Span';
+import { OrderKilometer } from './OrderKilometer';
 
 export const OrderLineTop = ({
   hideAmount,
   order,
 }: {
   hideAmount?: boolean;
-  order: Order;
+  order: Pick<Order, 'distance' | 'orderId'>;
 }) => {
   const { distance, orderId } = order;
   return (
@@ -17,9 +18,7 @@ export const OrderLineTop = ({
         <Span textClass="text-primary font-Mulish-Bold text-sm">
           Order {orderId}
         </Span>
-        <Span textClass="py-[6px] px-[15px] text-main-blue bg-main-blue/20 rounded-[5px] ml-[10px] font-Mulish-Bold text-[10px]">
-          {(distance / 1000).toFixed(2)}km
-        </Span>
+        <OrderKilometer distance={distance} />
       </View>
       {!hideAmount && (
         <Span textClass="text-primary font-Mulish-Bold text-xs">₦300</Span>

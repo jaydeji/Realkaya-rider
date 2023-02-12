@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { ArrowDownIcon } from 'assets/icons/ArrowDown';
+import { ArrowDownIcon } from 'assets/icons';
 import DateTimePickerModal, {
   ReactNativeModalDateTimePickerProps,
 } from 'react-native-modal-datetime-picker';
@@ -8,10 +8,10 @@ import { Span } from 'components/Span';
 
 type DateSelectProps = Omit<
   ReactNativeModalDateTimePickerProps,
-  'onConfirm' | 'onCancel' | 'date'
+  'onCancel' | 'date'
 > & { date: Date };
 
-export const DateSelect = ({ date, ...props }: DateSelectProps) => {
+export const DateSelect = ({ date, onConfirm, ...props }: DateSelectProps) => {
   const [show, setShow] = useState(false);
 
   const day = date.getDate();
@@ -33,7 +33,10 @@ export const DateSelect = ({ date, ...props }: DateSelectProps) => {
         isVisible={show}
         mode="date"
         date={date}
-        onConfirm={() => setShow(false)}
+        onConfirm={(date) => {
+          onConfirm(date);
+          setShow(false);
+        }}
         onCancel={() => setShow(false)}
         {...props}
       />

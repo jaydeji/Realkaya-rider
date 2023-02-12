@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { CheckBoxFilledIcon } from 'assets/icons/CheckBox';
+import { CheckBoxFilledIcon } from 'assets/icons';
 import { Span } from 'components/Span';
 
 type Props = {

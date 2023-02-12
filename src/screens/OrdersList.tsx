@@ -1,23 +1,55 @@
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Button, DateSelect } from 'components';
 import clsx from 'clsx';
 import { ScrollView } from 'react-native-gesture-handler';
 import { OrderLine, OrderLineRight, OrderLineTop } from 'components/OrderLine';
 import { useNavigation } from '@react-navigation/native';
+import { useQuery } from 'react-query';
+import { getOrdersByDate } from 'lib/api';
+import { queryKeys } from 'lib/query';
+import { useAppStore, useOrderStore } from 'store';
+import { sheetRoutes } from 'routes';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ScreensStackParamList } from 'types/navigation';
+
+type OrderStatusLetter = 'P' | 'D';
 
 export const OrdersList = () => {
-  const [selected, setSelected] = useState(1);
-  const [date, setDate] = useState(new Date());
-  const navigation = useNavigation();
+  const [selected, setSelected] = useState<OrderStatusLetter>('P');
+  const [date, setDate] = useState(new Date('2022-11-12T17:21:10.285Z'));
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
+
+  const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
+  const setSheet = useAppStore((store) => store.setSheet);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <DateSelect date={date} onChange={(date) => setDate(date as Date)} />
+        <DateSelect date={date} onConfirm={(date) => setDate(date as Date)} />
       ),
     });
-  }, [navigation]);
+  }, [navigation, date, setDate]);
+
+  const { data: orders, isLoading } = useQuery({
+    queryFn: () => getOrdersByDate({ date: date.toISOString() }),
+    queryKey: queryKeys.getOrdersByDate(date.toISOString()),
+    select: (orders) => {
+      return {
+        P: !orders
+          ? []
+          : orders.filter(
+              (order) => order.confirmedAt && !order.pickUpArrivedAt
+            ),
+        D: !orders
+          ? []
+          : orders.filter(
+              (order) => order.pickUpArrivedAt && !order.dropOffArrivedAt
+            ),
+      };
+    },
+  });
 
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
@@ -25,53 +57,50 @@ export const OrdersList = () => {
         <View className="flex-row mt-9 px-4 py-3 bg-white rounded-[5px] border border-alt-8">
           <View className="flex-1">
             <Button
-              bodyClass={clsx(selected !== 0 && 'bg-white')}
-              textClass={clsx(selected !== 0 && 'text-light-text')}
-              onPress={() => setSelected(0)}
-            >
-              Confirmed
-            </Button>
-          </View>
-          <View className="flex-1">
-            <Button
-              bodyClass={clsx(selected !== 1 && 'bg-white')}
-              textClass={clsx(selected !== 1 && 'text-light-text')}
-              onPress={() => setSelected(1)}
+              bodyClass={clsx(selected !== 'P' && 'bg-white')}
+              textClass={clsx(selected !== 'P' && 'text-light-text')}
+              onPress={() => setSelected('P')}
             >
               Pickup
             </Button>
           </View>
           <View className="flex-1">
             <Button
-              bodyClass={clsx(selected !== 2 && 'bg-white')}
-              textClass={clsx(selected !== 2 && 'text-light-text')}
-              onPress={() => setSelected(2)}
+              bodyClass={clsx(selected !== 'D' && 'bg-white')}
+              textClass={clsx(selected !== 'D' && 'text-light-text')}
+              onPress={() => setSelected('D')}
             >
               Delivery
             </Button>
           </View>
         </View>
         <ScrollView>
-          <View className="mt-[14px]">
-            <OrderLine
-              order={{ senderAddress: 'a', recepientAddress: 'b' }}
-              top={
-                <OrderLineTop
-                  order={{ senderAddress: 'a', recepientAddress: 'b' }}
+          {isLoading ? (
+            <ActivityIndicator size="large" />
+          ) : (
+            <View className="mt-[14px]">
+              {orders?.[selected].map((e) => (
+                <OrderLine
+                  key={e.orderId}
+                  order={{
+                    senderAddress: e.senderAddress,
+                    recepientAddress: e.recepientAddress,
+                  }}
+                  top={<OrderLineTop order={{ distance: 100, orderId: 10 }} />}
+                  right={
+                    <OrderLineRight
+                      onPress={() => {
+                        setCurrentOrder(e);
+                        setSheet(sheetRoutes[2]);
+                        navigation.navigate('Home');
+                      }}
+                      text="Select"
+                    />
+                  }
                 />
-              }
-              right={<OrderLineRight />}
-            />
-            <OrderLine
-              order={{ senderAddress: 'a', recepientAddress: 'b' }}
-              top={
-                <OrderLineTop
-                  order={{ senderAddress: 'a', recepientAddress: 'b' }}
-                />
-              }
-              right={<OrderLineRight />}
-            />
-          </View>
+              ))}
+            </View>
+          )}
         </ScrollView>
       </View>
     </SafeAreaView>

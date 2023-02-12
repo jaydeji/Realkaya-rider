@@ -1,7 +1,6 @@
 import React from 'react';
 import { Linking, View } from 'react-native';
-import { CallIcon } from 'assets/icons/Call';
-import { MessageIcon } from 'assets/icons/Message';
+import { CallIcon, MessageIcon } from 'assets/icons';
 
 export const OrderLineRightCall = () => {
   return (

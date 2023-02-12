@@ -12,7 +12,7 @@ export type RootStackParamList = {
   PickManual: undefined;
   Welldone: undefined;
   CompleteOrder: { orderId: number };
-  CancelOrder: undefined;
+  CancelOrder: { orderId: number };
   Auth: undefined;
   Login: undefined;
   StepOne: undefined;

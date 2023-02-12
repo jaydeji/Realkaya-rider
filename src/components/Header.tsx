@@ -1,6 +1,6 @@
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import React from 'react';
-import { Back } from 'assets/icons/Back';
+import { Back } from 'assets/icons';
 import { Span } from 'components/Span';
 
 type Props = {

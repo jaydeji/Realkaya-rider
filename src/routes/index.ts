@@ -19,6 +19,11 @@ export const sheetRoutes: SheetRoute[] = [
   {
     name: 'offline',
     snapPoint: '40%',
-    snapPoints: ['25%', '40%'],
+    snapPoints: ['40%', '25%'],
+  },
+  {
+    name: 'loading',
+    snapPoint: '40%',
+    snapPoints: ['40%'],
   },
 ];

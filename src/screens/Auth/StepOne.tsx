@@ -10,7 +10,7 @@ import { Input, DateInput, Button } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthStore } from 'store/authStore';
+import { useAuthStore } from 'store/formStore';
 
 export const StepOne = () => {
   const height = useHeaderHeight();

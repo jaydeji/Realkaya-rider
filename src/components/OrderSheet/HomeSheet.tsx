@@ -1,10 +1,40 @@
 import { useNavigation } from '@react-navigation/native';
+import { useLocation } from 'hooks';
+import { findNearestOrder } from 'lib/api';
+import { _date } from 'lib/date';
+import { snack } from 'lib/snack';
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { useMutation } from 'react-query';
+import { sheetRoutes } from 'routes';
+import { useAppStore, useOrderStore } from 'store';
+import { Location } from 'types/app';
 import { Span } from '../Span';
 
-export const HomeSheet = ({ handleSetAuto }: { handleSetAuto: () => void }) => {
+export const HomeSheet = () => {
   const navigation = useNavigation();
+  const setCurrentSheet = useAppStore((store) => store.setSheet);
+  const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
+
+  const { isLoading, getLocation } = useLocation({
+    onSuccess: (data) => {
+      if (!data) return snack('Permission to access location was denied');
+      handleSetAuto(data);
+    },
+  });
+
+  const { mutate: handleSetAuto } = useMutation({
+    mutationFn: (location: Location) => findNearestOrder(location),
+    onSuccess: (data: any) => {
+      if (data?.orderId) {
+        setCurrentOrder(data);
+        setCurrentSheet(sheetRoutes[2]);
+      } else {
+        snack('No order found');
+        setCurrentSheet(sheetRoutes[0]);
+      }
+    },
+  });
 
   return (
     <View className="p-5 flex-1 items-center justify-center">
@@ -16,9 +46,17 @@ export const HomeSheet = ({ handleSetAuto }: { handleSetAuto: () => void }) => {
       <View className="w-full mt-10">
         <TouchableHighlight
           className="bg-primary h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
-          onPress={handleSetAuto}
+          onPress={() => {
+            getLocation();
+          }}
         >
-          <Span textClass="text-white font-Mulish-Bold">Set automatically</Span>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <Span textClass="text-white font-Mulish-Bold">
+              Set automatically
+            </Span>
+          )}
         </TouchableHighlight>
       </View>
       <View className="w-full mt-5">

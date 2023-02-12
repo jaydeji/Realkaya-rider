@@ -1,9 +1,6 @@
 import React from 'react';
 import {
   createDrawerNavigator,
-  DrawerContentComponentProps,
-  DrawerContentScrollView,
-  DrawerItem,
   getDrawerStatusFromState,
   useDrawerProgress,
 } from '@react-navigation/drawer';
@@ -14,27 +11,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Animated from 'react-native-reanimated';
 import clsx from 'clsx';
 import { IndexDrawerParamList, ScreensStackParamList } from 'types/navigation';
+import { CustomDrawerContent } from 'components/Layout';
 
-type Props = {};
 const Drawer = createDrawerNavigator<IndexDrawerParamList>();
 
-const CustomDrawerContent = (props: DrawerContentComponentProps) => {
-  return (
-    <DrawerContentScrollView {...props} style={{ backgroundColor: '#02092A' }}>
-      <DrawerItem
-        label="Payments"
-        onPress={() => props.navigation.navigate('Details')}
-        labelStyle={{ color: 'white' }}
-      />
-      <DrawerItem
-        label="Maps"
-        onPress={() => props.navigation.navigate('Home')}
-        // onPress={() => props.navigation.navigate('Co')}
-      />
-    </DrawerContentScrollView>
-  );
-};
-
+type Props = {};
 export const Index = ({}: Props) => {
   return (
     <Drawer.Navigator

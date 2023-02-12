@@ -26,6 +26,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const Main = () => {
   const isAuth = useAppStore((store) => store.isAuth);
+
   return (
     <>
       <RootStack.Navigator>

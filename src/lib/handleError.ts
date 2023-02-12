@@ -2,8 +2,8 @@ import { AxiosError } from 'axios';
 import { useAppStore } from '../store';
 import { snack } from './snack';
 
-export const handleError = (error: AxiosError) => {
-  const responseData = error.response?.data as any;
+export const handleError = (error: AxiosError<{ message?: string }>) => {
+  const responseData = error.response?.data;
 
   if (error.response?.status === 400 && responseData?.message) {
     return snack(responseData.message);

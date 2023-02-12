@@ -10,7 +10,7 @@ import { Button, Select, CheckBox, Input } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthStore } from 'store/authStore';
+import { useAuthStore } from 'store/formStore';
 
 export const StepTwo = () => {
   const height = useHeaderHeight();

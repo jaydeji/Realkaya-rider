@@ -11,7 +11,7 @@ import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { ImageInfo } from 'expo-image-picker';
-import { useAuthStore } from 'store/authStore';
+import { useAuthStore } from 'store/formStore';
 
 export const StepThree = () => {
   const height = useHeaderHeight();

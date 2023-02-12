@@ -15,6 +15,9 @@ module.exports = {
         1: '0px 4px 40px rgba(85, 91, 106, 0.24)',
       },
       fontFamily,
+      fontSize: {
+        xxs: '10px',
+      },
     },
   },
   plugins: [],

@@ -1,14 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, SafeAreaView, ActivityIndicator } from 'react-native';
 import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
 import { sheetRoutes } from '../routes';
-import { useAppStore } from '../store';
-import { Order } from 'types/app';
+import { useAppStore, useOrderStore } from '../store';
 import {
   OrderLine,
   OrderLineRightCheck,
@@ -17,41 +15,37 @@ import {
 import { Button } from 'components';
 import { Span } from 'components/Span';
 import { snack } from 'lib/snack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ScreensStackParamList } from 'types/navigation';
+import { useMutation, useQuery } from 'react-query';
+import { queryKeys } from 'lib/query';
+import { confirmMultipleOrders, fetchUncofirmedOrders } from 'lib/api';
 
-type Props = {};
-
-export const PickManual = (props: Props) => {
-  const [orders, setOrders] = useState<Order[]>([]);
+export const PickManual = () => {
   const [orderIds, setOrderIds] = useState<number[]>([]);
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
   const setCurrentSheet = useAppStore((store) => store.setSheet);
-  const addOrders = useAppStore((store) => store.addOrders);
+  const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
 
-  useEffect(() => {
-    fetchManualBookings();
-  }, []);
+  const { data: orders, isLoading } = useQuery({
+    queryFn: fetchUncofirmedOrders,
+    queryKey: queryKeys.fetchUncofirmedOrders,
+  });
 
-  const fetchManualBookings = async () => {
-    try {
-      const { data } = await axios.post('/orders/unconfirmed', {
-        latitude: 6.520238459241921,
-        longitude: 3.3680734868226345,
-      });
-      setOrders(data.data);
-    } catch (error) {}
-  };
+  const { mutate: _confirmMultipleOrders, isLoading: confirmLoading } =
+    useMutation({
+      mutationFn: () => confirmMultipleOrders({ orderIds }),
+      onSuccess: (data) => {
+        setCurrentOrder(data[0]);
+        setCurrentSheet(sheetRoutes[2]);
+        navigation.navigate('Home');
+      },
+    });
 
   const handleConfirm = async () => {
     if (!orderIds.length) return snack('Please select at least one order');
-
-    try {
-      const { data } = await axios.post('/orders/confirm_multiple', {
-        orderIds,
-      });
-      addOrders(data.data);
-      setCurrentSheet(sheetRoutes[2]);
-      navigation.navigate('Home');
-    } catch (error) {}
+    _confirmMultipleOrders();
   };
 
   const setOrderId = (orderId: number) => {
@@ -59,6 +53,8 @@ export const PickManual = (props: Props) => {
     if (id) setOrderIds(orderIds.filter((e) => e !== orderId));
     else setOrderIds(orderIds.concat(orderId));
   };
+
+  if (isLoading) return <ActivityIndicator size="large" />;
 
   return (
     <SafeAreaView className="flex-1">
@@ -70,7 +66,7 @@ export const PickManual = (props: Props) => {
           </Span>
         </View>
         <ScrollView>
-          {orders.map((order) => {
+          {(orders || []).map((order) => {
             return (
               <TouchableWithoutFeedback
                 onPress={() => setOrderId(order.orderId)}
@@ -90,7 +86,9 @@ export const PickManual = (props: Props) => {
           })}
         </ScrollView>
         <View>
-          <Button onPress={handleConfirm}>Confirm</Button>
+          <Button onPress={handleConfirm} loading={confirmLoading}>
+            Confirm
+          </Button>
         </View>
       </View>
     </SafeAreaView>

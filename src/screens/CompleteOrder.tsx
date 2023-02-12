@@ -1,35 +1,52 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { View, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import React, { useState } from 'react';
 import { Button, CheckRound } from 'components';
-import clsx from 'clsx';
 import { Span } from 'components/Span';
+import { useOrderStore } from 'store';
+import { useUpdateOrder, useUpdateOrdersForToday } from 'lib/api/hooks';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList, ScreensStackParamList } from 'types/navigation';
+import { snack } from 'lib/snack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { goToHomeSheet } from 'lib/order';
 
 const options = [
   {
-    id: 'OFF',
+    id: 'DIRECT',
     name: 'Delivered directly to customer',
   },
   {
-    id: 'INF',
+    id: 'DOORPOST',
     name: 'Customer directed on doorpost',
   },
   {
-    id: 'RUD',
+    id: 'THIRDPARTY',
     name: 'Delivered to third party on customer notice',
   },
   {
-    id: 'MECH',
+    id: 'OFFLINE',
     name: 'Customer was offline',
   },
 ];
 
 export const CompleteOrder = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
+
   const [selected, setSelected] = useState<string>();
+
+  const { params } = useRoute<RouteProp<RootStackParamList, 'CompleteOrder'>>();
+
+  const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
+  const { mutate: updateOrdersForToday } = useUpdateOrdersForToday();
+  const { mutate: updateApiOrder, isLoading } = useUpdateOrder({
+    onSuccess: () => {
+      setCurrentOrder();
+      updateOrdersForToday();
+      goToHomeSheet();
+      navigation.navigate('Home');
+    },
+  });
 
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
@@ -56,7 +73,22 @@ export const CompleteOrder = () => {
             ))}
           </View>
           <View className="mt-12">
-            <Button onPress={() => {}}>Confirm</Button>
+            <Button
+              disabled={!selected}
+              loading={isLoading}
+              onPress={() => {
+                if (!selected)
+                  return snack('please select an option to complete order');
+                updateApiOrder({
+                  orderId: params.orderId,
+                  body: {
+                    markOrder: selected,
+                  },
+                });
+              }}
+            >
+              Confirm
+            </Button>
           </View>
         </View>
       </View>

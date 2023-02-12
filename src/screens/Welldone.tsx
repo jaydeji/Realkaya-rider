@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { ProfileIcon } from 'assets/icons/Profile';
+import { ProfileIcon } from 'assets/icons';
 import {
   Button,
   OrderLine,

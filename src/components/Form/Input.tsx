@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import { Span } from 'components/Span';
 import clsx from 'clsx';
+//@ts-ignore
 import { colors } from 'lib/theme';
 
 type Props = {

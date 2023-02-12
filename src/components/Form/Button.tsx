@@ -1,5 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  TouchableOpacity,
+  TouchableHighlight,
+  ActivityIndicator,
+} from 'react-native';
 import clsx from 'clsx';
 import { Span } from 'components/Span';
 
@@ -10,6 +14,7 @@ type Props = {
   children: React.ReactNode;
   disabled?: boolean;
   loading?: boolean;
+  alt?: boolean;
 };
 
 export const Button = ({
@@ -19,9 +24,13 @@ export const Button = ({
   bodyClass,
   disabled,
   loading,
+  alt,
 }: Props) => {
+  const Touchable = (
+    !alt ? TouchableOpacity : TouchableHighlight
+  ) as React.ElementType;
   return (
-    <TouchableOpacity
+    <Touchable
       className={clsx(
         'bg-primary h-[45px] items-center justify-center rounded-[5px] overflow-hidden',
         disabled && 'opacity-60',
@@ -37,6 +46,6 @@ export const Button = ({
           {children}
         </Span>
       )}
-    </TouchableOpacity>
+    </Touchable>
   );
 };

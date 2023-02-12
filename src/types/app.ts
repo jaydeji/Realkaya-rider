@@ -8,14 +8,17 @@ export const PaymentMethod = {
   CASH: 'CASH',
   POS: 'POS',
   CARD: 'CARD',
-};
+} as const;
+
 export type PaymentMethod = typeof PaymentMethod[keyof typeof PaymentMethod];
 
 export type Order = {
   orderId: number;
   confirmedAt: string | null;
   orderType: OrderType;
+  pickUpStartAt: string | null;
   pickUpArrivedAt: string | null;
+  pickUpPickedAt: string | null;
   senderLongitude: number;
   senderLatitude: number;
   senderAddress: string;
@@ -27,6 +30,7 @@ export type Order = {
   recepientName: string;
   recepientPhone: string;
   cancelledAt: string | null;
+  deliveredAt: string | null;
   distance: number;
   estimatedTime: number | null;
   estimatedFee: number;
@@ -46,4 +50,19 @@ export type SheetRoute = {
   snapPoint: string;
   snapPoints: string[];
   options?: Record<string, unknown>;
+};
+
+export type Location = {
+  latitude: number;
+  longitude: number;
+};
+
+export type User = {
+  online: boolean;
+  profilePhotoUrl?: string;
+  firstName: string;
+};
+export type UserWithCred = {
+  token: string;
+  user: User;
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, Text, TouchableOpacity } from 'react-native';
 import clsx from 'clsx';
 import { Span } from 'components/Span';
-import { PlusIcon } from 'assets/icons/Plus';
+import { PlusIcon } from 'assets/icons';
 import * as ImagePicker from 'expo-image-picker';
 import { snack } from 'lib/snack';
 

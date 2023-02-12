@@ -11,7 +11,7 @@ import { Input, Button, Select } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthStore } from 'store/authStore';
+import { useFormStore } from 'store/formStore';
 import axios, { AxiosError } from 'axios';
 import { ImageInfo } from 'expo-image-picker';
 
@@ -19,9 +19,9 @@ export const StepFour = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
 
-  const registerForm = useAuthStore((store) => store.registerForm);
-  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
-  const images = useAuthStore((store) => store.images);
+  const registerForm = useFormStore((store) => store.registerForm);
+  const setRegisterForm = useFormStore((store) => store.setRegisterForm);
+  const images = useFormStore((store) => store.images);
 
   const [loading, setLoading] = useState(false);
 
