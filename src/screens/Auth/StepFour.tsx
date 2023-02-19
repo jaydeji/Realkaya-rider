@@ -13,7 +13,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useFormStore } from 'store/formStore';
 import axios, { AxiosError } from 'axios';
-import { ImageInfo } from 'expo-image-picker';
+import { ImagePickerAsset } from 'expo-image-picker';
 
 export const StepFour = () => {
   const height = useHeaderHeight();
@@ -55,7 +55,7 @@ export const StepFour = () => {
         presignedFields.map(async (presignedData, index) => {
           const fileName = _images[index].uri.split('/').pop() as string;
           const fileType = fileName?.split('.').pop();
-          const image = _images[index] as ImageInfo;
+          const image = _images[index] as ImagePickerAsset;
           const newFormData = new FormData();
           Object.entries(presignedData.fields).forEach((e) =>
             newFormData.append(e[0], e[1] as any)

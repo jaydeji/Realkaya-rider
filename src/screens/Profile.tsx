@@ -6,32 +6,92 @@ import {
   TextInput,
   NativeSyntheticEvent,
   TextInputChangeEventData,
+  ActivityIndicator,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Input, Span } from 'components';
 import clsx from 'clsx';
 import { useAppStore } from 'store';
 import EmptyAvatar from 'assets/icons/EmptyAvatar';
 //@ts-ignore
 import { colors } from 'lib/theme';
+import { useMutation, useQuery } from 'react-query';
+import { getUserDetails, updateUser } from 'lib/api';
+import { queryKeys } from 'lib/query';
+import { snack } from 'lib/snack';
+
+const initialAccount = {
+  accountNumber: '',
+  accountName: '',
+  bankName: '',
+};
 
 const Profile = () => {
-  const userData = useAppStore((store) => store.user);
+  const userData = useAppStore((store) => store.user!);
+  const updateStoreUser = useAppStore((store) => store.updateUser);
+
+  const { isLoading } = useQuery({
+    queryFn: () => getUserDetails(),
+    queryKey: queryKeys.getUserDetails,
+    onSuccess: (data) => {
+      const _userData = { ...userData };
+      _userData.user.account = data.account;
+      updateStoreUser(_userData);
+    },
+  });
+
+  const { mutate: updateApiUser, isLoading: isUpdating } = useMutation({
+    mutationFn: updateUser,
+    onSuccess: (data) => {
+      const _userData = { ...userData };
+      _userData.user.account = data.account;
+      _userData.user.firstName = data.firstName;
+      _userData.user.lastName = data.lastName;
+      updateStoreUser(_userData);
+      snack('User Updated');
+    },
+  });
 
   const [selected, setSelected] = useState('P');
-  const [state, setState] = useState({
-    firstName: userData?.user.firstName || '',
-    lastName: userData?.user.lastName || '',
-    email: userData?.user.email || '',
-    phone: userData?.user.phone || '',
-  });
+
+  const getState = useCallback(() => {
+    return {
+      firstName: userData?.user.firstName || '',
+      lastName: userData?.user.lastName || '',
+      account: userData?.user.account
+        ? {
+            accountNumber: userData?.user.account.accountNumber,
+            accountName: userData?.user.account.accountName,
+            bankName: userData?.user.account.bankName,
+          }
+        : undefined,
+    };
+  }, [userData]);
+
+  const [state, setState] = useState(getState());
+
+  useEffect(() => {
+    setState(getState());
+  }, [userData]);
 
   const handleChangeText = (
     text: string | NativeSyntheticEvent<TextInputChangeEventData>,
-    name: string
+    name: keyof typeof state
   ) => {
     setState({ ...state, [name]: text });
   };
+
+  const handleChangeAccount = (
+    text: string | NativeSyntheticEvent<TextInputChangeEventData>,
+    name: keyof typeof initialAccount
+  ) => {
+    const newState = { ...state };
+    if (!newState.account) newState.account = { ...initialAccount };
+    newState.account[name] = text as string;
+    setState(newState);
+  };
+
+  if (isLoading) return <ActivityIndicator size="large" />;
 
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
@@ -110,10 +170,9 @@ const Profile = () => {
                   <Input
                     label="Email address"
                     placeholder="e.g, Ulimhukaakem@gmail.com"
-                    value={state.email}
-                    editable={false}
-                    selectTextOnFocus={false}
-                    onChange={(text) => handleChangeText(text, 'email')}
+                    value={userData?.user.email}
+                    disabled
+                    onChange={() => {}}
                   />
                 </View>
                 <View className="w-full mt-7">
@@ -121,45 +180,51 @@ const Profile = () => {
                     label="Mobile number"
                     placeholder="e.g, +2349069469010"
                     keyboardType="phone-pad"
-                    value={state.phone}
-                    editable={false}
-                    selectTextOnFocus={false}
-                    onChange={(text) => handleChangeText(text, 'phone')}
+                    value={userData?.user.phone}
+                    disabled
+                    onChange={() => {}}
                   />
                 </View>
               </>
             )}
             {selected === 'O' && (
               <>
-                <Span textClass="bg-alt-2 text-xs mt-3">PAYMENTS</Span>
+                <Span textClass="text-alt-2 text-xs mt-3">PAYMENTS</Span>
                 <View className="w-full mt-7">
                   <Input
                     label="Bank holder name"
                     placeholder="e.g, Ulimhukaakem@gmail.com"
-                    value={state.accountName}
-                    editable={false}
-                    selectTextOnFocus={false}
-                    onChange={(text) => handleChangeText(text, 'accountName')}
+                    value={state.account?.accountName || ''}
+                    onChange={(text) =>
+                      handleChangeAccount(text, 'accountName')
+                    }
                   />
                 </View>
                 <View className="w-full mt-7">
                   <Input
                     label="Account number"
                     placeholder="e.g, 0561416996"
-                    value={state.accountNumber}
-                    onChange={(text) => handleChangeText(text, 'accountNumber')}
+                    value={state.account?.accountNumber || ''}
+                    onChange={(text) =>
+                      handleChangeAccount(text, 'accountNumber')
+                    }
                   />
                 </View>
                 <View className="w-full mt-7">
                   <Input
                     label="Bank name"
                     placeholder="e.g, GT bank"
-                    value={state.bankName}
-                    onChange={(text) => handleChangeText(text, 'bankName')}
+                    value={state.account?.bankName || ''}
+                    onChange={(text) => handleChangeAccount(text, 'bankName')}
                   />
                 </View>
               </>
             )}
+            <View className="mt-8">
+              <Button onPress={() => updateApiUser(state)} loading={isUpdating}>
+                Update
+              </Button>
+            </View>
           </View>
         </ScrollView>
       </View>

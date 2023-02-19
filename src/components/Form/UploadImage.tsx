@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { snack } from 'lib/snack';
 
 type Props = {
-  onSelect?: (doc: ImagePicker.ImageInfo) => void;
+  onSelect?: (doc: ImagePicker.ImagePickerAsset) => void;
   textClass?: string;
   bodyClass?: string;
   type?: string | string[];
@@ -31,11 +31,12 @@ export const UploadImage = ({
         ...rest,
       });
 
-      if (result.cancelled) return;
+      if (result.canceled) return;
+      if (!result.assets?.[0]) return;
       const tenMegabytes = 1024 * 1024;
-      if ((result.fileSize || 0) > tenMegabytes)
+      if ((result.assets?.[0].fileSize || 0) > tenMegabytes)
         return snack('file size should not be more than 10MB');
-      onSelect?.(result);
+      onSelect?.(result.assets[0]);
     } catch (error) {
       snack('something went wrong picking image'); // add log
     }

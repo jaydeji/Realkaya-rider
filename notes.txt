@@ -5,7 +5,6 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-add profile screen
 order details screen
 notifications screen
 support screen
@@ -21,6 +20,7 @@ Sync map with location of current order
 location tracking
 implement offline and online
 get permanent location permission
+reenable register validation
 
 NICE TO HAVE
 hermes expo 47

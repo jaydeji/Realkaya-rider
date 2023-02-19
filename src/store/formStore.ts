@@ -1,11 +1,11 @@
-import { ImageInfo } from 'expo-image-picker';
-import create from 'zustand';
+import { ImagePickerAsset } from 'expo-image-picker';
+import { create } from 'zustand';
 
 type FormStoreState = {
   registerForm: Record<string, any>;
-  images: Record<string, ImageInfo>;
+  images: Record<string, ImagePickerAsset>;
   setRegisterForm: (key: string, value: any) => void;
-  setImage: (key: string, value: ImageInfo) => void;
+  setImage: (key: string, value: ImagePickerAsset) => void;
 };
 
 export const useFormStore = create<FormStoreState>((set) => ({

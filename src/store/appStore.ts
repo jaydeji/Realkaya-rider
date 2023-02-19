@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { SheetRoute, UserWithCred } from 'types/app';
 import { sheetRoutes } from '../routes';
@@ -41,7 +41,7 @@ export const useAppStore = create<AppStoreState>()(
     }),
     {
       name: 'app-storage',
-      getStorage: () => AsyncStorage,
+      storage: createJSONStorage(() => AsyncStorage),
       partialize: (store) => {
         const { isAuth, user, location } = store;
         return { isAuth, user, location };

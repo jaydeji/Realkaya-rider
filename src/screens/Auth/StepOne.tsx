@@ -36,7 +36,11 @@ export const StepOne = () => {
         className="flex-1"
         keyboardVerticalOffset={height}
       >
-        <ScrollView className="flex-1" keyboardShouldPersistTaps="always">
+        <ScrollView
+          className="flex-1"
+          keyboardShouldPersistTaps="always"
+          keyboardDismissMode="interactive"
+        >
           <View className="flex-1 p-5">
             <Span textClass="text-primary font-Mulish-Bold text-lg mt-12">
               Personal Information

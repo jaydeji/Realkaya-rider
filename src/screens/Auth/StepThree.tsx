@@ -10,7 +10,7 @@ import { Input, DateInput, Button, UploadImage } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
-import { ImageInfo } from 'expo-image-picker';
+import { ImagePickerAsset } from 'expo-image-picker';
 import { useFormStore } from 'store/formStore';
 
 export const StepThree = () => {
@@ -22,7 +22,7 @@ export const StepThree = () => {
   const registerForm = useFormStore((store) => store.registerForm);
   const setRegisterForm = useFormStore((store) => store.setRegisterForm);
 
-  const handleImage = (key: string, image: ImageInfo) => {
+  const handleImage = (key: string, image: ImagePickerAsset) => {
     setImage(key, image);
   };
 

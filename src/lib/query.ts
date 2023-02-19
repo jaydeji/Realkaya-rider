@@ -5,6 +5,7 @@ export const queryKeys = {
   // getNearestOrder: 'getNearestOrder',
   getOrdersByDate: (date: string) => ['getOrdersByDate', { date }],
   fetchUncofirmedOrders: ['fetchUncofirmedOrders'],
+  getUserDetails: ['getUserDetails'],
 };
 
 export const queryClient = new QueryClient();

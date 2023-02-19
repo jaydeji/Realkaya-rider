@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Order } from 'types/app';
+import { Order, User } from 'types/app';
 
 export const confirmOrder = async ({ orderId }: { orderId: number }) => {
   const { data } = await axios.patch('/orders/' + orderId + '/confirm');
@@ -43,4 +43,12 @@ export const confirmMultipleOrders = (body: { orderIds: number[] }) => {
   return axios
     .post('/orders/confirm_multiple', body)
     .then((e) => e.data.data as Order[]);
+};
+
+export const getUserDetails = () => {
+  return axios.get('/users/me').then((e) => e.data.data as User);
+};
+
+export const updateUser = (body: Record<string, any>) => {
+  return axios.patch('/users', body).then((e) => e.data.data as User);
 };

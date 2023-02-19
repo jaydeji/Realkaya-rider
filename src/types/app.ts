@@ -57,6 +57,12 @@ export type Location = {
   longitude: number;
 };
 
+type UserAccount = {
+  accountNumber: string;
+  accountName: string;
+  bankName: string;
+};
+
 export type User = {
   online: boolean;
   profilePhotoUrl?: string;
@@ -64,6 +70,7 @@ export type User = {
   lastName: string;
   email: string;
   phone: string;
+  account?: UserAccount;
 };
 export type UserWithCred = {
   token: string;

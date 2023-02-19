@@ -1,5 +1,5 @@
 import { Order } from 'types/app';
-import create from 'zustand';
+import { create } from 'zustand';
 
 type OrderStoreState = {
   orders: Order[];

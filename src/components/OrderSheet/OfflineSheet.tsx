@@ -7,10 +7,12 @@ import { useAppStore, useOrderStore } from 'store';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { sheetRoutes } from 'routes';
+import { useMutation } from 'react-query';
+import { updateUser } from 'lib/api';
 
 export const OfflineSheet = () => {
-  const user = useAppStore((store) => store.user);
-  const updateUser = useAppStore((store) => store.updateUser);
+  const user = useAppStore((store) => store.user!);
+  const updateStoreUser = useAppStore((store) => store.updateUser);
   const orders = useOrderStore((store) => store.orders);
   const setSheet = useAppStore((store) => store.setSheet);
   const navigation = useNavigation();
@@ -20,6 +22,10 @@ export const OfflineSheet = () => {
   useEffect(() => {
     if (!orders.length) setSheet(sheetRoutes[0]);
   }, [orders.length]);
+
+  const { mutate: updateApiUser } = useMutation({
+    mutationFn: updateUser,
+  });
 
   return (
     <View className="flex-1">
@@ -33,11 +39,11 @@ export const OfflineSheet = () => {
         }}
         shouldResetAfterSuccess
         onSwipeSuccess={() => {
-          if (user)
-            updateUser({
-              ...user,
-              user: { ...user?.user, online: !online },
-            });
+          updateStoreUser({
+            ...user,
+            user: { ...user?.user, online: !online },
+          });
+          updateApiUser({ online: !online });
         }}
       />
       <View className="p-5">

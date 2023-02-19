@@ -12,6 +12,7 @@ type Props = {
   label?: string;
   textClass?: string;
   autoCapitalize?: TextInputProps['autoCapitalize'];
+  disabled?: boolean;
 };
 
 export const Input = ({
@@ -21,12 +22,18 @@ export const Input = ({
   label,
   textClass,
   autoCapitalize,
+  disabled,
   ...props
 }: TextInputProps & Props) => {
   return (
     <View>
       {label && (
-        <Span textClass="leading-[32px] text-xs text-primary font-Mulish-SemiBold h-5">
+        <Span
+          textClass={clsx(
+            'leading-[32px] text-xs text-primary font-Mulish-SemiBold h-5',
+            disabled && 'text-gray-400'
+          )}
+        >
           {label}
         </Span>
       )}
@@ -35,11 +42,18 @@ export const Input = ({
         value={value}
         className={clsx(
           'px-3 h-[45px] border border-alt-8 rounded-[5px]',
-          textClass
+          textClass,
+          disabled && 'text-gray-400'
         )}
         onChangeText={onChange}
         placeholderTextColor={colors.alt['8']}
         autoCapitalize={autoCapitalize || 'none'}
+        {...(disabled
+          ? {
+              editable: false,
+              selectTextOnFocus: false,
+            }
+          : {})}
         {...props}
       />
     </View>
