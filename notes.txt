@@ -5,23 +5,17 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-order details screen
-notifications screen
-support screen
-promotions screen
-chatbox screen
-about screen
+all sheets are not the same. Adjust
+integrate support/chat endpoint
 show uploaded image in register
-add icons to nav menu
-finish welldone page
 earnings and ratings
-change to snack in pick manually(change all alert)
+reenable register validation
 Sync map with location of current order
 location tracking
-implement offline and online
 get permanent location permission
-reenable register validation
+fix offline page showing when no orders
 
 NICE TO HAVE
-hermes expo 47
+notifications screen
+
 

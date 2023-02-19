@@ -2,13 +2,13 @@ import React from 'react';
 import { Linking, View } from 'react-native';
 import { CallIcon, MessageIcon } from 'assets/icons';
 
-export const OrderLineRightCall = () => {
+export const OrderLineRightCall = ({ phone }: { phone: string }) => {
   return (
     <View className="flex-row self-start">
-      <CallIcon onPress={() => Linking.openURL('tel:0800800000')} />
+      <CallIcon onPress={() => Linking.openURL(`tel:${phone}`)} />
       <MessageIcon
         className="ml-1"
-        onPress={() => Linking.openURL('sms:0800800000')}
+        onPress={() => Linking.openURL(`sms:${phone}`)}
       />
     </View>
   );

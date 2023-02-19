@@ -22,6 +22,13 @@ import { constants } from 'lib/constants';
 import { Step } from 'components/Step';
 import { RootStackParamList } from 'types/navigation';
 import Profile from 'screens/Profile';
+import { OrderDetails } from 'screens/OrderDetails';
+import { Support } from 'screens/Support';
+//@ts-ignore
+import { colors, fontFamily } from './lib/theme';
+import { Inbox } from 'screens/Inbox';
+import { ChatBox } from 'screens/ChatBox';
+import { About } from 'screens/About';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,6 +48,51 @@ export const Main = () => {
               }}
             />
             <RootStack.Screen
+              name="Support"
+              component={Support}
+              options={constants.TITLE_OPTIONS({
+                title: 'Support',
+                headerTitleStyle: {
+                  fontFamily: fontFamily['Mulish-ExtraBold'],
+                  color: colors['main-blue'],
+                  fontSize: 24,
+                },
+              })}
+            />
+            <RootStack.Screen
+              name="Inbox"
+              component={Inbox}
+              options={constants.TITLE_OPTIONS({
+                title: 'Inbox',
+                headerTitleStyle: {
+                  fontFamily: fontFamily['Mulish-ExtraBold'],
+                  color: colors['main-blue'],
+                  fontSize: 24,
+                },
+              })}
+            />
+            <RootStack.Screen
+              name="ChatBox"
+              component={ChatBox}
+              options={constants.TITLE_OPTIONS({
+                title: 'Chat Box',
+                headerTitleStyle: {
+                  fontFamily: fontFamily['Mulish-ExtraBold'],
+                  color: colors['main-blue'],
+                  fontSize: 24,
+                },
+              })}
+            />
+            <RootStack.Screen
+              name="OrderDetails"
+              component={OrderDetails}
+              options={({ route }) =>
+                constants.TITLE_OPTIONS({
+                  title: `Order ${route.params.order.orderId}`,
+                })
+              }
+            />
+            <RootStack.Screen
               name="OrdersList"
               component={OrdersList}
               options={constants.TITLE_OPTIONS({ title: 'Orders' })}
@@ -57,6 +109,12 @@ export const Main = () => {
                 headerShown: false,
               }}
             />
+            <RootStack.Screen
+              name="About"
+              component={About}
+              options={constants.TITLE_OPTIONS({ title: 'About RealKaya' })}
+            />
+
             <RootStack.Screen
               name="CompleteOrder"
               component={CompleteOrder}

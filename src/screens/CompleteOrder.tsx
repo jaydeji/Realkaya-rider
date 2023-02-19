@@ -5,10 +5,9 @@ import { Span } from 'components/Span';
 import { useOrderStore } from 'store';
 import { useUpdateOrder, useUpdateOrdersForToday } from 'lib/api/hooks';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { RootStackParamList, ScreensStackParamList } from 'types/navigation';
+import { RootStackParamList } from 'types/navigation';
 import { snack } from 'lib/snack';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { goToHomeSheet } from 'lib/order';
 
 const options = [
   {
@@ -31,20 +30,22 @@ const options = [
 
 export const CompleteOrder = () => {
   const navigation =
-    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const [selected, setSelected] = useState<string>();
 
   const { params } = useRoute<RouteProp<RootStackParamList, 'CompleteOrder'>>();
 
+  const currentOrder = useOrderStore((store) => store.currentOrder!);
   const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
+  const removeOrder = useOrderStore((store) => store.removeOrder);
   const { mutate: updateOrdersForToday } = useUpdateOrdersForToday();
   const { mutate: updateApiOrder, isLoading } = useUpdateOrder({
     onSuccess: () => {
-      setCurrentOrder();
       updateOrdersForToday();
-      goToHomeSheet();
-      navigation.navigate('Home');
+      navigation.navigate('Welldone', { order: currentOrder });
+      removeOrder(currentOrder.orderId);
+      setCurrentOrder();
     },
   });
 

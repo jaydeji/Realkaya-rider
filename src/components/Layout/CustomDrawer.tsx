@@ -3,24 +3,49 @@ import {
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import EmptyAvatar from 'assets/icons/EmptyAvatar';
+import {
+  CircleExclaim,
+  Logout,
+  ProfileIconEmpty,
+  SupportIcon,
+} from 'assets/icons';
 import OrdersIcon from 'assets/icons/OrdersIcon';
 import { Span } from 'components/Span';
 import { View, Image, Pressable } from 'react-native';
 import { useAppStore } from 'store';
 //@ts-ignore
 import { colors } from 'lib/theme';
+import { useMutation } from 'react-query';
+import { updateUser } from 'lib/api';
+import { useNavigation } from '@react-navigation/native';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
-  const userData = useAppStore((store) => store.user);
+  const userData = useAppStore((store) => store.user!);
   const logout = useAppStore((store) => store.logout);
+  const online = userData?.user.online;
+
+  const navigation = useNavigation();
+
+  const updateStoreUser = useAppStore((store) => store.updateUser);
+  const { mutate: updateApiUser } = useMutation({
+    mutationFn: updateUser,
+  });
+
+  const handleGoOffline = () => {
+    updateStoreUser({
+      ...userData,
+      user: { ...userData?.user, online: !online },
+    });
+    updateApiUser({ online: !online });
+    (navigation as any).toggleDrawer();
+  };
 
   return (
     <DrawerContentScrollView {...props} style={{ backgroundColor: '#02092A' }}>
       <Pressable onPress={() => props.navigation.navigate('Profile')}>
         <View className="flex-row ml-4">
           {!userData?.user.profilePhotoUrl ? (
-            <EmptyAvatar />
+            <ProfileIconEmpty />
           ) : (
             <Image
               source={{
@@ -46,23 +71,27 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         />
         <DrawerItem
           label="Support"
-          onPress={() => props.navigation.navigate('Details')}
+          onPress={() => props.navigation.navigate('Support')}
           labelStyle={{ color: 'white' }}
+          icon={() => <SupportIcon className="-mr-4" />}
         />
         <DrawerItem
           label="About Us"
-          onPress={() => props.navigation.navigate('Details')}
+          onPress={() => props.navigation.navigate('About')}
           labelStyle={{ color: 'white' }}
+          icon={() => <SupportIcon className="-mr-4" />}
         />
         <DrawerItem
-          label="Go Offline"
-          onPress={() => props.navigation.navigate('Details')}
+          label={`Go ${online ? 'Offline' : 'Online'}`}
+          onPress={() => handleGoOffline()}
           labelStyle={{ color: 'white' }}
+          icon={() => <CircleExclaim className="-mr-4" />}
         />
         <DrawerItem
           label="Logout"
           onPress={logout}
           labelStyle={{ color: 'white' }}
+          icon={() => <Logout className="-mr-4 text-white" />}
         />
       </View>
     </DrawerContentScrollView>

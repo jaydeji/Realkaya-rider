@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Input, Span } from 'components';
 import clsx from 'clsx';
 import { useAppStore } from 'store';
-import EmptyAvatar from 'assets/icons/EmptyAvatar';
+import { ProfileIconEmpty } from 'assets/icons';
 //@ts-ignore
 import { colors } from 'lib/theme';
 import { useMutation, useQuery } from 'react-query';
@@ -128,7 +128,7 @@ const Profile = () => {
                 <View className="items-center">
                   <View className="mt-8 h-[60px] w-[60px]">
                     {!userData?.user.profilePhotoUrl ? (
-                      <EmptyAvatar className="h-full w-full" />
+                      <ProfileIconEmpty className="h-full w-full" />
                     ) : (
                       <Image
                         source={{

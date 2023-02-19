@@ -1,17 +1,20 @@
-import { View, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, SafeAreaView, ActivityIndicator, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Button, DateSelect } from 'components';
 import clsx from 'clsx';
 import { ScrollView } from 'react-native-gesture-handler';
 import { OrderLine, OrderLineRight, OrderLineTop } from 'components/OrderLine';
-import { useNavigation } from '@react-navigation/native';
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from '@react-navigation/native';
 import { useQuery } from 'react-query';
 import { getOrdersByDate } from 'lib/api';
 import { queryKeys } from 'lib/query';
 import { useAppStore, useOrderStore } from 'store';
 import { sheetRoutes } from 'routes';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ScreensStackParamList } from 'types/navigation';
+import { RootStackParamList, ScreensStackParamList } from 'types/navigation';
 
 type OrderStatusLetter = 'P' | 'D';
 
@@ -19,7 +22,12 @@ export const OrdersList = () => {
   const [selected, setSelected] = useState<OrderStatusLetter>('P');
   const [date, setDate] = useState(new Date('2022-11-12T17:21:10.285Z'));
   const navigation =
-    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
+    useNavigation<
+      CompositeNavigationProp<
+        NativeStackNavigationProp<ScreensStackParamList, 'Home'>,
+        NativeStackNavigationProp<RootStackParamList, 'OrdersList'>
+      >
+    >();
 
   const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
   const setSheet = useAppStore((store) => store.setSheet);
@@ -80,24 +88,32 @@ export const OrdersList = () => {
           ) : (
             <View className="mt-[14px]">
               {orders?.[selected].map((e) => (
-                <OrderLine
+                <Pressable
                   key={e.orderId}
-                  order={{
-                    senderAddress: e.senderAddress,
-                    recepientAddress: e.recepientAddress,
-                  }}
-                  top={<OrderLineTop order={{ distance: 100, orderId: 10 }} />}
-                  right={
-                    <OrderLineRight
-                      onPress={() => {
-                        setCurrentOrder(e);
-                        setSheet(sheetRoutes[2]);
-                        navigation.navigate('Home');
-                      }}
-                      text="Select"
-                    />
+                  onPress={() =>
+                    navigation.navigate('OrderDetails', { order: e })
                   }
-                />
+                >
+                  <OrderLine
+                    order={{
+                      senderAddress: e.senderAddress,
+                      recepientAddress: e.recepientAddress,
+                    }}
+                    top={
+                      <OrderLineTop order={{ distance: 100, orderId: 10 }} />
+                    }
+                    right={
+                      <OrderLineRight
+                        onPress={() => {
+                          setCurrentOrder(e);
+                          setSheet(sheetRoutes[2]);
+                          navigation.navigate('Home');
+                        }}
+                        text="Select"
+                      />
+                    }
+                  />
+                </Pressable>
               ))}
             </View>
           )}

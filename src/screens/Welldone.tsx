@@ -1,19 +1,43 @@
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
-import { ProfileIcon } from 'assets/icons';
-import {
-  Button,
-  OrderLine,
-  OrderLineRightCall,
-  OrderLineTopProfile,
-} from 'components';
+import { SafeAreaView, View } from 'react-native';
+import { Button, OrderDetailsSummary } from 'components';
 import { Span } from 'components/Span';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList, ScreensStackParamList } from 'types/navigation';
+import { useAppStore } from 'store';
+import { goToHomeSheet } from 'lib/order';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useMutation } from 'react-query';
+import { updateUser } from 'lib/api';
 
-type WelldoneProps = {
-  finished?: boolean;
-};
+export const Welldone = () => {
+  const { params } = useRoute<RouteProp<RootStackParamList, 'Welldone'>>();
+  const order = params.order;
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
 
-export const Welldone = ({ finished }: WelldoneProps) => {
+  const user = useAppStore((store) => store.user!);
+  const updateStoreUser = useAppStore((store) => store.updateUser);
+  const online = user?.user.online;
+
+  const { mutate: updateApiUser } = useMutation({
+    mutationFn: updateUser,
+  });
+
+  const handleContinue = () => {
+    goToHomeSheet();
+    navigation.navigate('Home');
+  };
+
+  const handleGoOffline = () => {
+    updateStoreUser({
+      ...user,
+      user: { ...user?.user, online: !online },
+    });
+    updateApiUser({ online: !online });
+    handleContinue();
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
       <View className="p-5 flex-1">
@@ -25,41 +49,22 @@ export const Welldone = ({ finished }: WelldoneProps) => {
           delivery.Summary of delivery is detailed below. Would you like to
           continue?
         </Span>
-        <View className="rounded-[5px] bg-primary mt-14 p-5">
-          <View className="flex-row justify-between">
-            <Span textClass="text-alt-4">Total</Span>
-            <Span textClass="text-alt-4">₦300</Span>
+        <OrderDetailsSummary order={order} />
+
+        <View className="flex-row mt-14 gap-x-5">
+          <View className="flex-1">
+            <Button
+              bodyClass="bg-alt-3"
+              textClass="text-primary"
+              onPress={() => handleGoOffline()}
+            >
+              Go {online ? 'offline' : 'online'}
+            </Button>
           </View>
-          <View className="flex-row justify-between border-b-alt-7 border-b py-3">
-            <Span textClass="text-alt-4">Product type</Span>
-            <Span textClass="text-alt-4">General</Span>
-          </View>
-          <View className="flex-row justify-between border-b-alt-7 border-b py-3">
-            <Span textClass="text-alt-4">Your reward</Span>
-            <Span textClass="text-alt-4">General</Span>
-          </View>
-          <View className="flex-row justify-between py-3">
-            <Span textClass="text-alt-4">Payment method</Span>
-            <Span textClass="text-alt-4">Pay on delivery</Span>
+          <View className="flex-1">
+            <Button onPress={() => handleContinue()}>Continue</Button>
           </View>
         </View>
-        {!finished ? (
-          <OrderLine
-            top={<OrderLineTopProfile />}
-            right={<OrderLineRightCall />}
-          />
-        ) : (
-          <View className="flex-row mt-14 gap-x-5">
-            <View className="flex-1">
-              <Button bodyClass="bg-alt-3" textClass="text-primary">
-                Go offline
-              </Button>
-            </View>
-            <View className="flex-1">
-              <Button>Continue</Button>
-            </View>
-          </View>
-        )}
       </View>
     </SafeAreaView>
   );

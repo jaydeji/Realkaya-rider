@@ -5,12 +5,14 @@ import type {
 } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { DrawerScreenProps } from '@react-navigation/drawer';
+import { Order } from './app';
 
 export type RootStackParamList = {
   Index: NavigatorScreenParams<IndexDrawerParamList>;
   OrdersList: undefined;
   PickManual: undefined;
-  Welldone: undefined;
+  Welldone: { order: Order };
+  OrderDetails: { order: Order };
   CompleteOrder: { orderId: number };
   CancelOrder: { orderId: number };
   Auth: undefined;
@@ -22,6 +24,10 @@ export type RootStackParamList = {
   SignUpDone: undefined;
   ForgotPassword: undefined;
   Profile: undefined;
+  Support: undefined;
+  Inbox: undefined;
+  ChatBox: undefined;
+  About: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

@@ -43,6 +43,11 @@ export type Order = {
   userId: number;
   createdAt: string;
   updatedAt: string;
+  user?: {
+    firstName: string;
+    lastName: string;
+    phone: string;
+  };
 };
 
 export type SheetRoute = {

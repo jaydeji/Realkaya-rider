@@ -1,4 +1,5 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
+//@ts-ignore
 import { colors, fontFamily } from '../lib/theme';
 
 export const constants = {

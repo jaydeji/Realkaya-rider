@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { SvgProps, Circle, Path } from 'react-native-svg';
 
-const EmptyAvatar = (props: SvgProps) => (
+const ProfileIconEmpty = (props: SvgProps) => (
   <Svg width={45} height={45} fill="none" {...props}>
     <Circle cx={22.5} cy={22.5} r={22.5} fill="#DADADA" fillOpacity={0.3} />
     <Path
@@ -11,4 +11,4 @@ const EmptyAvatar = (props: SvgProps) => (
   </Svg>
 );
 
-export default EmptyAvatar;
+export { ProfileIconEmpty };
