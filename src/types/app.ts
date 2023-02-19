@@ -61,6 +61,9 @@ export type User = {
   online: boolean;
   profilePhotoUrl?: string;
   firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
 };
 export type UserWithCred = {
   token: string;

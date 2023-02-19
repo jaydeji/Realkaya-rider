@@ -16,6 +16,49 @@ import Animated, {
 import { LoadingSheet } from 'components/OrderSheet/LoadingSheet';
 import { _date } from 'lib/date';
 import { useGetOrdersByDate } from 'lib/api/hooks';
+import * as TaskManager from 'expo-task-manager';
+import * as Location from 'expo-location';
+
+const LOCATION_TRACKING = 'location-tracking';
+
+TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
+  if (error) {
+    console.log('LOCATION_TRACKING task ERROR:', error);
+    return;
+  }
+  if (data) {
+    const { locations } = data;
+    let lat = locations[0].coords.latitude;
+    let long = locations[0].coords.longitude;
+
+    console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
+  }
+});
+
+const requestPermissions = async () => {
+  try {
+    const { status: foregroundStatus } =
+      await Location.requestForegroundPermissionsAsync();
+    if (foregroundStatus === 'granted') {
+      const { status: backgroundStatus } =
+        await Location.requestBackgroundPermissionsAsync();
+      if (backgroundStatus === 'granted') {
+        await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+          accuracy: Location.Accuracy.Balanced,
+          // timeInterval: 10000,
+          // foregroundService: {
+          //   notificationTitle: "App Name",
+          //   notificationBody: "Location is used when App is in background",
+          // },
+          // activityType: Location.ActivityType.AutomotiveNavigation,
+          // showsBackgroundLocationIndicator: true,
+        });
+      }
+    }
+  } catch (e) {
+    console.log('ee', e);
+  }
+};
 
 export const Home = () => {
   const currentSheet = useAppStore((store) => store.sheet);
@@ -39,6 +82,35 @@ export const Home = () => {
 
   useEffect(() => {
     getApiOrdersByDate();
+  }, []);
+
+  useEffect(() => {
+    const startLocationTracking = async () => {
+      await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+        accuracy: Location.Accuracy.Highest,
+        timeInterval: 5000,
+        distanceInterval: 0,
+      });
+      const hasStarted = await Location.hasStartedLocationUpdatesAsync(
+        LOCATION_TRACKING
+      );
+      console.log('tracking started?', hasStarted);
+    };
+
+    requestPermissions().then((e) => {
+      startLocationTracking();
+    });
+
+    // const config = async () => {
+    //   let res = await Permissions.askAsync(Permissions.LOCATION);
+    //   if (res.status !== 'granted') {
+    //     console.log('Permission to access location was denied');
+    //   } else {
+    //     console.log('Permission to access location granted');
+    //   }
+    // };
+
+    // config();
   }, []);
 
   const getSheet = () => {

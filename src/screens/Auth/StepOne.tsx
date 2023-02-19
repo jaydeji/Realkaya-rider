@@ -10,13 +10,13 @@ import { Input, DateInput, Button } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthStore } from 'store/formStore';
+import { useFormStore } from 'store/formStore';
 
 export const StepOne = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
-  const registerForm = useAuthStore((store) => store.registerForm);
-  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
+  const registerForm = useFormStore((store) => store.registerForm);
+  const setRegisterForm = useFormStore((store) => store.setRegisterForm);
 
   const disabled =
     !registerForm.firstName ||

@@ -3,15 +3,18 @@ import { persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { SheetRoute, UserWithCred } from 'types/app';
 import { sheetRoutes } from '../routes';
+import * as Location from 'expo-location';
 
 type AppStoreState = {
   isAuth: boolean;
   user: null | UserWithCred;
   sheet: SheetRoute;
+  location?: Location.LocationObject;
   setUser: (user: UserWithCred, isAuth: boolean) => void;
   updateUser: (user: UserWithCred) => void;
   logout: () => void;
   setSheet: (sheet: SheetRoute) => void;
+  setLocation: (location: Location.LocationObject) => void;
 };
 
 export const useAppStore = create<AppStoreState>()(
@@ -32,13 +35,16 @@ export const useAppStore = create<AppStoreState>()(
       setSheet: (sheet) => {
         set({ sheet });
       },
+      setLocation: (location) => {
+        set({ location });
+      },
     }),
     {
       name: 'app-storage',
       getStorage: () => AsyncStorage,
       partialize: (store) => {
-        const { isAuth, user } = store;
-        return { isAuth, user };
+        const { isAuth, user, location } = store;
+        return { isAuth, user, location };
       },
     }
   )

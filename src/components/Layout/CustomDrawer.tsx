@@ -6,34 +6,37 @@ import {
 import EmptyAvatar from 'assets/icons/EmptyAvatar';
 import OrdersIcon from 'assets/icons/OrdersIcon';
 import { Span } from 'components/Span';
-import { View, Image } from 'react-native';
+import { View, Image, Pressable } from 'react-native';
 import { useAppStore } from 'store';
 //@ts-ignore
 import { colors } from 'lib/theme';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const userData = useAppStore((store) => store.user);
+  const logout = useAppStore((store) => store.logout);
 
   return (
     <DrawerContentScrollView {...props} style={{ backgroundColor: '#02092A' }}>
-      <View className="flex-row ml-4">
-        {!userData?.user.profilePhotoUrl ? (
-          <EmptyAvatar />
-        ) : (
-          <Image
-            source={{
-              uri: 'https://res.cloudinary.com/zst/image/upload/f_auto/q_auto/v1671026546/users/avatars/cafc6771-e01e-42aa-8b3a-8fa51ce70247.jpg',
-            }}
-            className="w-[45px] h-[45px] rounded-full border border-white"
-          />
-        )}
-        <View className="ml-4">
-          <Span textClass="font-Mulish-Bold text-alt-4 text-lg">
-            {userData?.user.firstName}
-          </Span>
-          <Span textClass="text-alt-4 text-xs ">View profile</Span>
+      <Pressable onPress={() => props.navigation.navigate('Profile')}>
+        <View className="flex-row ml-4">
+          {!userData?.user.profilePhotoUrl ? (
+            <EmptyAvatar />
+          ) : (
+            <Image
+              source={{
+                uri: 'https://res.cloudinary.com/zst/image/upload/f_auto/q_auto/v1671026546/users/avatars/cafc6771-e01e-42aa-8b3a-8fa51ce70247.jpg',
+              }}
+              className="w-[45px] h-[45px] rounded-full border border-white"
+            />
+          )}
+          <View className="ml-4">
+            <Span textClass="font-Mulish-Bold text-alt-4 text-lg">
+              {userData?.user.firstName}
+            </Span>
+            <Span textClass="text-alt-4 text-xs ">View profile</Span>
+          </View>
         </View>
-      </View>
+      </Pressable>
       <View className="mt-20">
         <DrawerItem
           label="Orders"
@@ -54,6 +57,11 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         <DrawerItem
           label="Go Offline"
           onPress={() => props.navigation.navigate('Details')}
+          labelStyle={{ color: 'white' }}
+        />
+        <DrawerItem
+          label="Logout"
+          onPress={logout}
           labelStyle={{ color: 'white' }}
         />
       </View>

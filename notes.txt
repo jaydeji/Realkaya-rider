@@ -5,36 +5,23 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-unconfirmed order
-confirmed order
-arrived 
-picked up order
-start dropoff order
-end dropoff order
+add profile screen
+order details screen
+notifications screen
+support screen
+promotions screen
+chatbox screen
+about screen
+show uploaded image in register
+add icons to nav menu
+finish welldone page
+earnings and ratings
+change to snack in pick manually(change all alert)
+Sync map with location of current order
+location tracking
+implement offline and online
+get permanent location permission
 
-
-Ongoing=Get all ongoing orders
-Dated
-
-Automatic Ongoing
-Manual Ongoing
-Update Ongoing Optimistic
-OrdersList|dated Ongoing Dated refetch on mount
-
-what shows on homepage?
-no need for ongoing. Just get by date for whole app
-selected order state
-should be able to select active order from order list
-add i button for details
-
-if (ongoing orders) {
-    show online/offline page
-    show earnings and ratings
-    show link to select order
-}
-else show automatic page
-
-OFFLINE
-going offline is just for user purposes
-
+NICE TO HAVE
+hermes expo 47
 

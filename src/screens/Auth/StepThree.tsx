@@ -11,16 +11,16 @@ import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { ImageInfo } from 'expo-image-picker';
-import { useAuthStore } from 'store/formStore';
+import { useFormStore } from 'store/formStore';
 
 export const StepThree = () => {
   const height = useHeaderHeight();
   const navigation = useNavigation();
 
-  const setImage = useAuthStore((store) => store.setImage);
-  const images = useAuthStore((store) => store.images);
-  const registerForm = useAuthStore((store) => store.registerForm);
-  const setRegisterForm = useAuthStore((store) => store.setRegisterForm);
+  const setImage = useFormStore((store) => store.setImage);
+  const images = useFormStore((store) => store.images);
+  const registerForm = useFormStore((store) => store.registerForm);
+  const setRegisterForm = useFormStore((store) => store.setRegisterForm);
 
   const handleImage = (key: string, image: ImageInfo) => {
     setImage(key, image);

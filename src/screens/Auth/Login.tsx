@@ -1,6 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { SafeAreaView, View, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+} from 'react-native';
 import { Input } from 'components';
 import { Button } from 'components';
 import { constants } from 'lib/constants';
@@ -15,13 +21,11 @@ export const Login = () => {
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
     email: 'jamesadedejifirst@gmail.com',
-    // password: 'jide1234',
-    password: '',
+    password: 'jide1234',
     role: constants.ROLE,
   });
 
   const handleLogin = async () => {
-    // return navigation.navigate('StepOne');
     if (!state.email || !state.password)
       return snack('please enter email and password');
     setLoading(true);
@@ -32,7 +36,10 @@ export const Login = () => {
       setLoading(false);
     }
   };
-  const handleChangeText = (text: string, name: string) => {
+  const handleChangeText = (
+    text: string | NativeSyntheticEvent<TextInputChangeEventData>,
+    name: string
+  ) => {
     setState({ ...state, [name]: text });
   };
 

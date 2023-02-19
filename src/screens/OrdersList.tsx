@@ -57,7 +57,7 @@ export const OrdersList = () => {
         <View className="flex-row mt-9 px-4 py-3 bg-white rounded-[5px] border border-alt-8">
           <View className="flex-1">
             <Button
-              bodyClass={clsx(selected !== 'P' && 'bg-white')}
+              bodyClass={clsx(selected !== 'P' ? 'bg-white' : 'bg-navy-blue')}
               textClass={clsx(selected !== 'P' && 'text-light-text')}
               onPress={() => setSelected('P')}
             >
@@ -66,7 +66,7 @@ export const OrdersList = () => {
           </View>
           <View className="flex-1">
             <Button
-              bodyClass={clsx(selected !== 'D' && 'bg-white')}
+              bodyClass={clsx(selected !== 'D' ? 'bg-white' : 'bg-navy-blue')}
               textClass={clsx(selected !== 'D' && 'text-light-text')}
               onPress={() => setSelected('D')}
             >

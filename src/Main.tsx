@@ -21,6 +21,7 @@ import {
 import { constants } from 'lib/constants';
 import { Step } from 'components/Step';
 import { RootStackParamList } from 'types/navigation';
+import Profile from 'screens/Profile';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -69,6 +70,11 @@ export const Main = () => {
               name="CancelOrder"
               component={CancelOrder}
               options={constants.TITLE_OPTIONS({ title: 'Cancel the order' })}
+            />
+            <RootStack.Screen
+              name="Profile"
+              component={Profile}
+              options={constants.TITLE_OPTIONS({ title: 'Account' })}
             />
           </RootStack.Group>
         ) : (

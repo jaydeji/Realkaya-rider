@@ -80,7 +80,7 @@ export const Map = ({ children }: Props) => {
             </View>
           </Marker.Animated>
         )}
-        <Marker
+        <Marker.Animated
           coordinate={{
             latitude: 6.518572387441918,
             longitude: 3.372669140201567,
@@ -107,7 +107,7 @@ export const Map = ({ children }: Props) => {
               />
             </View>
           </View>
-        </Marker>
+        </Marker.Animated>
       </MapView.Animated>
       {children}
       {/* <SafeAreaView className="flex-1 w-full rounded-t-[20px] bg-white">
