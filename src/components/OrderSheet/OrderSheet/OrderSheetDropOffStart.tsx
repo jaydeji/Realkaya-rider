@@ -29,6 +29,9 @@ export const OrderSheetDropOffStart = () => {
       }
       isLoading={isLoading}
       hideLeft
+      bottomType="package"
+      order={order}
+      topText=""
     />
   );
 };

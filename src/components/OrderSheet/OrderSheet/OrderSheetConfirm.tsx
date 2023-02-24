@@ -1,11 +1,15 @@
 import { Button } from 'components/Form';
+import { OrderAddressBar, OrderKilometer } from 'components/OrderLine';
+import { Span } from 'components/Span';
 import { confirmOrder } from 'lib/api';
 import { useUpdateOrdersForToday } from 'lib/api/hooks';
+import { getPaymentMethod } from 'lib/apiUtils';
 import { goToHomeSheet } from 'lib/order';
 import React from 'react';
 import { View } from 'react-native';
 import { useMutation } from 'react-query';
 import { useOrderStore } from 'store';
+import { ShortOrderSummary } from './ShortOrderSummary';
 
 export const OrderSheetConfirm = () => {
   const order = useOrderStore((store) => store.currentOrder!);
@@ -23,6 +27,23 @@ export const OrderSheetConfirm = () => {
 
   return (
     <View className="w-full mt-10 flex-row gap-x-1">
+      <View className="flex-row justify-between">
+        <Span textClass="text-xs font-Mulish-SemiBold">Pickup Address</Span>
+        <OrderKilometer distance={order.distance} />
+      </View>
+      <OrderAddressBar
+        address={order.senderAddress}
+        bodyClass="mt-2"
+        textClass="text-sm font-Mulish-Bold text-primary"
+      />
+      <Span textClass="text-xs font-Mulish-SemiBold">Delivery Address</Span>
+      <OrderAddressBar
+        address={order.recepientAddress}
+        alt
+        bodyClass="mt-2"
+        textClass="text-sm font-Mulish-Bold text-primary"
+      />
+      <ShortOrderSummary bottomType="fare" order={order} />
       <View className="flex-1">
         <Button
           bodyClass="bg-[#E5E5E5] h-[50px] items-center justify-center rounded-[5px] overflow-hidden"

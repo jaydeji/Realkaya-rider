@@ -8,20 +8,12 @@ import {
   OrderLineRightCall,
   OrderLineTopProfile,
 } from 'components';
+import { getOrderName, getOrderPhone } from 'lib/order';
 
 const OrderDetails = () => {
   const { params } = useRoute<RouteProp<RootStackParamList, 'OrderDetails'>>();
 
   const order = params.order;
-
-  const fullName = order?.user
-    ? `${order.user.firstName} ${order.user.lastName}`
-    : '';
-
-  const name = !order.pickUpPickedAt ? fullName : order.recepientName;
-  const phone = !order.pickUpPickedAt
-    ? order.user?.phone
-    : order.recepientPhone;
 
   return (
     <SafeAreaView className="flex-1 bg-alt-4 text-primary">
@@ -30,8 +22,10 @@ const OrderDetails = () => {
 
         <OrderLine
           order={order}
-          right={<OrderLineRightCall phone={phone!} />}
-          top={<OrderLineTopProfile name={name} />}
+          right={<OrderLineRightCall phone={getOrderPhone(order)!} />}
+          top={
+            <OrderLineTopProfile name={getOrderName(order)} bodyClass="mt-14" />
+          }
         />
       </View>
     </SafeAreaView>

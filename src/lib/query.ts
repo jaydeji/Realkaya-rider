@@ -8,4 +8,10 @@ export const queryKeys = {
   getUserDetails: ['getUserDetails'],
 };
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: process.env.NODE_ENV !== 'development',
+    },
+  },
+});

@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { useUpdateOrder, useUpdateOrdersForToday } from 'lib/api/hooks';
 import React from 'react';
 import { useOrderStore } from 'store';
 import { OrderSheetTemplate } from './OrderSheetTemplate';
@@ -16,6 +15,9 @@ export const OrderSheetDropOffEnd = () => {
         navigation.navigate('CompleteOrder', { orderId: order.orderId })
       }
       hideLeft
+      order={order}
+      topText="Delivery profile"
+      bottomType="package"
     />
   );
 };

@@ -22,7 +22,6 @@ export const OrderSheetPickupStart = () => {
 
   return (
     <OrderSheetTemplate
-      // rightText="Delivered"
       rightText="Start Pickup"
       onRightPress={() =>
         updateApiOrder({
@@ -37,6 +36,9 @@ export const OrderSheetPickupStart = () => {
         navigation.navigate('CancelOrder', { orderId: order.orderId })
       }
       isLoading={isLoading}
+      order={order}
+      bottomType="fare"
+      topText="Pickup Profile"
     />
   );
 };

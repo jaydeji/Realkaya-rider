@@ -29,6 +29,9 @@ export const OrderSheetDropOffArrive = () => {
       }
       isLoading={isLoading}
       hideLeft
+      bottomType="package"
+      order={order}
+      topText="Delivery Profile"
     />
   );
 };
