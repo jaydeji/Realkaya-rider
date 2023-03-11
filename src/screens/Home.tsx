@@ -15,7 +15,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { LoadingSheet } from 'components/OrderSheet/LoadingSheet';
 import { _date } from 'lib/date';
-import { useGetOrdersByDate } from 'lib/api/hooks';
+import { useGetOngoingOrdersByDate } from 'lib/api/hooks';
 import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
 
@@ -70,7 +70,7 @@ export const Home = () => {
   );
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const { mutate: getApiOrdersByDate } = useGetOrdersByDate({
+  const { mutate: getApiOrdersByDate } = useGetOngoingOrdersByDate({
     date: '2022-11-12T17:21:10.385Z' || _date.startOfDay().toISOString(),
     onSuccess: (data) => {
       if (!data.length) return setSheet(sheetRoutes[0]);

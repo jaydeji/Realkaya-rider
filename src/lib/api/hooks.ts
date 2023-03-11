@@ -2,7 +2,7 @@ import { _date } from 'lib/date';
 import { useMutation } from 'react-query';
 import { useOrderStore } from 'store';
 import { Order } from 'types/app';
-import { getOrdersByDate, updateOrder } from '.';
+import { getOngoingOrdersByDate, getOrdersByDate, updateOrder } from '.';
 
 export const useUpdateOrder = (options?: {
   onSuccess?: (order: Order) => void;
@@ -13,7 +13,7 @@ export const useUpdateOrder = (options?: {
   });
 };
 
-export const useGetOrdersByDate = ({
+export const useGetOngoingOrdersByDate = ({
   date,
   onSuccess,
   onError,
@@ -24,7 +24,7 @@ export const useGetOrdersByDate = ({
 }) => {
   return useMutation({
     mutationFn: () =>
-      getOrdersByDate({
+      getOngoingOrdersByDate({
         date,
       }),
     onSuccess,

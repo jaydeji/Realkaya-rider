@@ -25,6 +25,11 @@ export const findNearestOrder = async (location: {
   return data?.data;
 };
 
+export const getOngoingOrdersByDate = async ({ date }: { date: string }) => {
+  const { data } = await axios.get<{ data: Order[] }>(`/ongoing?date=${date}`);
+  return data.data;
+};
+
 export const getOrdersByDate = async ({ date }: { date: string }) => {
   const { data } = await axios.get<{ data: Order[] }>(`/orders?date=${date}`);
   return data.data;

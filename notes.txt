@@ -9,7 +9,6 @@ Sync map with location of current order
 reenable register validation
 location tracking
 get permanent location permission
-fix offline page showing when no orders
 earnings and ratings
 
 NICE TO HAVE

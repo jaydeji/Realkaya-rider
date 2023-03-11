@@ -4,6 +4,10 @@ export const queryKeys = {
   // getLocation: 'getLocation',
   // getNearestOrder: 'getNearestOrder',
   getOrdersByDate: (date: string) => ['getOrdersByDate', { date }],
+  getOngoingOrdersByDate: (date: string) => [
+    'getOngoingOrdersByDate',
+    { date },
+  ],
   fetchUncofirmedOrders: ['fetchUncofirmedOrders'],
   getUserDetails: ['getUserDetails'],
   getSupportChats: ['getSupportChats'],

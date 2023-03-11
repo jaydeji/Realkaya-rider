@@ -9,7 +9,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { useQuery } from 'react-query';
-import { getOrdersByDate } from 'lib/api';
+import { getOngoingOrdersByDate } from 'lib/api';
 import { queryKeys } from 'lib/query';
 import { useAppStore, useOrderStore } from 'store';
 import { sheetRoutes } from 'routes';
@@ -41,8 +41,8 @@ export const OrdersList = () => {
   }, [navigation, date, setDate]);
 
   const { data: orders, isLoading } = useQuery({
-    queryFn: () => getOrdersByDate({ date: date.toISOString() }),
-    queryKey: queryKeys.getOrdersByDate(date.toISOString()),
+    queryFn: () => getOngoingOrdersByDate({ date: date.toISOString() }),
+    queryKey: queryKeys.getOngoingOrdersByDate(date.toISOString()),
     select: (orders) => {
       return {
         P: !orders
