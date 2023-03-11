@@ -4,10 +4,11 @@ import { Button, CheckRound } from 'components';
 import { Span } from 'components/Span';
 import { useOrderStore } from 'store';
 import { useUpdateOrder, useUpdateOrdersForToday } from 'lib/api/hooks';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from 'types/navigation';
 import { snack } from 'lib/snack';
 import { goToHomeSheet } from 'lib/order';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const options = [
   {
@@ -32,14 +33,22 @@ export const CancelOrder = () => {
   const [selected, setSelected] = useState<string>();
 
   const { params } = useRoute<RouteProp<RootStackParamList, 'CancelOrder'>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
   const { mutate: updateOrdersForToday } = useUpdateOrdersForToday();
   const { mutate: updateApiOrder, isLoading } = useUpdateOrder({
     onSuccess: () => {
-      setCurrentOrder();
       updateOrdersForToday();
       goToHomeSheet();
+      navigation.replace('Index', {
+        screen: 'Screens',
+        params: {
+          screen: 'Home',
+        },
+      });
+      setCurrentOrder();
     },
   });
 

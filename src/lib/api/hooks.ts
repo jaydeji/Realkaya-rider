@@ -37,7 +37,7 @@ export const useUpdateOrdersForToday = () => {
 
   return useMutation({
     mutationFn: () =>
-      getOrdersByDate({
+      getOngoingOrdersByDate({
         date: '2022-11-12T17:21:10.385Z' || _date.startOfDay().toISOString(),
       }),
     onSuccess: setOrders,

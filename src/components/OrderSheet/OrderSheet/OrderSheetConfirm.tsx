@@ -47,7 +47,10 @@ export const OrderSheetConfirm = () => {
           <Button
             bodyClass="bg-[#E5E5E5] h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
             textClass="font-Mulish-Bold text-primary"
-            onPress={goToHomeSheet}
+            onPress={() => {
+              goToHomeSheet();
+              setCurrentOrder();
+            }}
           >
             Cancel
           </Button>

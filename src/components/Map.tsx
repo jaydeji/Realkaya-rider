@@ -39,8 +39,6 @@ export const Map = ({ children }: Props) => {
 
   const destination = getDestination(currentOrder);
 
-  console.log({ destination });
-
   const { location, fullLocation, getLocation } = useLocation({
     onSuccess: (data) => {
       // mapRef.current?.fitToSuppliedMarkers(['origin', 'destination'], {

@@ -19,8 +19,6 @@ export const OfflineSheet = () => {
 
   const online = user?.user.online;
 
-  console.log({ orders });
-
   useEffect(() => {
     if (!orders.length) setSheet(sheetRoutes[0]);
   }, [orders.length]);
