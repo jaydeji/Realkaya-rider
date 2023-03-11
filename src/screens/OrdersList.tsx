@@ -50,11 +50,7 @@ export const OrdersList = () => {
           : orders.filter(
               (order) => order.confirmedAt && !order.pickUpArrivedAt
             ),
-        D: !orders
-          ? []
-          : orders.filter(
-              (order) => order.pickUpArrivedAt && !order.dropOffArrivedAt
-            ),
+        D: !orders ? [] : orders.filter((order) => order.pickUpArrivedAt),
       };
     },
   });

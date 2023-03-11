@@ -5,7 +5,7 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-Sync map with location of current order
+push db and service
 reenable register validation
 location tracking
 get permanent location permission
@@ -13,3 +13,8 @@ earnings and ratings
 
 NICE TO HAVE
 notifications screen
+
+ANDROID 
+dates not changing
+set automatically
+

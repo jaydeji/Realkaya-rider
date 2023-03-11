@@ -17,14 +17,11 @@ import { useAppStore } from 'store';
 import { colors } from 'lib/theme';
 import { useMutation } from 'react-query';
 import { updateUser } from 'lib/api';
-import { useNavigation } from '@react-navigation/native';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const userData = useAppStore((store) => store.user!);
   const logout = useAppStore((store) => store.logout);
   const online = userData?.user.online;
-
-  const navigation = useNavigation();
 
   const updateStoreUser = useAppStore((store) => store.updateUser);
   const { mutate: updateApiUser } = useMutation({
@@ -37,7 +34,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       user: { ...userData?.user, online: !online },
     });
     updateApiUser({ online: !online });
-    (navigation as any).toggleDrawer();
+    props.navigation.toggleDrawer();
   };
 
   return (

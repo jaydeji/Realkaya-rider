@@ -26,12 +26,18 @@ export const findNearestOrder = async (location: {
 };
 
 export const getOngoingOrdersByDate = async ({ date }: { date: string }) => {
-  const { data } = await axios.get<{ data: Order[] }>(`/ongoing?date=${date}`);
+  const { data } = await axios.get<{ data: Order[] }>(`/orders/ongoing`, {
+    params: {
+      date,
+    },
+  });
   return data.data;
 };
 
 export const getOrdersByDate = async ({ date }: { date: string }) => {
-  const { data } = await axios.get<{ data: Order[] }>(`/orders?date=${date}`);
+  const { data } = await axios.get<{ data: Order[] }>(`/orders`, {
+    params: date,
+  });
   return data.data;
 };
 

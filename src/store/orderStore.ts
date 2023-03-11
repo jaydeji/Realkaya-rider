@@ -6,7 +6,7 @@ type OrderStoreState = {
   currentOrder?: Order;
   addOrders: (orders: Order[]) => void;
   setOrders: (orders: Order[]) => void;
-  removeOrder: (orderId: number) => void;
+  removeOrder: (orderId: number, cb?: () => void) => void;
   updateOrder: (order: Order) => void;
   setCurrentOrder: (order?: Order) => void;
 };
@@ -23,10 +23,11 @@ export const useOrderStore = create<OrderStoreState>((set) => ({
   setCurrentOrder: (currentOrder) => {
     set({ currentOrder });
   },
-  removeOrder: (orderId) => {
+  removeOrder: (orderId, cb) => {
     set((store) => ({
       orders: store.orders.filter((order) => order.orderId !== orderId),
     }));
+    cb?.();
   },
   updateOrder: (_order) => {
     set((store) => {

@@ -42,9 +42,8 @@ export const CompleteOrder = () => {
   const { mutate: updateOrdersForToday } = useUpdateOrdersForToday();
   const { mutate: updateApiOrder, isLoading } = useUpdateOrder({
     onSuccess: () => {
-      updateOrdersForToday();
       navigation.navigate('Welldone', { order: currentOrder });
-      removeOrder(currentOrder.orderId);
+      removeOrder(currentOrder.orderId, updateOrdersForToday);
       setCurrentOrder();
     },
   });

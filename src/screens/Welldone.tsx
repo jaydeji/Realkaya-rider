@@ -3,7 +3,7 @@ import { SafeAreaView, View } from 'react-native';
 import { Button, OrderDetailsSummary } from 'components';
 import { Span } from 'components/Span';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { RootStackParamList, ScreensStackParamList } from 'types/navigation';
+import { RootStackParamList } from 'types/navigation';
 import { useAppStore } from 'store';
 import { goToHomeSheet } from 'lib/order';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,7 +14,7 @@ export const Welldone = () => {
   const { params } = useRoute<RouteProp<RootStackParamList, 'Welldone'>>();
   const order = params.order;
   const navigation =
-    useNavigation<NativeStackNavigationProp<ScreensStackParamList>>();
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const user = useAppStore((store) => store.user!);
   const updateStoreUser = useAppStore((store) => store.updateUser);
@@ -26,7 +26,12 @@ export const Welldone = () => {
 
   const handleContinue = () => {
     goToHomeSheet();
-    navigation.navigate('Home');
+    navigation.replace('Index', {
+      screen: 'Screens',
+      params: {
+        screen: 'Home',
+      },
+    });
   };
 
   const handleGoOffline = () => {

@@ -1,4 +1,4 @@
-import { Order, PaymentMethod } from 'types/app';
+import { PaymentMethod } from 'types/app';
 
 export const getPaymentMethod = (method: PaymentMethod) => {
   if (method === 'CASH') return 'Pay on delivery';
