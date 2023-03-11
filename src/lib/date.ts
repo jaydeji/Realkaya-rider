@@ -9,4 +9,5 @@ dayjs.locale({
 export const _date = {
   startOfDay: () => dayjs().startOf('day'),
   formatAmPm: (date: string) => dayjs(date).format('h:mma'),
+  formatOne: (date: string) => dayjs(date).format('MMM DD, h:mm A'),
 };

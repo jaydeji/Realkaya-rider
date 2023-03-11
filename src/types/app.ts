@@ -76,8 +76,16 @@ export type User = {
   email: string;
   phone: string;
   account?: UserAccount;
+  userId: number;
 };
 export type UserWithCred = {
   token: string;
   user: User;
+};
+
+export type SupportTicket = {
+  supportTicketId: number;
+  orderId: number;
+  message: string;
+  updatedAt: string;
 };

@@ -5,17 +5,14 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-all sheets are not the same. Adjust
 integrate support/chat endpoint
 show uploaded image in register
-earnings and ratings
 reenable register validation
 Sync map with location of current order
 location tracking
 get permanent location permission
 fix offline page showing when no orders
+earnings and ratings
 
 NICE TO HAVE
 notifications screen
-
-

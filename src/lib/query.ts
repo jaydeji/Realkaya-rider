@@ -6,6 +6,7 @@ export const queryKeys = {
   getOrdersByDate: (date: string) => ['getOrdersByDate', { date }],
   fetchUncofirmedOrders: ['fetchUncofirmedOrders'],
   getUserDetails: ['getUserDetails'],
+  getSupportChats: ['getSupportChats'],
 };
 
 export const queryClient = new QueryClient({

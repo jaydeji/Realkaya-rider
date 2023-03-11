@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Order, User } from 'types/app';
+import { Order, SupportTicket, User } from 'types/app';
 
 export const confirmOrder = async ({ orderId }: { orderId: number }) => {
   const { data } = await axios.patch('/orders/' + orderId + '/confirm');
@@ -51,4 +51,12 @@ export const getUserDetails = () => {
 
 export const updateUser = (body: Record<string, any>) => {
   return axios.patch('/users', body).then((e) => e.data.data as User);
+};
+
+export const startSupportChat = (body: Record<string, any>) => {
+  return axios.post('/startsupportchat', body);
+};
+
+export const getSupportChats = () => {
+  return axios.get('/getchats').then((e) => e.data.data as SupportTicket[]);
 };
