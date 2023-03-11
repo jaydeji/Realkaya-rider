@@ -3,9 +3,9 @@ import { create } from 'zustand';
 
 type FormStoreState = {
   registerForm: Record<string, any>;
-  images: Record<string, ImagePickerAsset>;
+  images: Record<string, ImagePickerAsset | undefined>;
   setRegisterForm: (key: string, value: any) => void;
-  setImage: (key: string, value: ImagePickerAsset) => void;
+  setImage: (key: string, value?: ImagePickerAsset) => void;
 };
 
 export const useFormStore = create<FormStoreState>((set) => ({

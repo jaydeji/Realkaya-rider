@@ -22,3 +22,4 @@ export * from './EmptyInbox';
 export * from './SupportIcon';
 export * from './CircleExclaim';
 export * from './Logout';
+export * from './Close';

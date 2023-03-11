@@ -5,10 +5,8 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-integrate support/chat endpoint
-show uploaded image in register
-reenable register validation
 Sync map with location of current order
+reenable register validation
 location tracking
 get permanent location permission
 fix offline page showing when no orders

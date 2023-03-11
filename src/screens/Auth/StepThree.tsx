@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Input, DateInput, Button, UploadImage } from 'components';
+import { Input, DateInput, Button, UploadImage, ImageView } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
@@ -85,6 +85,12 @@ export const StepThree = () => {
                   onSelect={(image) => handleImage('documentUrl', image)}
                 />
               </View>
+              {images?.documentUrl && (
+                <ImageView
+                  source={images.documentUrl}
+                  onClose={() => setImage('documentUrl', undefined)}
+                />
+              )}
             </View>
             <View className="bg-white p-4 mt-[27px]">
               <Span textClass="text-base font-Mulish-SemiBold text-primary">
@@ -99,6 +105,12 @@ export const StepThree = () => {
                   onSelect={(image) => handleImage('profilePhotoUrl', image)}
                 />
               </View>
+              {images?.profilePhotoUrl && (
+                <ImageView
+                  source={images.profilePhotoUrl}
+                  onClose={() => setImage('profilePhotoUrl', undefined)}
+                />
+              )}
             </View>
             <View className="mt-[27px]">
               <Button onPress={handleNext} disabled={disabled}>
