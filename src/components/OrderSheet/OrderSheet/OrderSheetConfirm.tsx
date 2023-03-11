@@ -3,7 +3,6 @@ import { OrderAddressBar, OrderKilometer } from 'components/OrderLine';
 import { Span } from 'components/Span';
 import { confirmOrder } from 'lib/api';
 import { useUpdateOrdersForToday } from 'lib/api/hooks';
-import { getPaymentMethod } from 'lib/apiUtils';
 import { goToHomeSheet } from 'lib/order';
 import React from 'react';
 import { View } from 'react-native';
@@ -26,8 +25,8 @@ export const OrderSheetConfirm = () => {
   });
 
   return (
-    <View className="w-full mt-10 flex-row gap-x-1">
-      <View className="flex-row justify-between">
+    <View>
+      <View className="flex-row justify-between items-center">
         <Span textClass="text-xs font-Mulish-SemiBold">Pickup Address</Span>
         <OrderKilometer distance={order.distance} />
       </View>
@@ -39,30 +38,31 @@ export const OrderSheetConfirm = () => {
       <Span textClass="text-xs font-Mulish-SemiBold">Delivery Address</Span>
       <OrderAddressBar
         address={order.recepientAddress}
-        alt
         bodyClass="mt-2"
         textClass="text-sm font-Mulish-Bold text-primary"
       />
-      <ShortOrderSummary bottomType="fare" order={order} />
-      <View className="flex-1">
-        <Button
-          bodyClass="bg-[#E5E5E5] h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
-          textClass="font-Mulish-Bold text-primary"
-          onPress={goToHomeSheet}
-        >
-          Cancel
-        </Button>
-      </View>
-      <View className="flex-1">
-        <Button
-          alt
-          textClass="font-Mulish-Bold text-white"
-          bodyClass="bg-primary h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
-          loading={isLoading}
-          onPress={() => updateApiOrder(order.orderId)}
-        >
-          Confirm
-        </Button>
+      <ShortOrderSummary bottomType={'fare'} order={order} />
+      <View className="w-full mt-10 flex-row gap-x-1">
+        <View className="flex-1">
+          <Button
+            bodyClass="bg-[#E5E5E5] h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
+            textClass="font-Mulish-Bold text-primary"
+            onPress={goToHomeSheet}
+          >
+            Cancel
+          </Button>
+        </View>
+        <View className="flex-1">
+          <Button
+            alt
+            textClass="font-Mulish-Bold text-white"
+            bodyClass="bg-primary h-[50px] items-center justify-center rounded-[5px] overflow-hidden"
+            loading={isLoading}
+            onPress={() => updateApiOrder(order.orderId)}
+          >
+            Confirm
+          </Button>
+        </View>
       </View>
     </View>
   );

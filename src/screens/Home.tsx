@@ -27,7 +27,7 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
     return;
   }
   if (data) {
-    const { locations } = data;
+    const { locations } = data as any;
     let lat = locations[0].coords.latitude;
     let long = locations[0].coords.longitude;
 
