@@ -8,7 +8,7 @@ import DateTimePickerModal, {
 
 type Props = {
   value?: Date;
-  onChange: ReactNativeModalDateTimePickerProps['onChange'];
+  onChange: ReactNativeModalDateTimePickerProps['onConfirm'];
   placeholder?: string;
   label: string;
 };
@@ -48,9 +48,11 @@ export const DateInput = ({
           isVisible={show}
           mode="date"
           date={value}
-          onConfirm={() => setShow(false)}
+          onConfirm={(date) => {
+            onChange(date);
+            setShow(false);
+          }}
           onCancel={() => setShow(false)}
-          onChange={onChange}
         />
       </View>
     </TouchableWithoutFeedback>

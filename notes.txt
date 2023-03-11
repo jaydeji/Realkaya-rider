@@ -14,7 +14,3 @@ earnings and ratings
 NICE TO HAVE
 notifications screen
 
-ANDROID 
-dates not changing
-set automatically
-

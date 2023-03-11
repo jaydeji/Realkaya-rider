@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { ArrowDownIcon } from 'assets/icons';
 import DateTimePickerModal, {
   ReactNativeModalDateTimePickerProps,
