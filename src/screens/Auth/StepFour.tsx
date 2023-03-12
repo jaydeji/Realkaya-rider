@@ -58,7 +58,7 @@ export const StepFour = () => {
       snack('error getting presigned urls');
       return;
     }
-
+    snack('got presigned');
     try {
       await Promise.all(
         presignedFields.map(async (presignedData, index) => {
@@ -86,7 +86,7 @@ export const StepFour = () => {
       snack('error uploading images');
       return;
     }
-
+    snack('uploaded images');
     try {
       await axios.post('/auth/signup', {
         ...registerForm,
