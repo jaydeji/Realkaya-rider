@@ -16,7 +16,8 @@ import { queryClient } from 'lib/query';
 
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
-  axios.defaults.baseURL = 'http://172.20.10.3:4001';
+  axios.defaults.baseURL = 'https://realkaya-be-development.up.railway.app';
+  // axios.defaults.baseURL = 'http://172.20.10.3:4001';
   // axios.defaults.baseURL = 'http://192.168.100.19:4001';
   axios.interceptors.request.use(
     function (config) {

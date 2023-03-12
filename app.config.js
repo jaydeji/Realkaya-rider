@@ -1,11 +1,12 @@
 module.exports = {
   expo: {
-    name: 'carigo-rider',
-    slug: 'carigo-rider',
+    name: 'Realkaya Rider',
+    slug: 'realkaya-rider',
     version: '1.0.0',
     orientation: 'portrait',
     icon: './src/assets/icon.png',
-    userInterfaceStyle: 'light',
+    // userInterfaceStyle: 'automatic', //datepicker
+    userInterfaceStyle: 'light', //datepicker
     // splash: {
     //   image: './assets/splash.png',
     //   resizeMode: 'contain',
@@ -24,7 +25,7 @@ module.exports = {
           "The RealKaya App will use your location to provide ETA's to yourself and others",
         UIBackgroundModes: ['location', 'fetch'],
       },
-      bundleIdentifier: 'com.youngmartng.realkaya',
+      bundleIdentifier: 'com.youngmartng.realkayarider',
     },
     android: {
       adaptiveIcon: {
@@ -36,14 +37,14 @@ module.exports = {
         'ACCESS_FINE_LOCATION',
         'ACCESS_BACKGROUND_LOCATION',
       ],
+      package: 'com.youngmartng.realkayarider',
     },
     web: {
       favicon: './src/assets/favicon.png',
     },
-    userInterfaceStyle: 'automatic', //datepicker
     extra: {
       eas: {
-        projectId: '5647e6c7-03a1-4afb-a257-e5bedd906c70',
+        projectId: '12574bb5-5532-4a7f-81d0-226c3fa188dd',
       },
     },
     jsEngine: 'hermes',

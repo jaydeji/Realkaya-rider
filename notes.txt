@@ -14,3 +14,18 @@ earnings and ratings
 NICE TO HAVE
 notifications screen
 
+bundletool build-apks --mode universal --bundle ./realkaya-rider.aab --output ./realkaya-rider.apks \
+--ks=./android-key/key.jks \
+--ks-key-alias=38e511a513aaff47017aaa2d1698114b \
+--ks-pass=pass:9549d285924f9001ececf030309821fe \
+--key-pass=pass:c50f732ce9efc9e81239bde737dc514d
+
+brew install bundletool
+bundletool build-apks --bundle=app-release.aab --output=app-release.apks
+bundletool build-apks --bundle=realkaya-rider.aab --output=realkaya-rider.apks
+bundletool install-apks --apks=realkaya-rider.apks
+mv app.apks app.zip
+unzip app.zip
+
+eas build -p android -e preview
+
