@@ -58,7 +58,7 @@ export const StepFour = () => {
       snack('error getting presigned urls');
       return;
     }
-    snack('got presigned');
+
     try {
       await Promise.all(
         presignedFields.map(async (presignedData, index) => {
@@ -77,7 +77,11 @@ export const StepFour = () => {
             type: 'image/' + fileType,
           } as unknown as Blob);
 
-          const x = await axios.post(presignedData.url, newFormData);
+          const x = await axios.post(presignedData.url, newFormData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
           return x?.data;
         })
       );
@@ -86,7 +90,7 @@ export const StepFour = () => {
       snack('error uploading images');
       return;
     }
-    snack('uploaded images');
+
     try {
       await axios.post('/auth/signup', {
         ...registerForm,

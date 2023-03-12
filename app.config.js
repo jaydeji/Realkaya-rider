@@ -47,6 +47,6 @@ module.exports = {
         projectId: '12574bb5-5532-4a7f-81d0-226c3fa188dd',
       },
     },
-    // jsEngine: 'hermes',
+    jsEngine: 'hermes',
   },
 };
