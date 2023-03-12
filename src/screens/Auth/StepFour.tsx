@@ -12,8 +12,9 @@ import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useFormStore } from 'store/formStore';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { ImagePickerAsset } from 'expo-image-picker';
+import { snack } from 'lib/snack';
 
 export const StepFour = () => {
   const height = useHeaderHeight();
@@ -85,9 +86,8 @@ export const StepFour = () => {
       navigation.navigate('SignUpDone');
     } catch (_error) {
       setLoading(false);
-      // const error = _error as AxiosError;
-      // console.log('error', error.response?.data);
-      // console.log('error2', error.response);
+      const error = _error as any;
+      snack(error.response?.data || error?.message || error);
     }
   };
 

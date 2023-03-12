@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 type FormStoreState = {
   registerForm: Record<string, any>;
-  images: Record<string, ImagePickerAsset | undefined>;
+  images: Record<string, ImagePickerAsset>;
   setRegisterForm: (key: string, value: any) => void;
   setImage: (key: string, value?: ImagePickerAsset) => void;
 };
@@ -22,6 +22,12 @@ export const useFormStore = create<FormStoreState>((set) => ({
   },
   images: {},
   setImage: (key, value) => {
-    set((store) => ({ images: { ...store.images, [key]: value } }));
+    set((store) => {
+      if (value !== undefined)
+        return { images: { ...store.images, [key]: value } };
+      const newStore = { ...store };
+      if (newStore.images[key]) delete newStore.images[key];
+      return newStore;
+    });
   },
 }));
