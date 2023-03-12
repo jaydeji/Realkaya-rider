@@ -38,8 +38,10 @@ export const StepFour = () => {
 
     setLoading(true);
 
+    let presignedFields: any[];
+
     try {
-      const presignedFields = await Promise.all(
+      presignedFields = await Promise.all(
         _images.map(async (e) => {
           const fileName = e.uri.split('/').pop() as string;
           const fileType = fileName?.split('.').pop();
@@ -51,7 +53,13 @@ export const StepFour = () => {
             .then((e) => e.data.data);
         })
       );
+    } catch (error) {
+      setLoading(false);
+      snack('error getting presigned urls');
+      return;
+    }
 
+    try {
       await Promise.all(
         presignedFields.map(async (presignedData, index) => {
           const fileName = _images[index].uri.split('/').pop() as string;
@@ -68,12 +76,18 @@ export const StepFour = () => {
             name: fileName,
             type: 'image/' + fileType,
           } as unknown as Blob);
-          const { data } = await axios.post(presignedData.url, newFormData);
 
-          return data;
+          const x = await axios.post(presignedData.url, newFormData);
+          return x?.data;
         })
       );
+    } catch (error) {
+      setLoading(false);
+      snack('error uploading images');
+      return;
+    }
 
+    try {
       await axios.post('/auth/signup', {
         ...registerForm,
         profilePhotoUrl: presignedFields[1].uploadedDocumentUrl,
@@ -82,13 +96,12 @@ export const StepFour = () => {
           documentUrl: presignedFields[0].uploadedDocumentUrl,
         },
       });
-
-      navigation.navigate('SignUpDone');
     } catch (_error) {
       setLoading(false);
       const error = _error as any;
-      snack(error.response?.data || error?.message || error);
+      snack(error?.response?.data?.message || error?.message || error);
     }
+    navigation.navigate('SignUpDone');
   };
 
   return (

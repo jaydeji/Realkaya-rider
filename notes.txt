@@ -5,7 +5,7 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
-push db and service
+access denied photo
 reenable register validation
 location tracking
 get permanent location permission
@@ -28,4 +28,11 @@ mv app.apks app.zip
 unzip app.zip
 
 eas build -p android -e preview
+
+react-native-debugger
+- open rnd on expo port
+- open js debugger 
+- image upload is problematic
+- logs are moved to browser
+- no hermes support
 
