@@ -59,15 +59,19 @@ import * as Sentry from 'sentry-expo';
 const initErrorHandler = () => {
   console.log('hhybefub');
   // Sentry.Native.captureException(error);
-  Sentry.Native.captureException(new Error('Oops!'));
-  Sentry.Native.captureMessage(
-    'Initialising new relic in ' + process.env.NODE_ENV + ' mode'
-  );
+
   Sentry.init({
     dsn: 'https://811ba4d23c414b8f9a1abb445afd1ad1@o4504837634457600.ingest.sentry.io/4504837635899392',
     enableInExpoDevelopment: true,
-    debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+    debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in productio
+    // enableNative: true,
+    // environment: 'develoment'
   });
+
+  Sentry.Native.captureException(new Error('Oopser!'));
+  Sentry.Native.captureMessage(
+    'Initialising sentry in ' + process.env.NODE_ENV + ' mode'
+  );
 };
 
 export { initErrorHandler };

@@ -53,3 +53,6 @@ https://bugmenot.com/view/oracle.com
 npx expo prebuild --clean
 
 https://github.com/expo/expo/blob/main/CHANGELOG.md
+
+bugsnag
+rollbar

@@ -57,7 +57,7 @@ module.exports = {
         {
           file: 'sentry-expo/upload-sourcemaps',
           config: {
-            organization: 'Realkaya',
+            organization: 'realkaya',
             project: 'react-native',
             authToken:
               '710c69ad0e96449cbebdc16432b087d7c2db722a9fad4728a6c539f28cae93b5',
