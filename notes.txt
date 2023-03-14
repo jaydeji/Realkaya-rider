@@ -5,6 +5,7 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
+svgo 2.x.x
 access denied photo
 reenable register validation
 location tracking
@@ -28,6 +29,7 @@ mv app.apks app.zip
 unzip app.zip
 
 eas build -p android -e preview
+eas build -p android -e preview --local
 
 react-native-debugger
 - open rnd on expo port
@@ -36,3 +38,9 @@ react-native-debugger
 - logs are moved to browser
 - no hermes support
 
+npm install -g sharp-cli
+install java
+
+SWITCH JAVA VERSION
+/usr/libexec/java_home -V
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

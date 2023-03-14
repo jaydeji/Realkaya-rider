@@ -6,7 +6,7 @@ module.exports = {
     orientation: 'portrait',
     icon: './src/assets/icon.png',
     // userInterfaceStyle: 'automatic', //datepicker
-    userInterfaceStyle: 'light', //datepicker
+    // userInterfaceStyle: 'light', //datepicker
     // splash: {
     //   image: './assets/splash.png',
     //   resizeMode: 'contain',
