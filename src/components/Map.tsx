@@ -6,7 +6,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { useLocation } from 'hooks';
 import { useOrderStore } from 'store';
 import { Order } from 'types/app';
-import { GOOGLE_MAPS_APIKEY } from 'lib/env';
+import { GOOGLE_MAPS_APIKEY } from '@env';
 
 type Props = {
   children?: React.ReactNode;

@@ -70,18 +70,15 @@ const AppWrapper = () => {
     'Mulish-ExtraBold': require('./assets/fonts/Mulish-ExtraBold.ttf'),
   });
 
-  const setup = async () => {
-    setupAxios();
-  };
-
   useEffect(() => {
-    SplashScreen.hideAsync();
+    // SplashScreen.hideAsync();
     // Sentry.Native.addBreadcrumb({
     //   type: 'transaction',
     //   category: 'sentry.transaction',
     //   message: 'Hid splash screen',
     // });
-    setup().then(() => setSetupDone(true));
+    setupAxios();
+    setSetupDone(true);
   }, []);
 
   useEffect(() => {
@@ -98,13 +95,13 @@ const AppWrapper = () => {
   return (
     <>
       {isAppReady && <Main />}
-      {!isSplashAnimationComplete && (
+      {/* {!isSplashAnimationComplete && (
         <Splash
           fontsLoaded={fontsLoaded}
           isAppReady={isAppReady}
           setAnimationComplete={(value) => setAnimationComplete(value)}
         />
-      )}
+      )} */}
     </>
   );
 };

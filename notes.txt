@@ -60,3 +60,5 @@ rollbar
 eas secret:list
 eas secret:create --scope project --name SECRET_NAME --value secretvalue --type string
 eas secret:push --scope project --env-file ./eas/.env --force
+adb logcat "*:E"
+adb logcat '*:S' ReactNative:V ReactNativeJS:V
