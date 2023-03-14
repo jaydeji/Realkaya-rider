@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-// import NewRelic from 'newrelic-react-native-agent';
+import * as Sentry from 'sentry-expo';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Splash } from 'components/Splash';
@@ -45,6 +45,12 @@ const setupAxios = () => {
       return Promise.reject(error);
     }
   );
+
+  Sentry.Native.addBreadcrumb({
+    type: 'transaction',
+    category: 'sentry.transaction',
+    message: 'Setup axios',
+  });
 };
 
 const AppWrapper = () => {
@@ -66,11 +72,23 @@ const AppWrapper = () => {
 
   useEffect(() => {
     SplashScreen.hideAsync();
+    Sentry.Native.addBreadcrumb({
+      type: 'transaction',
+      category: 'sentry.transaction',
+      message: 'Hid splash screen',
+    });
     setup().then(() => setSetupDone(true));
   }, []);
 
   useEffect(() => {
-    if (isSetupDone && fontsLoaded) setAppReady(true);
+    if (isSetupDone && fontsLoaded) {
+      setAppReady(true);
+      Sentry.Native.addBreadcrumb({
+        type: 'transaction',
+        category: 'sentry.transaction',
+        message: 'App ready',
+      });
+    }
   }, [isSetupDone, fontsLoaded]);
 
   return (
