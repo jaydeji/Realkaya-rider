@@ -3,10 +3,10 @@ import { View, Image } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, MAP_TYPES } from 'react-native-maps';
 import shape from 'assets/images/Shape.png';
 import MapViewDirections from 'react-native-maps-directions';
-import { GOOGLE_MAPS_APIKEY } from '@env';
 import { useLocation } from 'hooks';
 import { useOrderStore } from 'store';
 import { Order } from 'types/app';
+import { GOOGLE_MAPS_APIKEY } from 'lib/env';
 
 type Props = {
   children?: React.ReactNode;
