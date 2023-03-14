@@ -46,24 +46,27 @@ module.exports = {
       eas: {
         projectId: '12574bb5-5532-4a7f-81d0-226c3fa188dd',
       },
+      bugsnag: {
+        apiKey: 'eb9ee69554f7ae1070f892d04cd9c402',
+      },
     },
     jsEngine: 'hermes',
-    plugins: [
-      'sentry-expo',
-      // 'newrelic-react-native-agent'
-    ],
-    hooks: {
-      postPublish: [
-        {
-          file: 'sentry-expo/upload-sourcemaps',
-          config: {
-            organization: 'realkaya',
-            project: 'react-native',
-            authToken:
-              '710c69ad0e96449cbebdc16432b087d7c2db722a9fad4728a6c539f28cae93b5',
-          },
-        },
-      ],
-    },
+    // plugins: [
+    //   'sentry-expo',
+    //   // 'newrelic-react-native-agent'
+    // ],
+    // hooks: {
+    //   postPublish: [
+    //     {
+    //       file: 'sentry-expo/upload-sourcemaps',
+    //       config: {
+    //         organization: 'realkaya',
+    //         project: 'react-native',
+    //         authToken:
+    //           '710c69ad0e96449cbebdc16432b087d7c2db722a9fad4728a6c539f28cae93b5',
+    //       },
+    //     },
+    //   ],
+    // },
   },
 };

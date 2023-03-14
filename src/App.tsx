@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
-import * as Sentry from 'sentry-expo';
+import Bugsnag from '@bugsnag/expo';
+// import * as Sentry from 'sentry-expo';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Splash } from 'components/Splash';
@@ -15,8 +16,11 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'lib/query';
 import { initErrorHandler } from 'lib/errorHandlerConfig';
+import React from 'react';
 
 initErrorHandler();
+
+const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
@@ -46,11 +50,11 @@ const setupAxios = () => {
     }
   );
 
-  Sentry.Native.addBreadcrumb({
-    type: 'transaction',
-    category: 'sentry.transaction',
-    message: 'Setup axios',
-  });
+  // Sentry.Native.addBreadcrumb({
+  //   type: 'transaction',
+  //   category: 'sentry.transaction',
+  //   message: 'Setup axios',
+  // });
 };
 
 const AppWrapper = () => {
@@ -72,22 +76,22 @@ const AppWrapper = () => {
 
   useEffect(() => {
     SplashScreen.hideAsync();
-    Sentry.Native.addBreadcrumb({
-      type: 'transaction',
-      category: 'sentry.transaction',
-      message: 'Hid splash screen',
-    });
+    // Sentry.Native.addBreadcrumb({
+    //   type: 'transaction',
+    //   category: 'sentry.transaction',
+    //   message: 'Hid splash screen',
+    // });
     setup().then(() => setSetupDone(true));
   }, []);
 
   useEffect(() => {
     if (isSetupDone && fontsLoaded) {
       setAppReady(true);
-      Sentry.Native.addBreadcrumb({
-        type: 'transaction',
-        category: 'sentry.transaction',
-        message: 'App ready',
-      });
+      // Sentry.Native.addBreadcrumb({
+      //   type: 'transaction',
+      //   category: 'sentry.transaction',
+      //   message: 'App ready',
+      // });
     }
   }, [isSetupDone, fontsLoaded]);
 
@@ -107,14 +111,16 @@ const AppWrapper = () => {
 
 const App = () => {
   return (
-    <RootSiblingParent>
-      <QueryClientProvider client={queryClient}>
-        {/* onStateChange={NewRelic.onStateChange} */}
-        <NavigationContainer>
-          <AppWrapper />
-        </NavigationContainer>
-      </QueryClientProvider>
-    </RootSiblingParent>
+    <ErrorBoundary>
+      <RootSiblingParent>
+        <QueryClientProvider client={queryClient}>
+          {/* onStateChange={NewRelic.onStateChange} */}
+          <NavigationContainer>
+            <AppWrapper />
+          </NavigationContainer>
+        </QueryClientProvider>
+      </RootSiblingParent>
+    </ErrorBoundary>
   );
 };
 
