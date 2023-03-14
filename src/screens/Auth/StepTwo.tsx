@@ -11,6 +11,7 @@ import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useFormStore } from 'store/formStore';
+import { snack } from 'lib/snack';
 
 export const StepTwo = () => {
   const height = useHeaderHeight();
@@ -32,7 +33,7 @@ export const StepTwo = () => {
       !registerForm.vehicle.address;
 
   const handleNext = () => {
-    // if (disabled) return snack('Please fill all required fields');
+    if (disabled) return snack('Please fill all required fields');
     navigation.navigate('StepThree');
   };
 
@@ -131,10 +132,7 @@ export const StepTwo = () => {
               </>
             )}
             <View className="mt-[72px]">
-              <Button
-                onPress={() => navigation.navigate('StepThree')}
-                disabled={disabled}
-              >
+              <Button onPress={handleNext} disabled={disabled}>
                 Next
               </Button>
             </View>

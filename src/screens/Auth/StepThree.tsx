@@ -12,6 +12,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { useFormStore } from 'store/formStore';
+import { snack } from 'lib/snack';
 
 export const StepThree = () => {
   const height = useHeaderHeight();
@@ -32,7 +33,7 @@ export const StepThree = () => {
     !images.profilePhotoUrl;
 
   const handleNext = () => {
-    // if (disabled) return snack('Please fill all required fields');
+    if (disabled) return snack('Please fill all required fields');
     navigation.navigate('StepFour');
   };
 

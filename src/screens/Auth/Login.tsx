@@ -20,8 +20,8 @@ export const Login = () => {
   const setUser = useAppStore((store) => store.setUser);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
-    email: 'jamesadedejifirst@gmail.com',
-    password: 'jide1234',
+    email: '',
+    password: '',
     role: constants.ROLE,
   });
 
@@ -66,6 +66,7 @@ export const Login = () => {
             label="Password"
             value={state.password}
             onChange={(text) => handleChangeText(text, 'password')}
+            secureTextEntry
           />
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>

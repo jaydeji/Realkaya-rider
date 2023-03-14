@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  Text,
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -32,7 +31,7 @@ export const StepFour = () => {
     !registerForm.account.bankName;
 
   const handleRegister = async () => {
-    // if (disabled) return snack('Please fill all required fields');
+    if (disabled) return snack('Please fill all required fields');
 
     const _images = [images.documentUrl, images.profilePhotoUrl];
 
@@ -70,7 +69,6 @@ export const StepFour = () => {
             newFormData.append(e[0], e[1] as any)
           );
 
-          // newFormData.append('file', _images[index].uri.replace('///', '//'));
           newFormData.append('file', {
             uri: image.uri,
             name: fileName,

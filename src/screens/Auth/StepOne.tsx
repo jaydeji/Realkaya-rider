@@ -11,6 +11,7 @@ import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useFormStore } from 'store/formStore';
+import { snack } from 'lib/snack';
 
 export const StepOne = () => {
   const height = useHeaderHeight();
@@ -25,7 +26,7 @@ export const StepOne = () => {
     !registerForm.phone;
 
   const handleNext = () => {
-    // if (disabled) return snack('Please fill all required fields');
+    if (disabled) return snack('Please fill all required fields');
     navigation.navigate('StepTwo');
   };
 
