@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+// import NewRelic from 'newrelic-react-native-agent';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Splash } from 'components/Splash';
@@ -13,6 +14,9 @@ import { registerRootComponent } from 'expo';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'lib/query';
+import { initErrorHandler } from 'lib/errorHandlerConfig';
+
+initErrorHandler();
 
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
@@ -87,6 +91,7 @@ const App = () => {
   return (
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
+        {/* onStateChange={NewRelic.onStateChange} */}
         <NavigationContainer>
           <AppWrapper />
         </NavigationContainer>

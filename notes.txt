@@ -43,4 +43,13 @@ install java
 
 SWITCH JAVA VERSION
 /usr/libexec/java_home -V
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=`/usr/libexec/java_home -v 11.0.18`
+
+
+LOGIN
+https://www.oracle.com/java/technologies/downloads/
+https://bugmenot.com/view/oracle.com
+
+npx expo prebuild --clean
+
+https://github.com/expo/expo/blob/main/CHANGELOG.md

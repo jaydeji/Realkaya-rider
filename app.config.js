@@ -6,7 +6,7 @@ module.exports = {
     orientation: 'portrait',
     icon: './src/assets/icon.png',
     // userInterfaceStyle: 'automatic', //datepicker
-    // userInterfaceStyle: 'light', //datepicker
+    userInterfaceStyle: 'light',
     // splash: {
     //   image: './assets/splash.png',
     //   resizeMode: 'contain',
@@ -48,5 +48,22 @@ module.exports = {
       },
     },
     jsEngine: 'hermes',
+    plugins: [
+      'sentry-expo',
+      // 'newrelic-react-native-agent'
+    ],
+    hooks: {
+      postPublish: [
+        {
+          file: 'sentry-expo/upload-sourcemaps',
+          config: {
+            organization: 'Realkaya',
+            project: 'react-native',
+            authToken:
+              '710c69ad0e96449cbebdc16432b087d7c2db722a9fad4728a6c539f28cae93b5',
+          },
+        },
+      ],
+    },
   },
 };
