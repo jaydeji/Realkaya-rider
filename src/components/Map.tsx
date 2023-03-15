@@ -7,6 +7,7 @@ import { useLocation } from 'hooks';
 import { useOrderStore } from 'store';
 import { Order } from 'types/app';
 import { GOOGLE_MAPS_APIKEY } from '@env';
+import Bugsnag from '@bugsnag/expo';
 
 type Props = {
   children?: React.ReactNode;
@@ -67,7 +68,7 @@ export const Map = ({ children }: Props) => {
       <MapView.Animated
         ref={mapRef}
         className="w-full flex-1"
-        mapType={MAP_TYPES.MUTEDSTANDARD}
+        mapType={MAP_TYPES.STANDARD}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: 6.514577,
@@ -85,9 +86,11 @@ export const Map = ({ children }: Props) => {
         <MapViewDirections
           origin={location || { latitude: 6.514577, longitude: 3.391881 }}
           destination={destination}
-          apikey={GOOGLE_MAPS_APIKEY}
+          // apikey={GOOGLE_MAPS_APIKEY}
+          apikey={'AIzaSyD9kiPLExQRc6u5DwnUMlFuPJR0qYpA8gI'}
           strokeWidth={3}
           strokeColor="#FF6600"
+          onError={(e) => Bugsnag.notify(e)}
         />
 
         {fullLocation && (

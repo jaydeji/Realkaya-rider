@@ -86,7 +86,12 @@ const Screens = (props: any) => {
     outputRange: [0, 1],
   });
 
-  const animatedStyle = { borderRadius, transform: [{ scale, translateY }] };
+  const animatedStyle = {
+    borderRadius,
+    transform: [{ scale, translateY }],
+    // transform: [{ translateY }],
+    //{ translateY }
+  };
 
   return (
     <>
@@ -111,7 +116,7 @@ const Screens = (props: any) => {
           }}
         >
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Details" component={Details} />
+          {/* <Stack.Screen name="Details" component={Details} /> */}
         </Stack.Navigator>
       </Animated.View>
     </>

@@ -17,6 +17,7 @@ import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'lib/query';
 import { initErrorHandler } from 'lib/errorHandlerConfig';
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 initErrorHandler();
 
@@ -71,7 +72,7 @@ const AppWrapper = () => {
   });
 
   useEffect(() => {
-    // SplashScreen.hideAsync();
+    SplashScreen.hideAsync();
     // Sentry.Native.addBreadcrumb({
     //   type: 'transaction',
     //   category: 'sentry.transaction',
@@ -95,13 +96,13 @@ const AppWrapper = () => {
   return (
     <>
       {isAppReady && <Main />}
-      {/* {!isSplashAnimationComplete && (
+      {!isSplashAnimationComplete && (
         <Splash
           fontsLoaded={fontsLoaded}
           isAppReady={isAppReady}
           setAnimationComplete={(value) => setAnimationComplete(value)}
         />
-      )} */}
+      )}
     </>
   );
 };
@@ -110,12 +111,14 @@ const App = () => {
   return (
     <ErrorBoundary>
       <RootSiblingParent>
-        <QueryClientProvider client={queryClient}>
-          {/* onStateChange={NewRelic.onStateChange} */}
-          <NavigationContainer>
-            <AppWrapper />
-          </NavigationContainer>
-        </QueryClientProvider>
+        <GestureHandlerRootView className="flex-1">
+          <QueryClientProvider client={queryClient}>
+            {/* onStateChange={NewRelic.onStateChange} */}
+            <NavigationContainer>
+              <AppWrapper />
+            </NavigationContainer>
+          </QueryClientProvider>
+        </GestureHandlerRootView>
       </RootSiblingParent>
     </ErrorBoundary>
   );

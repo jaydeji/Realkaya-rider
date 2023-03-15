@@ -73,7 +73,9 @@ import Bugsnag from '@bugsnag/expo';
 import { GOOGLE_MAPS_APIKEY } from '@env';
 
 const initErrorHandler = () => {
-  Bugsnag.start({});
+  Bugsnag.start({
+    enabledReleaseStages: ['production'],
+  });
   Bugsnag.notify('API key ' + GOOGLE_MAPS_APIKEY);
 };
 

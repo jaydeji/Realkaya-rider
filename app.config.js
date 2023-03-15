@@ -38,6 +38,11 @@ module.exports = {
         'ACCESS_BACKGROUND_LOCATION',
       ],
       package: 'com.youngmartng.realkayarider',
+      config: {
+        googleMaps: {
+          apiKey: 'AIzaSyD9kiPLExQRc6u5DwnUMlFuPJR0qYpA8gI',
+        },
+      },
     },
     web: {
       favicon: './src/assets/favicon.png',
