@@ -139,10 +139,12 @@ export const Home = () => {
     <BottomSheet
       ref={bottomSheetRef}
       index={0}
-      snapPoints={snapPoints}
+      // snapPoints={snapPoints}
+      snapPoints={['40%']}
       backdropComponent={BackDrop}
     >
-      {getSheet()}
+      {/* {getSheet()} */}
+      <HomeSheet />
     </BottomSheet>
   );
 };

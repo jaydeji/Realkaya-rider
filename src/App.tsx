@@ -30,6 +30,8 @@ const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 const setupAxios = () => {
   // axios.defaults.baseURL = process.env.API_URL;
   axios.defaults.baseURL = 'https://realkaya-be-development.up.railway.app';
+  axios.defaults.headers.common['Content-Type'] = 'application/json';
+  axios.defaults.headers.common['Accept'] = 'application/json';
   // axios.defaults.baseURL = 'http://172.20.10.3:4001';
   // axios.defaults.baseURL = 'http://192.168.100.19:4001';
   axios.interceptors.request.use(

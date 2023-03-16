@@ -33,6 +33,8 @@ export const Login = () => {
       const user = await axios.post('/auth/login', state);
       setUser(user.data.data, true);
     } catch (error) {
+      console.log(error);
+      snack((error as any)?.message);
       setLoading(false);
     }
   };

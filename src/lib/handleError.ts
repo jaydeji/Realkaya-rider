@@ -15,9 +15,12 @@ export const handleError = (error: AxiosError<{ message?: string }>) => {
 
   if (error.response?.status === 401) {
     useAppStore.getState().logout();
+    return;
   }
 
   if (error.response?.status === 500) {
-    snack('Server error');
+    return snack('Server error');
   }
+
+  snack('error getting response');
 };

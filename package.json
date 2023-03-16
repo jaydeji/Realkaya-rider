@@ -7,7 +7,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:android": "npx env-cmd -f .env eas build -p android -e development --local"
+    "build": "npx env-cmd -f .env eas build --local",
+    "build:a": "npm run build -- -p android",
+    "build:a:p": "npm run build -- -p android -e preview",
+    "build:a:d": "npm run build -- -p android -e development"
   },
   "dependencies": {
     "@bugsnag/expo": "^47.0.0",
