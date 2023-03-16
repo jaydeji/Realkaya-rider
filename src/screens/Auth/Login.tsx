@@ -14,6 +14,7 @@ import { useAppStore } from 'store';
 import { Span } from 'components/Span';
 import { useNavigation } from '@react-navigation/native';
 import { snack } from 'lib/snack';
+import { _fetch } from 'lib/api';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ export const Login = () => {
       return snack('please enter email and password');
     setLoading(true);
     try {
-      const user = await axios.post('/auth/login', state);
+      const user = await _fetch.post('/auth/login', state);
       setUser(user.data.data, true);
     } catch (error) {
       console.log(error);

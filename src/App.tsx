@@ -7,9 +7,6 @@ import { Splash } from 'components/Splash';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { Main } from 'Main';
-import axios from 'axios';
-import { handleError } from 'lib/handleError';
-import { useAppStore } from 'store';
 import { useFonts } from 'expo-font';
 import { registerRootComponent } from 'expo';
 import { RootSiblingParent } from 'react-native-root-siblings';
@@ -26,43 +23,6 @@ if (!__DEV__) {
 initErrorHandler();
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
-
-const setupAxios = () => {
-  // axios.defaults.baseURL = process.env.API_URL;
-  axios.defaults.baseURL = 'https://realkaya-be-development.up.railway.app';
-  axios.defaults.headers.common['Content-Type'] = 'application/json';
-  axios.defaults.headers.common['Accept'] = 'application/json';
-  // axios.defaults.baseURL = 'http://172.20.10.3:4001';
-  // axios.defaults.baseURL = 'http://192.168.100.19:4001';
-  axios.interceptors.request.use(
-    function (config) {
-      const token = useAppStore.getState().user?.token;
-      if (token) {
-        (config.headers as any).Authorization = `Bearer ${token}`;
-      }
-      return config;
-    },
-    function (error) {
-      return Promise.reject(error);
-    }
-  );
-
-  axios.interceptors.response.use(
-    function (response) {
-      return response;
-    },
-    function (error) {
-      handleError(error);
-      return Promise.reject(error);
-    }
-  );
-
-  // Sentry.Native.addBreadcrumb({
-  //   type: 'transaction',
-  //   category: 'sentry.transaction',
-  //   message: 'Setup axios',
-  // });
-};
 
 const AppWrapper = () => {
   const [isAppReady, setAppReady] = useState(false);
@@ -84,7 +44,6 @@ const AppWrapper = () => {
     //   category: 'sentry.transaction',
     //   message: 'Hid splash screen',
     // });
-    setupAxios();
     setSetupDone(true);
   }, []);
 

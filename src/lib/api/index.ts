@@ -1,8 +1,10 @@
-import axios from 'axios';
 import { Order, SupportTicket, User } from 'types/app';
+import { _fetch } from './fetcher';
+
+export * from './fetcher';
 
 export const confirmOrder = async ({ orderId }: { orderId: number }) => {
-  const { data } = await axios.patch('/orders/' + orderId + '/confirm');
+  const { data } = await _fetch.patch('/orders/' + orderId + '/confirm');
   return data?.data as Order;
 };
 
@@ -13,7 +15,7 @@ export const updateOrder = async ({
   orderId: number;
   body: any;
 }) => {
-  const { data } = await axios.patch('/orders/' + orderId, body);
+  const { data } = await _fetch.patch('/orders/' + orderId, body);
   return data?.data as Order;
 };
 
@@ -21,12 +23,12 @@ export const findNearestOrder = async (location: {
   latitude: number;
   longitude: number;
 }) => {
-  const { data } = await axios.post('/orders/nearest', location);
+  const { data } = await _fetch.post('/orders/nearest', location);
   return data?.data;
 };
 
 export const getOngoingOrdersByDate = async ({ date }: { date: string }) => {
-  const { data } = await axios.get<{ data: Order[] }>(`/orders/ongoing`, {
+  const { data } = await _fetch.get<{ data: Order[] }>(`/orders/ongoing`, {
     params: {
       date,
     },
@@ -35,14 +37,14 @@ export const getOngoingOrdersByDate = async ({ date }: { date: string }) => {
 };
 
 export const getOrdersByDate = async ({ date }: { date: string }) => {
-  const { data } = await axios.get<{ data: Order[] }>(`/orders`, {
+  const { data } = await _fetch.get<{ data: Order[] }>(`/orders`, {
     params: date,
   });
   return data.data;
 };
 
 export const fetchUncofirmedOrders = () => {
-  return axios
+  return _fetch
     .post('/orders/unconfirmed', {
       latitude: 6.520238459241921,
       longitude: 3.3680734868226345,
@@ -51,23 +53,23 @@ export const fetchUncofirmedOrders = () => {
 };
 
 export const confirmMultipleOrders = (body: { orderIds: number[] }) => {
-  return axios
+  return _fetch
     .post('/orders/confirm_multiple', body)
     .then((e) => e.data.data as Order[]);
 };
 
 export const getUserDetails = () => {
-  return axios.get('/users/me').then((e) => e.data.data as User);
+  return _fetch.get('/users/me').then((e) => e.data.data as User);
 };
 
 export const updateUser = (body: Record<string, any>) => {
-  return axios.patch('/users', body).then((e) => e.data.data as User);
+  return _fetch.patch('/users', body).then((e) => e.data.data as User);
 };
 
 export const startSupportChat = (body: Record<string, any>) => {
-  return axios.post('/startsupportchat', body);
+  return _fetch.post('/startsupportchat', body);
 };
 
 export const getSupportChats = () => {
-  return axios.get('/getchats').then((e) => e.data.data as SupportTicket[]);
+  return _fetch.get('/getchats').then((e) => e.data.data as SupportTicket[]);
 };

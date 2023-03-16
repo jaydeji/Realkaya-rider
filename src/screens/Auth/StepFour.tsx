@@ -14,6 +14,7 @@ import { useFormStore } from 'store/formStore';
 import axios from 'axios';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { snack } from 'lib/snack';
+import { _fetch } from 'lib/api';
 
 export const StepFour = () => {
   const height = useHeaderHeight();
@@ -90,7 +91,7 @@ export const StepFour = () => {
     }
 
     try {
-      await axios.post('/auth/signup', {
+      await _fetch.post('/auth/signup', {
         ...registerForm,
         profilePhotoUrl: presignedFields[1].uploadedDocumentUrl,
         identification: {
