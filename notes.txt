@@ -28,8 +28,8 @@ bundletool install-apks --apks=realkaya-rider.apks
 mv app.apks app.zip
 unzip app.zip
 
-eas build -p android -e preview
-eas build -p android -e preview --local
+eas build -p android -e development --local
+npx expo start --dev-client
 
 react-native-debugger
 - open rnd on expo port

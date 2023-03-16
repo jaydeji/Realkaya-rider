@@ -40,7 +40,8 @@ module.exports = {
       package: 'com.youngmartng.realkayarider',
       config: {
         googleMaps: {
-          apiKey: 'AIzaSyD9kiPLExQRc6u5DwnUMlFuPJR0qYpA8gI',
+          // apiKey: 'AIzaSyD9kiPLExQRc6u5DwnUMlFuPJR0qYpA8gI',
+          apiKey: process.env.GOOGLE_MAPS_APIKEY,
         },
       },
     },

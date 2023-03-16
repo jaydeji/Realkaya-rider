@@ -86,8 +86,7 @@ export const Map = ({ children }: Props) => {
         <MapViewDirections
           origin={location || { latitude: 6.514577, longitude: 3.391881 }}
           destination={destination}
-          // apikey={GOOGLE_MAPS_APIKEY}
-          apikey={'AIzaSyD9kiPLExQRc6u5DwnUMlFuPJR0qYpA8gI'}
+          apikey={GOOGLE_MAPS_APIKEY}
           strokeWidth={3}
           strokeColor="#FF6600"
           onError={(e) => Bugsnag.notify(e)}

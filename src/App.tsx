@@ -19,6 +19,10 @@ import { initErrorHandler } from 'lib/errorHandlerConfig';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+if (!__DEV__) {
+  console.log = () => {};
+}
+
 initErrorHandler();
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
@@ -110,16 +114,16 @@ const AppWrapper = () => {
 const App = () => {
   return (
     <ErrorBoundary>
-      <RootSiblingParent>
-        <GestureHandlerRootView className="flex-1">
+      <GestureHandlerRootView className="flex-1">
+        <RootSiblingParent>
           <QueryClientProvider client={queryClient}>
             {/* onStateChange={NewRelic.onStateChange} */}
             <NavigationContainer>
               <AppWrapper />
             </NavigationContainer>
           </QueryClientProvider>
-        </GestureHandlerRootView>
-      </RootSiblingParent>
+        </RootSiblingParent>
+      </GestureHandlerRootView>
     </ErrorBoundary>
   );
 };

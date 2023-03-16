@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/drawer';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { Home } from './Home';
-import Details from './Details';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Animated from 'react-native-reanimated';
 import clsx from 'clsx';
@@ -88,9 +87,7 @@ const Screens = (props: any) => {
 
   const animatedStyle = {
     borderRadius,
-    transform: [{ scale, translateY }],
-    // transform: [{ translateY }],
-    //{ translateY }
+    transform: [{ translateY }, { scale }],
   };
 
   return (
@@ -116,7 +113,6 @@ const Screens = (props: any) => {
           }}
         >
           <Stack.Screen name="Home" component={Home} />
-          {/* <Stack.Screen name="Details" component={Details} /> */}
         </Stack.Navigator>
       </Animated.View>
     </>
