@@ -142,6 +142,7 @@ export const Home = () => {
       // snapPoints={snapPoints}
       snapPoints={['40%']}
       backdropComponent={BackDrop}
+      enablePanDownToClose={false}
     >
       {/* {getSheet()} */}
       <HomeSheet />
