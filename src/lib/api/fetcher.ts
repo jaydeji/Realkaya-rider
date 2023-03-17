@@ -2,7 +2,6 @@ import axios from 'axios';
 import { handleError } from 'lib/handleError';
 import { useAppStore } from 'store';
 
-// axios.defaults.baseURL = 'http://172.20.10.3:4001';
 // axios.defaults.baseURL = 'http://192.168.100.19:4001';
 
 //application/xml
@@ -15,6 +14,7 @@ type Fetch = {
   headers?: Record<any, any>;
   queryParams?: Record<any, any>;
 };
+// const BASE_URL = 'http://172.20.10.3:4001';
 const BASE_URL = 'https://realkaya-be-development.up.railway.app';
 
 const _fetch = <T = unknown>({

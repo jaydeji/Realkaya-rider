@@ -6,7 +6,7 @@ export * from './fetcher';
 export const confirmOrder = async ({ orderId }: { orderId: number }) => {
   const data = await _fetch<{ data: Order }>({
     url: '/orders/' + orderId + '/confirm',
-    method: 'POST',
+    method: 'PATCH',
   });
   return data?.data;
 };
