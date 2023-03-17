@@ -11,27 +11,35 @@ import {
 import { LoadingSheet } from 'components/OrderSheet/LoadingSheet';
 import { _date } from 'lib/date';
 import { useGetOngoingOrdersByDate } from 'lib/api/hooks';
-import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
 import { View } from 'react-native';
-
-const LOCATION_TRACKING = 'location-tracking';
+import { snack } from 'lib/snack';
+import { LOCATION_TRACKING } from 'lib/location';
+import * as TaskManager from 'expo-task-manager';
 
 TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
   if (error) {
-    console.log('LOCATION_TRACKING task ERROR:', error);
+    console.log(LOCATION_TRACKING + ' task ERROR:', error);
     return;
   }
-  if (data) {
-    const { locations } = data as any;
-    let lat = locations[0].coords.latitude;
-    let long = locations[0].coords.longitude;
 
-    console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
+  if ((data as any)?.locations?.[0]) {
+    const { locations } = data as any;
+    let latitude = locations[0].coords.latitude;
+    let longitude = locations[0].coords.longitude;
+
+    useAppStore.setState({
+      location: { latitude, longitude, heading: locations[0].coords.heading },
+    });
+    //post location
+
+    console.log(
+      `${new Date(Date.now()).toLocaleString()}: ${latitude},${longitude}`
+    );
   }
 });
 
-const requestPermissions = async () => {
+const requestPermissions = async (cb: () => void) => {
   try {
     const { status: foregroundStatus } =
       await Location.requestForegroundPermissionsAsync();
@@ -39,20 +47,12 @@ const requestPermissions = async () => {
       const { status: backgroundStatus } =
         await Location.requestBackgroundPermissionsAsync();
       if (backgroundStatus === 'granted') {
-        await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
-          accuracy: Location.Accuracy.Balanced,
-          // timeInterval: 10000,
-          // foregroundService: {
-          //   notificationTitle: "App Name",
-          //   notificationBody: "Location is used when App is in background",
-          // },
-          // activityType: Location.ActivityType.AutomotiveNavigation,
-          // showsBackgroundLocationIndicator: true,
-        });
+        cb?.();
       }
     }
   } catch (e) {
-    console.log('ee', e);
+    snack('error requesting location');
+    console.log('error requesting location', e);
   }
 };
 
@@ -76,32 +76,18 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    const startLocationTracking = async () => {
-      await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
-        accuracy: Location.Accuracy.Highest,
+    requestPermissions(() => {
+      Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
+        accuracy: Location.Accuracy.Balanced,
         timeInterval: 5000,
-        distanceInterval: 0,
+        foregroundService: {
+          notificationTitle: 'Realkaya Rider',
+          notificationBody: 'Location is used when App is in background',
+        },
+        activityType: Location.ActivityType.AutomotiveNavigation,
+        showsBackgroundLocationIndicator: true,
       });
-      const hasStarted = await Location.hasStartedLocationUpdatesAsync(
-        LOCATION_TRACKING
-      );
-      console.log('tracking started?', hasStarted);
-    };
-
-    requestPermissions().then((e) => {
-      startLocationTracking();
     });
-
-    // const config = async () => {
-    //   let res = await Permissions.askAsync(Permissions.LOCATION);
-    //   if (res.status !== 'granted') {
-    //     console.log('Permission to access location was denied');
-    //   } else {
-    //     console.log('Permission to access location granted');
-    //   }
-    // };
-
-    // config();
   }, []);
 
   const getSheet = () => {
@@ -126,9 +112,7 @@ export const Home = () => {
       <View className="h-[60%]">
         <Map />
       </View>
-      <View className="h-[40%] rounded-3xl bg-white mt-[-15px] pt-4">
-        {getSheet()}
-      </View>
+      <View className="h-[40%] rounded-3xl bg-white pt-4">{getSheet()}</View>
     </View>
   );
 };

@@ -3,18 +3,24 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { SheetRoute, UserWithCred } from 'types/app';
 import { sheetRoutes } from '../routes';
-import * as Location from 'expo-location';
+import { stopLocationTask } from 'lib/location';
+
+type AppLocation = {
+  latitude: number;
+  longitude: number;
+  heading: number | null;
+};
 
 type AppStoreState = {
   isAuth: boolean;
   user: null | UserWithCred;
   sheet: SheetRoute;
-  location?: Location.LocationObject;
+  location?: AppLocation;
   setUser: (user: UserWithCred, isAuth: boolean) => void;
   updateUser: (user: UserWithCred) => void;
   logout: () => void;
   setSheet: (sheet: SheetRoute) => void;
-  setLocation: (location: Location.LocationObject) => void;
+  setLocation: (location: AppLocation) => void;
 };
 
 export const useAppStore = create<AppStoreState>()(
@@ -31,6 +37,7 @@ export const useAppStore = create<AppStoreState>()(
       },
       logout: () => {
         set({ isAuth: false, user: null });
+        stopLocationTask();
       },
       setSheet: (sheet) => {
         set({ sheet });

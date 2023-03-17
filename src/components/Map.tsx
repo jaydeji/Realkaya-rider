@@ -3,10 +3,9 @@ import { View, Image } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, MAP_TYPES } from 'react-native-maps';
 import shape from 'assets/images/Shape.png';
 import MapViewDirections from 'react-native-maps-directions';
-import { useLocation } from 'hooks';
-import { useOrderStore } from 'store';
+import { useAppStore, useOrderStore } from 'store';
 import { Order } from 'types/app';
-import { GOOGLE_MAPS_APIKEY } from '@env';
+import { GOOGLE_MAPS_DIRECTIONS_KEY } from '@env';
 import Bugsnag from '@bugsnag/expo';
 
 type Props = {
@@ -37,30 +36,25 @@ export const Map = ({ children }: Props) => {
   const mapRef = useRef<MapView>(null);
 
   const currentOrder = useOrderStore((store) => store.currentOrder);
+  const location = useAppStore((store) => store.location);
 
   const destination = getDestination(currentOrder);
 
-  const { location, fullLocation, getLocation } = useLocation({
-    onSuccess: (data) => {
-      // mapRef.current?.fitToSuppliedMarkers(['origin', 'destination'], {
-      //   edgePadding: { top: 50, bottom: 50, left: 50, right: 50 },
-      // });
-      data && mapRef.current?.fitToCoordinates([data]);
-    },
-  });
-
-  useEffect(() => {
-    getLocation();
-  }, []);
-
   useEffect(() => {
     if (!currentOrder) return;
-    location &&
-      destination &&
-      mapRef.current?.fitToCoordinates([location, destination], {
+    if (location && destination) {
+      return mapRef.current?.fitToCoordinates([location, destination], {
         edgePadding,
         animated: true,
       });
+    }
+
+    if (location || destination) {
+      return mapRef.current?.fitToCoordinates([location! || destination!], {
+        edgePadding,
+        animated: true,
+      });
+    }
   }, [currentOrder]);
 
   return (
@@ -71,32 +65,26 @@ export const Map = ({ children }: Props) => {
         mapType={MAP_TYPES.STANDARD}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: 6.514577,
-          longitude: 3.391881,
+          latitude: location?.latitude || 6.514577,
+          longitude: location?.longitude || 3.391881,
           latitudeDelta: 0.005,
           longitudeDelta: 0.005,
         }}
-        onMapReady={() => {
-          mapRef.current?.fitToSuppliedMarkers(['origin', 'destination'], {
-            edgePadding,
-            animated: true,
-          });
-        }}
       >
         <MapViewDirections
-          origin={location || { latitude: 6.514577, longitude: 3.391881 }}
+          origin={location}
           destination={destination}
-          apikey={GOOGLE_MAPS_APIKEY}
+          apikey={GOOGLE_MAPS_DIRECTIONS_KEY}
           strokeWidth={3}
           strokeColor="#FF6600"
           onError={(e) => Bugsnag.notify(e)}
         />
 
-        {fullLocation && (
+        {location && (
           <Marker.Animated
             coordinate={{
-              latitude: fullLocation.coords.latitude,
-              longitude: fullLocation.coords.longitude,
+              latitude: location.latitude,
+              longitude: location.longitude,
             }}
             title="Origin"
             identifier="origin"
@@ -111,9 +99,9 @@ export const Map = ({ children }: Props) => {
                     transform: [
                       {
                         rotate:
-                          fullLocation?.coords.heading === undefined
+                          location.heading === undefined
                             ? '0deg'
-                            : `${fullLocation.coords.heading}deg`,
+                            : `${location.heading}deg`,
                       },
                     ],
                   }}

@@ -18,7 +18,6 @@ export const HomeSheet = () => {
 
   const { isLoading, getLocation } = useLocation({
     onSuccess: (data) => {
-      if (!data) return snack('Permission to access location was denied');
       handleSetAuto(data);
     },
   });

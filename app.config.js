@@ -33,14 +33,13 @@ module.exports = {
         backgroundColor: '#FFFFFF',
       },
       permissions: [
-        'ACCESS_COARSE_LOCATION',
-        'ACCESS_FINE_LOCATION',
+        // 'ACCESS_COARSE_LOCATION',
+        // 'ACCESS_FINE_LOCATION',
         'ACCESS_BACKGROUND_LOCATION',
       ],
       package: 'com.youngmartng.realkayarider',
       config: {
         googleMaps: {
-          // apiKey: 'AIzaSyD9kiPLExQRc6u5DwnUMlFuPJR0qYpA8gI',
           apiKey: process.env.GOOGLE_MAPS_APIKEY,
         },
       },
@@ -53,7 +52,7 @@ module.exports = {
         projectId: '12574bb5-5532-4a7f-81d0-226c3fa188dd',
       },
       bugsnag: {
-        apiKey: 'eb9ee69554f7ae1070f892d04cd9c402',
+        apiKey: process.env.BUGSNAG_KEY,
       },
     },
     jsEngine: 'hermes',

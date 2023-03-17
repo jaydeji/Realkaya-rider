@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Index } from 'screens/Index';
@@ -35,14 +35,6 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const Main = () => {
   const isAuth = useAppStore((store) => store.isAuth);
-
-  useEffect(() => {
-    // Sentry.Native.addBreadcrumb({
-    //   type: 'transaction',
-    //   category: 'sentry.transaction',
-    //   message: 'Entered main',
-    // });
-  }, []);
 
   return (
     <>
