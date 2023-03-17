@@ -9,8 +9,8 @@
     "web": "expo start --web",
     "build": "npx env-cmd -f .env eas build --local",
     "build:a": "npm run build -- -p android",
-    "build:a:p": "npm run build -- -p android -e preview",
-    "build:a:d": "npm run build -- -p android -e development"
+    "build:a:p": "npm run build:a -- -e preview",
+    "build:a:d": "npm run build:a -- -e development"
   },
   "dependencies": {
     "@bugsnag/expo": "^47.0.0",
