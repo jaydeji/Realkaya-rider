@@ -31,22 +31,35 @@ export const Login = () => {
       return snack('please enter email and password');
     setLoading(true);
     try {
-      const user = await _fetch.post(
-        'https://realkaya-be-development.up.railway.app/auth/login',
-        state,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      setUser(user.data.data, true);
+      // const user = await _fetch.post(
+      //   'https://realkaya-be-development.up.railway.app/auth/login',
+      //   state,
+      //   {
+      //     headers: {
+      //       Accept: 'application/json',
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
+      // setUser(user.data.data, true);
+
+      async function api_content() {
+        const response = await fetch(
+          'https://realkaya-be-development.up.railway.app/auth/login',
+          {}
+        );
+        const json = await response.json();
+        return json;
+      }
+
+      api_content().then((data) => {
+        setUser(data, true);
+      });
     } catch (error) {
       console.log(error);
       snack((error as any)?.message);
       setTimeout(() => {
-        snack(JSON.stringify((error as any)?.response));
+        snack(JSON.stringify(error as any));
       }, 3000);
       setLoading(false);
     }
