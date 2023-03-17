@@ -18,10 +18,13 @@ const getLocation = async () => {
     snack('Location permission denied');
     throw new Error('Location permission denied');
   }
+  snack(status);
 
-  const location = await Location.getCurrentPositionAsync({});
+  const location = await Location.getCurrentPositionAsync({
+    accuracy: Location.Accuracy.Balanced,
+  });
 
-  // snack('Location permission granted');
+  snack('[dev] Location permission granted');
 
   return location;
 };

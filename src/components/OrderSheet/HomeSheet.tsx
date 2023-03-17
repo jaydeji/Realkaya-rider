@@ -16,12 +16,6 @@ export const HomeSheet = () => {
   const setCurrentSheet = useAppStore((store) => store.setSheet);
   const setCurrentOrder = useOrderStore((store) => store.setCurrentOrder);
 
-  const { isLoading, getLocation } = useLocation({
-    onSuccess: (data) => {
-      handleSetAuto(data);
-    },
-  });
-
   const { mutate: handleSetAuto } = useMutation({
     mutationFn: (location: Location) => findNearestOrder(location),
     onSuccess: (data: any) => {
@@ -32,6 +26,12 @@ export const HomeSheet = () => {
         snack('No order found');
         setCurrentSheet(sheetRoutes[0]);
       }
+    },
+  });
+
+  const { isLoading, getLocation } = useLocation({
+    onSuccess: (data) => {
+      handleSetAuto(data);
     },
   });
 
