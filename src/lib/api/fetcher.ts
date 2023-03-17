@@ -7,42 +7,72 @@ import { useAppStore } from 'store';
 
 //application/xml
 
-const _fetch = axios.create({
-  // baseURL: 'https://realkaya-be-development.up.railway.app',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
-
-_fetch.interceptors.request.use(
-  function (config) {
-    const token = useAppStore.getState().user?.token;
-    if (token) {
-      (config.headers as any).Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
-
-_fetch.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    handleError(error);
-    return Promise.reject(error);
-  }
-);
-
 const _fetchImage = axios.create({
   headers: {
     // Accept: 'application/xml',
     'Content-Type': 'multipart/form-data',
   },
 });
+
+type Fetch = {
+  url: RequestInfo;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  useCredentials?: boolean;
+  body?: Record<any, any>;
+  headers?: Record<any, any>;
+  queryParams?: Record<any, any>;
+};
+const BASE_URL = 'https://realkaya-be-development.up.railway.app';
+
+const _fetch = <T = unknown>({
+  url,
+  method,
+  useCredentials = false,
+  body,
+  headers = {},
+  queryParams,
+}: Fetch): Promise<T> => {
+  const _token = useAppStore.getState().user?.token;
+  const token = _token ? `Bearer ${_token}` : undefined;
+
+  const _headers = new Headers({
+    'content-type': 'application/json', // by default setting the content-type to be json type
+    ...headers,
+  });
+
+  if (token) _headers.set('authorization', token);
+
+  const options: RequestInit = {
+    method,
+    headers: _headers,
+    body: body ? JSON.stringify(body) : null,
+  };
+
+  if (useCredentials) options.credentials = 'include';
+
+  let _url = BASE_URL + url;
+
+  if (queryParams) {
+    _url = `${_url}?${new URLSearchParams(queryParams).toString()}`;
+  }
+
+  return fetch(_url, options)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return res.json().then(function (json) {
+          return Promise.reject({
+            status: res.status,
+            body: json,
+          });
+        });
+      }
+    })
+    .catch((e) => {
+      handleError(e);
+      return Promise.reject(e);
+    }) as Promise<T>;
+};
 
 export { _fetch, _fetchImage };

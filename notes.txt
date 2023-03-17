@@ -5,9 +5,10 @@ button - touchable_opacity>view>text
 
 react-native-flash-message
 
+upload sourcemaps
+fix location asking twice
 svgo 2.x.x
 access denied photo
-reenable register validation
 location tracking
 get permanent location permission
 earnings and ratings
@@ -62,3 +63,6 @@ eas secret:create --scope project --name SECRET_NAME --value secretvalue --type 
 eas secret:push --scope project --env-file ./eas/.env --force
 adb logcat "*:E"
 adb logcat '*:S' ReactNative:V ReactNativeJS:V
+
+expo dev client run native modules
+expo run:ios | eas build

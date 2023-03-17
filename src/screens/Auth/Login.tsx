@@ -15,6 +15,7 @@ import { Span } from 'components/Span';
 import { useNavigation } from '@react-navigation/native';
 import { snack } from 'lib/snack';
 import { _fetch } from 'lib/api';
+import { UserWithCred } from 'types/app';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -31,36 +32,13 @@ export const Login = () => {
       return snack('please enter email and password');
     setLoading(true);
     try {
-      // const user = await _fetch.post(
-      //   'https://realkaya-be-development.up.railway.app/auth/login',
-      //   state,
-      //   {
-      //     headers: {
-      //       Accept: 'application/json',
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
-      // setUser(user.data.data, true);
-
-      async function api_content() {
-        const response = await fetch(
-          'https://realkaya-be-development.up.railway.app/auth/login',
-          {}
-        );
-        const json = await response.json();
-        return json;
-      }
-
-      api_content().then((data) => {
-        setUser(data, true);
+      const data = await _fetch<{ data: UserWithCred }>({
+        url: '/auth/login',
+        method: 'POST',
+        body: state,
       });
+      setUser(data.data, true);
     } catch (error) {
-      console.log(error);
-      snack((error as any)?.message);
-      setTimeout(() => {
-        snack(JSON.stringify(error as any));
-      }, 3000);
       setLoading(false);
     }
   };

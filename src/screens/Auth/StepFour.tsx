@@ -87,12 +87,16 @@ export const StepFour = () => {
     }
 
     try {
-      await _fetch.post('/auth/signup', {
-        ...registerForm,
-        profilePhotoUrl: presignedFields[1].uploadedDocumentUrl,
-        identification: {
-          ...registerForm.identification,
-          documentUrl: presignedFields[0].uploadedDocumentUrl,
+      await _fetch({
+        url: '/auth/signup',
+        method: 'POST',
+        body: {
+          ...registerForm,
+          profilePhotoUrl: presignedFields[1].uploadedDocumentUrl,
+          identification: {
+            ...registerForm.identification,
+            documentUrl: presignedFields[0].uploadedDocumentUrl,
+          },
         },
       });
     } catch (_error) {
