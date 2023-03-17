@@ -1,5 +1,6 @@
 import * as Location from 'expo-location';
 import { snack } from 'lib/snack';
+import { Platform } from 'react-native';
 import { useMutation } from 'react-query';
 import { useAppStore } from 'store';
 
@@ -11,20 +12,23 @@ const getPlainLocation = (location: Location.LocationObject) => {
 };
 
 const getLocation = async () => {
-  //getting location here is slow
   let { status } = await Location.requestForegroundPermissionsAsync();
 
   if (status !== 'granted') {
     snack('Location permission denied');
     throw new Error('Location permission denied');
   }
-  snack(status);
 
-  const location = await Location.getCurrentPositionAsync({
-    accuracy: Location.Accuracy.Balanced,
-  });
+  let location;
+  location = await Location.getLastKnownPositionAsync();
 
-  snack('[dev] Location permission granted');
+  if (!location)
+    location = await Location.getCurrentPositionAsync({
+      accuracy:
+        Platform.OS === 'android'
+          ? Location.Accuracy.Low
+          : Location.Accuracy.Lowest,
+    });
 
   return location;
 };
