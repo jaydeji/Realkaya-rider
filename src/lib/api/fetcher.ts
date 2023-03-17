@@ -5,8 +5,10 @@ import { useAppStore } from 'store';
 // axios.defaults.baseURL = 'http://172.20.10.3:4001';
 // axios.defaults.baseURL = 'http://192.168.100.19:4001';
 
+//application/xml
+
 const _fetch = axios.create({
-  baseURL: 'https://realkaya-be-development.up.railway.app',
+  // baseURL: 'https://realkaya-be-development.up.railway.app',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -36,4 +38,11 @@ _fetch.interceptors.response.use(
   }
 );
 
-export { _fetch };
+const _fetchImage = axios.create({
+  headers: {
+    // Accept: 'application/xml',
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
+export { _fetch, _fetchImage };

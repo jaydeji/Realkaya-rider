@@ -31,11 +31,23 @@ export const Login = () => {
       return snack('please enter email and password');
     setLoading(true);
     try {
-      const user = await _fetch.post('/auth/login', state);
+      const user = await _fetch.post(
+        'https://realkaya-be-development.up.railway.app/auth/login',
+        state,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       setUser(user.data.data, true);
     } catch (error) {
       console.log(error);
       snack((error as any)?.message);
+      setTimeout(() => {
+        snack(JSON.stringify((error as any)?.response));
+      }, 3000);
       setLoading(false);
     }
   };

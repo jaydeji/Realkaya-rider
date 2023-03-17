@@ -14,7 +14,7 @@ import { useFormStore } from 'store/formStore';
 import axios from 'axios';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { snack } from 'lib/snack';
-import { _fetch } from 'lib/api';
+import { _fetch, _fetchImage } from 'lib/api';
 
 export const StepFour = () => {
   const height = useHeaderHeight();
@@ -76,11 +76,7 @@ export const StepFour = () => {
             type: 'image/' + fileType,
           } as unknown as Blob);
 
-          const x = await axios.post(presignedData.url, newFormData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
+          const x = await _fetchImage.post(presignedData.url, newFormData);
           return x?.data;
         })
       );
