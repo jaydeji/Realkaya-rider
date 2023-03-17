@@ -7,13 +7,6 @@ import { useAppStore } from 'store';
 
 //application/xml
 
-const _fetchImage = axios.create({
-  headers: {
-    // Accept: 'application/xml',
-    'Content-Type': 'multipart/form-data',
-  },
-});
-
 type Fetch = {
   url: RequestInfo;
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -65,6 +58,39 @@ const _fetch = <T = unknown>({
           return Promise.reject({
             status: res.status,
             body: json,
+          });
+        });
+      }
+    })
+    .catch((e) => {
+      handleError(e);
+      return Promise.reject(e);
+    }) as Promise<T>;
+};
+
+const _fetchImage = <T = unknown>({
+  url,
+  method,
+  body,
+}: Omit<Fetch, 'body'> & { body: RequestInit['body'] }): Promise<T> => {
+  const headers = new Headers({
+    'Content-Type': 'multipart/form-data', // by default setting the content-type to be json type
+    accept: 'application/xml',
+  });
+
+  return fetch(url, {
+    method,
+    headers,
+    body,
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.text();
+      } else {
+        return res.text().then(function (text) {
+          return Promise.reject({
+            status: res.status,
+            body: text,
           });
         });
       }

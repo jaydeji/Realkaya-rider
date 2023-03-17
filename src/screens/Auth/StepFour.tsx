@@ -6,12 +6,11 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Input, Button, Select } from 'components';
+import { Input, Button } from 'components';
 import { Span } from 'components/Span';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useFormStore } from 'store/formStore';
-import axios from 'axios';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { snack } from 'lib/snack';
 import { _fetch, _fetchImage } from 'lib/api';
@@ -45,12 +44,14 @@ export const StepFour = () => {
         _images.map(async (e) => {
           const fileName = e.uri.split('/').pop() as string;
           const fileType = fileName?.split('.').pop();
-          return await axios
-            .post('/generatepresignedurl', {
+          return await _fetch<any>({
+            url: '/generatepresignedurl',
+            method: 'POST',
+            body: {
               type: 'image/' + fileType,
               filename: fileName,
-            })
-            .then((e) => e.data.data);
+            },
+          }).then((e) => e.data);
         })
       );
     } catch (error) {
@@ -76,8 +77,11 @@ export const StepFour = () => {
             type: 'image/' + fileType,
           } as unknown as Blob);
 
-          const x = await _fetchImage.post(presignedData.url, newFormData);
-          return x?.data;
+          await _fetchImage({
+            url: presignedData.url,
+            body: newFormData,
+            method: 'POST',
+          });
         })
       );
     } catch (error) {
@@ -102,7 +106,7 @@ export const StepFour = () => {
     } catch (_error) {
       setLoading(false);
       const error = _error as any;
-      snack(error?.response?.data?.message || error?.message || error);
+      snack(error?.message || error);
     }
     navigation.navigate('SignUpDone');
   };
